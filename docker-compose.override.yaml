@@ -1,0 +1,12 @@
+services:
+  app:
+    deploy:
+      replicas: 3
+    networks:
+      coolify: null
+    container_name: !reset null
+
+networks:
+  coolify:
+    name: coolify
+    external: true

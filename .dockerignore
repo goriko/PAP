@@ -1,0 +1,24 @@
+# Common build artifacts
+**/node_modules
+**/dist
+**/build
+**/bin
+**/.next
+**/.turbo
+**/.sst
+**/.open-next
+
+# IDE and tooling folders
+.vscode
+.github
+
+# CDK outputs
+cdk*
+
+# PNPM and logs
+.pnpm-store
+.pnp.*
+*.log
+
+# Git
+.git
