@@ -18,6 +18,7 @@ export const user = pgTable("user", {
 	hasClaimedKit: boolean("has_claimed_kit")
 		.$defaultFn(() => false)
 		.notNull(),
+	rawQrData: text("raw_qr_data").notNull().unique(),
 });
 
 export const session = pgTable("session", {

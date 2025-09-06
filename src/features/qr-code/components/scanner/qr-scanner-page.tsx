@@ -19,6 +19,7 @@ import {
 import { QrCodeLogSchema } from "@/features/logs/types/qr-code-log";
 import { useClaimUserKit } from "./data/use-claim-user-kit";
 import { toast } from "sonner";
+import { SetupPrompt } from "./setup-prompt";
 
 export function QRScannerPage() {
 	const [scanResult, setScanResult] = useState<ScanResult | null>(null);
@@ -34,11 +35,30 @@ export function QRScannerPage() {
 		event: "",
 		terminalId: VALID_TERMINAL_IDS[0],
 		kitClaiming: false,
+		hasClaimedKit: false,
 	});
 
 	const [isProcessing, setIsProcessing] = useState(false);
+	const [setupOpen, setSetupOpen] = useState(true);
 
 	const mutation = useClaimUserKit();
+
+	const handleQrScan = async (userId: string) => {
+		try {
+			const res = await fetch(`/user/${userId}`);
+			const data = await res.json();
+
+			// Update the confirmationData state
+			handleUpdateConfirmationData({
+				actionType: QRScanActionEnum.CHECK_IN,
+				hasClaimedKit: data.hasClaimedKit,
+				kitClaiming: false,
+			});
+		} catch (err) {
+			Logger.error("Failed to fetch user data:", { err });
+			setError("Failed to fetch user data. Please try again.");
+		}
+	};
 
 	// Check camera permissions on component mount
 	useEffect(() => {
@@ -80,6 +100,7 @@ export function QRScannerPage() {
 				setShowConfirmation(true);
 				setScannerActive(false);
 				setError(null);
+				handleQrScan(decryptedData.userId);
 			} catch (e) {
 				handleScanError(e);
 			}
@@ -123,6 +144,10 @@ export function QRScannerPage() {
 			setShowConfirmation(false);
 			setShowSuccess(true);
 			setScanResult(null);
+			setScannerActive(true);
+			setTimeout(() => {
+				setShowSuccess(false);
+			}, 3000);
 		} catch (error) {
 			Logger.error("Error processing action:", { error });
 			setError("Failed to process the action. Please try again.");
@@ -140,18 +165,7 @@ export function QRScannerPage() {
 			event: prev.event,
 			terminalId: prev.terminalId,
 			kitClaiming: false,
-		}));
-	};
-
-	const handleScanNext = () => {
-		setShowSuccess(false);
-		setScannerActive(true);
-		setError(null);
-		setConfirmationData((prev) => ({
-			actionType: QRScanActionEnum.CHECK_IN,
-			event: prev.event,
-			terminalId: prev.terminalId,
-			kitClaiming: false,
+			hasClaimedKit: false,
 		}));
 	};
 
@@ -167,6 +181,10 @@ export function QRScannerPage() {
 		setShowConfirmation(isOpen);
 	};
 
+	const handleSetupConfirm = () => {
+		setSetupOpen(false); // close the dialog
+	};
+
 	return (
 		<div className="col-span-full flex flex-col">
 			<div className="flex flex-col space-y-4 p-4 sm:space-y-6 sm:p-6">
@@ -174,11 +192,12 @@ export function QRScannerPage() {
 
 				<CameraStatusCard
 					permissionStatus={permissionStatus}
-					{...confirmationData}
+					terminalId={confirmationData.terminalId}
+					event={confirmationData.event}
 				/>
 
 				{error && <ErrorCard error={error} />}
-				{showSuccess && <SuccessCard handleScanNext={handleScanNext} />}
+				{showSuccess && <SuccessCard />}
 
 				<ScannerCard
 					cameraReady={cameraReady}
@@ -200,6 +219,14 @@ export function QRScannerPage() {
 					onConfirm={handleConfirmAction}
 					onCancel={handleCancelScan}
 					isProcessing={isProcessing}
+				/>
+
+				<SetupPrompt
+					open={setupOpen}
+					event={confirmationData.event}
+					terminalId={confirmationData.terminalId}
+					onUpdate={handleUpdateConfirmationData}
+					onConfirm={handleSetupConfirm}
 				/>
 			</div>
 		</div>

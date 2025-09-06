@@ -23,14 +23,14 @@ export function ScannedDataDisplay({ scanResult }: ScannedDataDisplayProps) {
 						Decrypted Data
 					</Label>
 					<div className="mt-1 max-h-32 overflow-y-auto break-all rounded bg-muted p-3 font-mono text-sm">
-						{JSON.stringify(scanResult.decryptedData) ||
-							"Unable to decrypt data"}
-					</div>
-				</div>
-				<div className="space-y-2">
-					<Label className="text-muted-foreground text-xs">Raw QR Data</Label>
-					<div className="mt-1 max-h-20 overflow-y-auto break-all rounded bg-muted/50 p-2 font-mono text-muted-foreground text-xs">
-						{scanResult.rawData}
+						{scanResult?.decryptedData ? (
+							<>
+								<div>Name: {scanResult.decryptedData.name}</div>
+								<div>Email: {scanResult.decryptedData.email}</div>
+							</>
+						) : (
+							"Unable to decrypt data"
+						)}
 					</div>
 				</div>
 				<div>
