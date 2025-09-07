@@ -13,6 +13,16 @@ import {
 	type ConfirmationData,
 } from "@/features/qr-code/components/scanner/types/confirmation-data";
 import { TerminalHistory } from "./terminal-history";
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+} from "@/features/shared/components/base/select";
+import { VALID_EVENT_NAMES } from "@/features/qr-code/components/scanner/types/confirmation-data";
 
 export type FullQrLog = { content: { context: QrCodeLog; time: string } };
 
@@ -62,6 +72,21 @@ export function TerminalPage() {
 						setTerminal={setTerminal}
 						terminalIds={VALID_TERMINAL_IDS}
 					/>
+					<Select>
+						<SelectTrigger className="w-fit border-transparent bg-card pl-1 text-3xl shadow-none">
+							<SelectValue placeholder="??" />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectGroup>
+								<SelectLabel>Select Event Name</SelectLabel>
+								{VALID_EVENT_NAMES.map((ename) => (
+									<SelectItem key={ename} value={ename}>
+										{ename}
+									</SelectItem>
+								))}
+							</SelectGroup>
+						</SelectContent>
+					</Select>
 				</h1>
 			</div>
 

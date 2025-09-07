@@ -22,15 +22,6 @@ export function QRCodeDisplay({ isGenerated, qrValue }: QRCodeDisplayProps) {
 
 	return (
 		<div className="space-y-4">
-			<div className="flex flex-col items-center justify-center gap-2 rounded-lg border border-orange-200 bg-orange-50 p-3 text-orange-800 text-sm md:flex-row md:text-lg dark:border-orange-800 dark:bg-orange-900/20 dark:text-orange-200">
-				<AlertTriangle className="size-10 flex-shrink-0 text-analytics-danger md:size-6" />
-				<span className="font-medium">Security Notice:</span>
-				<span className="text-center">
-					Do not share this QR code with anyone. It contains your personal
-					authentication credentials.
-				</span>
-			</div>
-
 			{/* QR Code */}
 			<div className="flex items-center justify-center overflow-hidden">
 				<div className="w-full max-w-full p-2 sm:max-w-sm md:max-w-md">
@@ -42,6 +33,15 @@ export function QRCodeDisplay({ isGenerated, qrValue }: QRCodeDisplayProps) {
 						className="h-auto w-full max-w-full"
 					/>
 				</div>
+			</div>
+
+			<div className="flex flex-col items-center justify-center gap-2 rounded-lg border border-orange-200 bg-orange-50 p-3 text-orange-800 text-sm md:flex-row md:text-lg dark:border-orange-800 dark:bg-orange-900/20 dark:text-orange-200">
+				<AlertTriangle className="size-10 flex-shrink-0 text-analytics-danger md:size-6" />
+				<span className="font-medium">Security Notice:</span>
+				<span className="text-center">
+					Do not share this QR code with anyone. It contains your personal
+					authentication credentials.
+				</span>
 			</div>
 		</div>
 	);
