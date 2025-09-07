@@ -63,7 +63,7 @@ export function QRCodeGenerator() {
 				<div className="flex items-center gap-2">
 					<QrCode className="size-8" />
 					<h1 className="font-bold text-2xl tracking-tight">
-						QR Code Generator
+						Hello {session.user.name} !!
 					</h1>
 				</div>
 				<p className="text-muted-foreground">

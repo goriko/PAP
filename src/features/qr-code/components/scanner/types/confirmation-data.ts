@@ -17,11 +17,21 @@ export const VALID_TERMINAL_IDS: ConfirmationData["terminalId"][] = [
 	"3",
 	"4",
 	"5",
+	"6",
+	"7",
+	"8",
+	"9",
+	"10",
+	"11",
+	"12",
+	"13",
+	"14",
+	"15",
 ];
 
 export const VALID_EVENT_NAMES: ConfirmationData["event"][] = [
 	"Main Event",
-	"Nj",
-	"Gran",
-	"Gorre",
+	"Pre-Convention",
+	"Parallel Session 1",
+	"Parallel Session 2",
 ];

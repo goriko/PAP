@@ -33,6 +33,10 @@ export function SetupPrompt({
 	onUpdate,
 	onConfirm,
 }: SetupPromptProps) {
+	const handleConfirm = () => {
+		onUpdate({ event, terminalId });
+		onConfirm();
+	};
 	return (
 		<Dialog open={open}>
 			<DialogContent>
@@ -81,7 +85,7 @@ export function SetupPrompt({
 				</div>
 
 				<DialogFooter className="mt-6">
-					<Button disabled={!event || !terminalId} onClick={onConfirm}>
+					<Button disabled={!event || !terminalId} onClick={handleConfirm}>
 						Continue
 					</Button>
 				</DialogFooter>
