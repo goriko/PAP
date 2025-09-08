@@ -140,6 +140,31 @@ const routes = factory
 				message: `Successfully updated user kit claim`,
 			});
 		},
+	)
+	.get(
+		":userId",
+		zValidator("param", z.object({ userId: z.string() })),
+		async (c) => {
+			const { userId } = c.req.valid("param");
+
+			// Fetch user from the database
+			const [foundUser] = await db
+				.select()
+				.from(user)
+				.where(eq(user.id, userId))
+				.execute();
+
+			if (!foundUser) {
+				return c.text("User not found", 404);
+			}
+
+			return c.json({
+				id: foundUser.id,
+				email: foundUser.email,
+				name: foundUser.name,
+				hasClaimedKit: foundUser.hasClaimedKit,
+			});
+		},
 	);
 
 export default routes;

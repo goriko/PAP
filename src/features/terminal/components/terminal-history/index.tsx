@@ -19,7 +19,7 @@ export function TerminalHistory({
 
 	return (
 		<div>
-			<TerminalBadgeNewest log={logs[0]} />
+			<TerminalBadgeNewest log={logs[0]} allLogs={logs} />
 			<h3 className="mt-6 mb-4 flex items-center font-bold text-2xl">
 				<div
 					className={cn("mr-3 rounded-sm bg-success/10 p-2", {

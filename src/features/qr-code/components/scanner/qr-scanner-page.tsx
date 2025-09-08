@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { decryptUserData } from "@/features/qr-code/lib/encryption";
 import { QRScannerHeader } from "@/features/qr-code/components/scanner/qr-scanner-header";
 import { CameraStatusCard } from "@/features/qr-code/components/scanner/camera-status-card";
@@ -12,13 +12,11 @@ import { LOG_GROUPS, Logger } from "@/features/shared/lib/logger";
 import { QRScanActionEnum } from "@/types/enums/QRScanActionEnum";
 import SuccessCard from "@/features/qr-code/components/scanner/success-card";
 import type { ScanResult } from "@/features/qr-code/components/scanner/types/scan-result";
-import {
-	VALID_TERMINAL_IDS,
-	type ConfirmationData,
-} from "@/features/qr-code/components/scanner/types/confirmation-data";
+import type { ConfirmationData } from "@/features/qr-code/components/scanner/types/confirmation-data";
 import { QrCodeLogSchema } from "@/features/logs/types/qr-code-log";
 import { useClaimUserKit } from "./data/use-claim-user-kit";
 import { toast } from "sonner";
+import { SetupPrompt } from "./setup-prompt";
 
 export function QRScannerPage() {
 	const [scanResult, setScanResult] = useState<ScanResult | null>(null);
@@ -29,16 +27,42 @@ export function QRScannerPage() {
 	const [showSuccess, setShowSuccess] = useState(false);
 	const [scannerActive, setScannerActive] = useState(true);
 
+	const eventRef = useRef<string>("");
+	const terminalRef = useRef<string>("");
 	const [confirmationData, setConfirmationData] = useState<ConfirmationData>({
 		actionType: QRScanActionEnum.CHECK_IN,
 		event: "",
-		terminalId: VALID_TERMINAL_IDS[0],
+		terminalId: "",
 		kitClaiming: false,
+		hasClaimedKit: false,
 	});
 
 	const [isProcessing, setIsProcessing] = useState(false);
+	const [setupOpen, setSetupOpen] = useState(true);
 
 	const mutation = useClaimUserKit();
+
+	const handleQrScan = async (userId: string) => {
+		try {
+			const res = await fetch(`/user/${userId}`);
+			const data = await res.json();
+
+			const updatedData: ConfirmationData = {
+				actionType: QRScanActionEnum.CHECK_IN,
+				event: eventRef.current || confirmationData.event || "",
+				terminalId: terminalRef.current || confirmationData.terminalId || "",
+				hasClaimedKit: Boolean(data.hasClaimedKit),
+				kitClaiming: Boolean(data.hasClaimedKit),
+			};
+
+			handleUpdateConfirmationData(updatedData);
+			return updatedData;
+		} catch (err) {
+			Logger.error("Failed to fetch user data:", { err });
+			setError("Failed to fetch user data. Please try again.");
+			return null;
+		}
+	};
 
 	// Check camera permissions on component mount
 	useEffect(() => {
@@ -61,7 +85,7 @@ export function QRScannerPage() {
 		checkCameraPermission();
 	}, []);
 
-	const handleScanResult = (detectedCodes: any[]) => {
+	const handleScanResult = async (detectedCodes: any[]) => {
 		if (!scannerActive || showConfirmation || showSuccess) return;
 
 		if (detectedCodes && detectedCodes.length > 0) {
@@ -77,9 +101,40 @@ export function QRScannerPage() {
 				};
 
 				setScanResult(result);
-				setShowConfirmation(true);
-				setScannerActive(false);
 				setError(null);
+				setScannerActive(false);
+
+				const updatedConfirmation = await handleQrScan(decryptedData.userId);
+				if (!updatedConfirmation) return;
+
+				const selectedEvent = (eventRef.current || "").toLowerCase();
+				if (
+					selectedEvent === "main event" ||
+					selectedEvent === "pre-convention"
+				) {
+					setShowConfirmation(true);
+				} else {
+					setShowConfirmation(false);
+
+					const finalConfirmation: ConfirmationData = {
+						...updatedConfirmation,
+						event:
+							updatedConfirmation.event ||
+							eventRef.current ||
+							confirmationData.event ||
+							"",
+						terminalId:
+							updatedConfirmation.terminalId ||
+							terminalRef.current ||
+							confirmationData.terminalId ||
+							"",
+					};
+
+					handleUpdateConfirmationData(finalConfirmation);
+					await doConfirmAction(finalConfirmation, result);
+					setScanResult(null);
+					setScannerActive(true);
+				}
 			} catch (e) {
 				handleScanError(e);
 			}
@@ -97,38 +152,47 @@ export function QRScannerPage() {
 		setError(`Scanner error: ${errorMessage}`);
 	};
 
-	const handleConfirmAction = async () => {
-		if (!scanResult) return;
-
+	const doConfirmAction = async (
+		finalData: ConfirmationData,
+		finalResult: ScanResult,
+	) => {
 		setIsProcessing(true);
 
 		try {
-			// Push log to database with user details & confirmation status
 			const context = QrCodeLogSchema.parse({
-				user: scanResult.decryptedData,
-				confirmationData,
+				user: finalResult.decryptedData,
+				confirmationData: finalData,
 			});
 
-			Logger.info(`QR Scanned at Terminal ${confirmationData.terminalId}`, {
+			Logger.info(`QR Scanned at Terminal ${finalData.terminalId}`, {
 				group: LOG_GROUPS.QR,
 				context,
 			});
 
 			mutation.mutate({
-				userId: scanResult.decryptedData.userId,
-				hasClaimedKit: confirmationData.kitClaiming,
+				userId: finalResult.decryptedData.userId,
+				hasClaimedKit: finalData.kitClaiming,
 			});
 
 			toast.success("Action processed successfully!");
 			setShowConfirmation(false);
 			setShowSuccess(true);
-			setScanResult(null);
+			setTimeout(() => setShowSuccess(false), 3000);
 		} catch (error) {
 			Logger.error("Error processing action:", { error });
 			setError("Failed to process the action. Please try again.");
 		} finally {
 			setIsProcessing(false);
 		}
+	};
+
+	const handleConfirmAction = async () => {
+		if (!scanResult) {
+			return;
+		}
+		await doConfirmAction(confirmationData, scanResult);
+		setScanResult(null);
+		setScannerActive(true);
 	};
 
 	const handleCancelScan = () => {
@@ -140,22 +204,17 @@ export function QRScannerPage() {
 			event: prev.event,
 			terminalId: prev.terminalId,
 			kitClaiming: false,
-		}));
-	};
-
-	const handleScanNext = () => {
-		setShowSuccess(false);
-		setScannerActive(true);
-		setError(null);
-		setConfirmationData((prev) => ({
-			actionType: QRScanActionEnum.CHECK_IN,
-			event: prev.event,
-			terminalId: prev.terminalId,
-			kitClaiming: false,
+			hasClaimedKit: false,
 		}));
 	};
 
 	const handleUpdateConfirmationData = (data: Partial<ConfirmationData>) => {
+		if (data.event !== undefined) {
+			eventRef.current = data.event;
+		}
+		if (data.terminalId !== undefined) {
+			terminalRef.current = data.terminalId;
+		}
 		setConfirmationData((prev) => ({ ...prev, ...data }));
 	};
 
@@ -167,6 +226,10 @@ export function QRScannerPage() {
 		setShowConfirmation(isOpen);
 	};
 
+	const handleSetupConfirm = () => {
+		setSetupOpen(false); // close the dialog
+	};
+
 	return (
 		<div className="col-span-full flex flex-col">
 			<div className="flex flex-col space-y-4 p-4 sm:space-y-6 sm:p-6">
@@ -174,11 +237,12 @@ export function QRScannerPage() {
 
 				<CameraStatusCard
 					permissionStatus={permissionStatus}
-					{...confirmationData}
+					terminalId={confirmationData.terminalId}
+					event={confirmationData.event}
 				/>
 
 				{error && <ErrorCard error={error} />}
-				{showSuccess && <SuccessCard handleScanNext={handleScanNext} />}
+				{showSuccess && <SuccessCard />}
 
 				<ScannerCard
 					cameraReady={cameraReady}
@@ -191,15 +255,27 @@ export function QRScannerPage() {
 
 				<TroubleshootingCard />
 
-				<ConfirmationSheet
-					open={showConfirmation}
-					onOpenChange={handleUpdateShowConfirmation}
-					scanResult={scanResult}
-					confirmationData={confirmationData}
-					onUpdateData={handleUpdateConfirmationData}
-					onConfirm={handleConfirmAction}
-					onCancel={handleCancelScan}
-					isProcessing={isProcessing}
+				{["main event", "pre-convention"].includes(
+					(eventRef.current || confirmationData.event || "").toLowerCase(),
+				) && (
+					<ConfirmationSheet
+						open={showConfirmation}
+						onOpenChange={handleUpdateShowConfirmation}
+						scanResult={scanResult}
+						confirmationData={confirmationData}
+						onUpdateData={handleUpdateConfirmationData}
+						onConfirm={handleConfirmAction}
+						onCancel={handleCancelScan}
+						isProcessing={isProcessing}
+					/>
+				)}
+
+				<SetupPrompt
+					open={setupOpen}
+					event={confirmationData.event}
+					terminalId={confirmationData.terminalId}
+					onUpdate={handleUpdateConfirmationData}
+					onConfirm={handleSetupConfirm}
 				/>
 			</div>
 		</div>
