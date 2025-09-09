@@ -7,6 +7,8 @@ import {
 	UserPlus,
 	MonitorStop,
 	User,
+	Gift,
+	Clipboard,
 } from "lucide-react";
 
 import {
@@ -31,6 +33,8 @@ import {
 	type UserRoleEnum,
 	UserRoleEnumSchema,
 } from "@/types/enums/UserRoleEnum";
+
+import { Button } from "@/features/shared/components/base/button"
 
 // Menu items with role restrictions
 const getMenuItems = (userRole: UserRoleEnum) => {
@@ -85,6 +89,24 @@ const getMenuItems = (userRole: UserRoleEnum) => {
 				UserRoleEnumSchema.Enum.ADMIN,
 			],
 		},
+		{
+			title: "Souvenir",
+			url: "https://heyzine.com/flip-book/f899f08b83.html?fbclid=IwY2xjawMqr-5leHRuA2FlbQIxMABicmlkETE4Z1JOY0hvbnRERlRuc2JYAR6x2Jg0sU2GWe48XEbPw4E71isiKUopUbqbnoY3eOO1nznEJlJCzwgEf-yJ2g_aem_04k5fAnzd1zAsSQXFi29xQ",
+			icon: Gift,
+			roles: [
+				UserRoleEnumSchema.Enum.USER,
+				UserRoleEnumSchema.Enum.STAFF,
+				UserRoleEnumSchema.Enum.ADMIN,
+			],
+		},
+		{
+			title: "Evaluation",
+			url: "/",
+			icon: Clipboard,
+			roles: [
+				UserRoleEnumSchema.Enum.USER,
+			],
+		},
 	];
 
 	return allItems.filter((item) => item.roles.includes(userRole));
@@ -131,10 +153,23 @@ export async function AppSidebar() {
 							{menuItems.map((item) => (
 								<SidebarMenuItem key={item.title}>
 									<SidebarMenuButton asChild tooltip={item.title}>
-										<Link href={item.url}>
-											<item.icon />
-											<span>{item.title}</span>
-										</Link>
+										{item.title != "Souvenir" ? (
+											<Link href={item.url}>
+												<item.icon />
+												<span>{item.title}</span>
+											</Link>
+										) : (
+											<a
+												key={item.title}
+												href={item.url}
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												<item.icon />
+												<span>{item.title}</span>
+											</a>
+										)}
+
 									</SidebarMenuButton>
 								</SidebarMenuItem>
 							))}
