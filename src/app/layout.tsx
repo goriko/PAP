@@ -14,6 +14,9 @@ const geistSans = Geist({
 export const metadata: Metadata = {
 	title: "PAP Annual Convention",
 	description: "PAP Annual Convention Registration System",
+	icons: {
+		icon: "/papIcon.png",
+	},
 };
 
 export default function RootLayout({

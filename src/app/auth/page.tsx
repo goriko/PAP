@@ -20,6 +20,7 @@ import { authClient } from "@/infrastructure/auth/auth-client";
 import { toast } from "@/features/shared/lib/toast";
 import { env } from "@/config/env.client";
 import { LOG_GROUPS, Logger } from "@/features/shared/lib/logger";
+import Image from "next/image";
 
 export default function LoginPage() {
 	const [email, setEmail] = useState("");
@@ -66,53 +67,66 @@ export default function LoginPage() {
 	}
 
 	return (
-		<div className="flex min-h-screen items-center justify-center p-4">
-			<Card className="w-full max-w-md">
-				<CardHeader className="text-center">
-					<div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary">
-						<Mail className="h-6 w-6 text-white" />
-					</div>
-					<CardTitle>Welcome back</CardTitle>
-					<CardDescription className="text-muted-foreground">
-						Enter your email to receive a magic link
-					</CardDescription>
-				</CardHeader>
-				<CardContent>
-					<form onSubmit={handleSubmit} className="space-y-4">
-						<div className="space-y-2">
-							<Label htmlFor="email" className="text-foreground">
-								Email address
-							</Label>
-							<Input
-								id="email"
-								type="email"
-								placeholder="Enter your email"
-								value={email}
-								onChange={(e) => setEmail(e.target.value)}
-								required
-								className="bg-background text-foreground"
-							/>
+		<div className="flex min-h-screen justify-center p-4 pt-20">
+			<div className="w-full max-w-md">
+				{/* Banner Image */}
+				<div className="w-full mb-4">
+					<Image
+						src="/papIcon.png"
+						alt="Pap Image"
+						width={600}
+						height={0}
+						sizes="100vw"
+						className="w-full h-auto rounded-t-lg"
+					/>
+				</div>
+				<Card className="w-full max-w-md">
+					<CardHeader className="text-center">
+						<div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary">
+							<Mail className="h-6 w-6 text-white" />
 						</div>
-						<Button
-							type="submit"
-							className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-							disabled={isLoading || !email}
-						>
-							{isLoading ? (
-								<div className="flex items-center space-x-2">
-									<div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-									<span>Sending link...</span>
-								</div>
-							) : (
-								<div className="flex items-center space-x-2">
-									<span>Send Link</span>
-									<ArrowRight className="h-4 w-4" />
-								</div>
-							)}
-						</Button>
-					</form>
-				</CardContent>
-			</Card>
+						<CardTitle>Welcome back</CardTitle>
+						<CardDescription className="text-muted-foreground">
+							Enter your email to receive a magic link
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<form onSubmit={handleSubmit} className="space-y-4">
+							<div className="space-y-2">
+								<Label htmlFor="email" className="text-foreground">
+									Email address
+								</Label>
+								<Input
+									id="email"
+									type="email"
+									placeholder="Enter your email"
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
+									required
+									className="bg-background text-foreground"
+								/>
+							</div>
+							<Button
+								type="submit"
+								className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+								disabled={isLoading || !email}
+							>
+								{isLoading ? (
+									<div className="flex items-center space-x-2">
+										<div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+										<span>Sending link...</span>
+									</div>
+								) : (
+									<div className="flex items-center space-x-2">
+										<span>Send Link</span>
+										<ArrowRight className="h-4 w-4" />
+									</div>
+								)}
+							</Button>
+						</form>
+					</CardContent>
+				</Card>
+			</div>
 		</div>
 	);
 }
