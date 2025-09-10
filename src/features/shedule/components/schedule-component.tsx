@@ -72,62 +72,54 @@ export function ScheduleComponent() {
           <TabsTrigger value="3">Day 3</TabsTrigger>
         </TabsList>
         <TabsContent value="1">
-          <div>
-            <Table className="min-w-[800px]">
+          <div className="w-screen overflow-x-auto">
+            <Table className="w-full">
               <TableHeader>
                 <TableRow>
                   <TableHead className="p-4 font-medium text-foreground">
-                    Time
+                    <p className="whitespace-normal">Time</p>
                   </TableHead>
                   <TableHead className="p-4 font-medium text-foreground">
-                    Activity
-                  </TableHead>
-                  <TableHead className="p-4 font-medium text-foreground">
-                    Topic / Speaker
+                    <p className="whitespace-normal">Activity</p>
                   </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 <TableRow>
                   <TableCell className="p-4 font-medium text-foreground">
-                    6:00 am
+                    <p className="whitespace-normal">6:00 am</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Registration
+                    <p className="whitespace-normal">Registration</p>
                   </TableCell>
-                  <TableCell className="p-4 font-medium text-foreground" />
                 </TableRow>
                 <TableRow>
                   <TableCell className="p-4 font-medium text-foreground">
-                    8:00 am
+                    <p className="whitespace-normal">8:00 am</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Invocation
+                    <p className="whitespace-normal">Invocation</p>
                   </TableCell>
-                  <TableCell className="p-4 font-medium text-foreground" />
-                </TableRow>
-                <TableRow>
-                  <TableCell className="p-4 font-medium text-foreground" />
-                  <TableCell className="p-4 font-medium text-foreground">
-                    Singing of the National Anthem
-                  </TableCell>
-                  <TableCell className="p-4 font-medium text-foreground" />
                 </TableRow>
                 <TableRow>
                   <TableCell className="p-4 font-medium text-foreground" />
                   <TableCell className="p-4 font-medium text-foreground">
-                    Introduction of the PAP President
+                    <p className="whitespace-normal">Singing of the National Anthem</p>
                   </TableCell>
-                  <TableCell className="p-4 font-medium text-foreground" />
                 </TableRow>
                 <TableRow>
                   <TableCell className="p-4 font-medium text-foreground" />
                   <TableCell className="p-4 font-medium text-foreground">
-                    Welcome Remarks
+                    <p className="whitespace-normal">Introduction of the PAP President</p>
                   </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="p-4 font-medium text-foreground" />
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p>Dr. Glenn G. Glarino</p>
-                    <span>
+                    <p className="whitespace-normal">Welcome Remarks</p>
+                    <br />
+                    <p className="whitespace-normal">Dr. Glenn G. Glarino</p>
+                    <span className="whitespace-normal">
                       President, Psychological Association of the
                       Philippines, Inc.
                     </span>
@@ -136,11 +128,10 @@ export function ScheduleComponent() {
                 <TableRow onClick={() => handleRowClick(users[1])}>
                   <TableCell className="p-4 font-medium text-foreground" />
                   <TableCell className="p-4 font-medium text-foreground">
-                    Welcome Remarks
-                  </TableCell>
-                  <TableCell className="p-4 font-medium text-foreground">
-                    <p>Mr. Adrian Toh</p>
-                    <span>
+                    <p className="whitespace-normal">Welcome Remarks</p>
+                    <br />
+                    <p className="whitespace-normal">Mr. Adrian Toh</p>
+                    <span className="whitespace-normal">
                       President, ASEAN regional Union of Psychological
                       Societies
                     </span>
@@ -149,11 +140,10 @@ export function ScheduleComponent() {
                 <TableRow onClick={() => handleRowClick(users[0])}>
                   <TableCell className="p-4 font-medium text-foreground" />
                   <TableCell className="p-4 font-medium text-foreground">
-                    Opening Address
-                  </TableCell>
-                  <TableCell className="p-4 font-medium text-foreground">
-                    <p>Prof. Brigitte Khoury, PhD</p>
-                    <span>
+                    <p className="whitespace-normal">Opening Address</p>
+                    <br />
+                    <p className="whitespace-normal">Prof. Brigitte Khoury, PhD</p>
+                    <span className="whitespace-normal">
                       President-Elect, Internationl Union of Psychological
                       Societies
                     </span>
@@ -161,18 +151,17 @@ export function ScheduleComponent() {
                 </TableRow>
                 <TableRow onClick={() => handleRowClick(users[1])}>
                   <TableCell className="p-4 font-medium text-foreground">
-                    9:00 am
+                    <p className="whitespace-normal">9:00 am</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Keynote Address 1
-                  </TableCell>
-                  <TableCell className="p-4 font-medium text-foreground">
-                    <p>Mr. Adrian Toh</p>
-                    <p>
+                    <p className="whitespace-normal">Keynote Address 1</p>
+                    <br />
+                    <p className="whitespace-normal">Mr. Adrian Toh</p>
+                    <p className="whitespace-normal">
                       President, ASEAN regional Union of Psychological
                       Societies
                     </p>
-                    <span>
+                    <span className="whitespace-normal">
                       Advancing Mental Health in ASEAN: Bridging Policy,
                       Practice, and Cultural Diversity
                     </span>
@@ -180,18 +169,17 @@ export function ScheduleComponent() {
                 </TableRow>
                 <TableRow onClick={() => handleRowClick(users[2])}>
                   <TableCell className="p-4 font-medium text-foreground">
-                    10:00 am
+                    <p className="whitespace-normal">10:00 am</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Plenary Session 1
-                  </TableCell>
-                  <TableCell className="p-4 font-medium text-foreground">
-                    <p>Dr. Arthur Evans Jr.</p>
-                    <p>
+                    <p className="whitespace-normal">Plenary Session 1</p>
+                    <br />
+                    <p className="whitespace-normal">Dr. Arthur Evans Jr.</p>
+                    <p className="whitespace-normal">
                       Chief Executive Officer, American Psychological
                       Association
                     </p>
-                    <span>
+                    <span className="whitespace-normal">
                       Scaling Public Health Approaches for Mental Health
                       Through Innovations in Policy, Community-Based Care
                       and Disaster Response
@@ -200,15 +188,14 @@ export function ScheduleComponent() {
                 </TableRow>
                 <TableRow onClick={() => handleRowClick(users[3])}>
                   <TableCell className="p-4 font-medium text-foreground">
-                    11:00 am
+                    <p className="whitespace-normal">11:00 am</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Plenary Session 3
-                  </TableCell>
-                  <TableCell className="p-4 font-medium text-foreground">
-                    <p>Dr. Debra Kawahara</p>
-                    <p>President, American Psychological Association</p>
-                    <span>
+                    <p className="whitespace-normal">Plenary Session 3</p>
+                    <br />
+                    <p className="whitespace-normal">Dr. Debra Kawahara</p>
+                    <p className="whitespace-normal">President, American Psychological Association</p>
+                    <span className="whitespace-normal">
                       Integrating Intersectionality and Feminist Principles
                       to Empower Diverse Populations
                     </span>
@@ -216,16 +203,15 @@ export function ScheduleComponent() {
                 </TableRow>
                 <TableRow>
                   <TableCell className="p-4 font-medium text-foreground">
-                    12:00 am
+                    <p className="whitespace-normal">12:00 am</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    PAP General Assembly
-                  </TableCell>
-                  <TableCell className="p-4 font-medium text-foreground">
-                    <p>Report on the operations of PAP for the past year</p>
-                    <p>Financial Report</p>
-                    <p>Membership Report</p>
-                    <p>
+                    <p className="whitespace-normal">PAP General Assembly</p>
+                    <br />
+                    <p className="whitespace-normal">Report on the operations of PAP for the past year</p>
+                    <p className="whitespace-normal">Financial Report</p>
+                    <p className="whitespace-normal">Membership Report</p>
+                    <p className="whitespace-normal">
                       Expressed appreciation to the outgoing members of the
                       BOD
                     </p>
@@ -233,19 +219,18 @@ export function ScheduleComponent() {
                 </TableRow>
                 <TableRow onClick={() => handleRowClick(users[4])}>
                   <TableCell className="p-4 font-medium text-foreground">
-                    01:30 pm
+                    <p className="whitespace-normal">01:30 pm</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Keynote Address 2
-                  </TableCell>
-                  <TableCell className="p-4 font-medium text-foreground">
-                    <p>Atty. Floranie Polo-Jacob</p>
-                    <p>
+                    <p className="whitespace-normal">Keynote Address 2</p>
+                    <br />
+                    <p className="whitespace-normal">Atty. Floranie Polo-Jacob</p>
+                    <p className="whitespace-normal">
                       2000 - 2001 President, Psychological Association of
                       the Philippines
                     </p>
-                    <p>Of Counsel, VBSP Law Offices</p>
-                    <span>
+                    <p className="whitespace-normal">Of Counsel, VBSP Law Offices</p>
+                    <span className="whitespace-normal">
                       The Law Meets Psychology: A Cross-Disciplinary Path to
                       Justice and Well-Being (The Philippine Experience)
                     </span>
@@ -253,22 +238,21 @@ export function ScheduleComponent() {
                 </TableRow>
                 <TableRow onClick={() => handleRowClick(users[5])}>
                   <TableCell className="p-4 font-medium text-foreground">
-                    02:30 pm
+                    <p className="whitespace-normal">02:30 pm</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Plenary Session 4
-                  </TableCell>
-                  <TableCell className="p-4 font-medium text-foreground">
-                    <p>Dr. Rose Marie Clemenia</p>
-                    <p>
+                    <p className="whitespace-normal">Plenary Session 4</p>
+                    <br />
+                    <p className="whitespace-normal">Dr. Rose Marie Clemenia</p>
+                    <p className="whitespace-normal">
                       1995-1996 President, Psychological Association of the
                       Philippines
                     </p>
-                    <p>
+                    <p className="whitespace-normal">
                       2015 PRC Outstanding Professional of the Year in the
                       Field of Psychology
                     </p>
-                    <span>
+                    <span className="whitespace-normal">
                       Reflections on the Practice of Filipino Psychology for
                       Human Development
                     </span>
@@ -276,21 +260,20 @@ export function ScheduleComponent() {
                 </TableRow>
                 <TableRow onClick={() => handleRowClick(users[6])}>
                   <TableCell className="p-4 font-medium text-foreground">
-                    03:30 pm
+                    <p className="whitespace-normal">03:30 pm</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Plenary Session 5
-                  </TableCell>
-                  <TableCell className="p-4 font-medium text-foreground">
-                    <p>Dr. Grace H. Aguiling-Dalisay</p>
-                    <p>
+                    <p className="whitespace-normal">Plenary Session 5</p>
+                    <br />
+                    <p className="whitespace-normal">Dr. Grace H. Aguiling-Dalisay</p>
+                    <p className="whitespace-normal">
                       2024 PRC Outstanding Professional of the Year in the
                       Field of Psychology
                     </p>
-                    <p>
+                    <p className="whitespace-normal">
                       President and CEO, Center for Educational Measurement
                     </p>
-                    <span>
+                    <span className="whitespace-normal">
                       Reflections on the Practice of Filipino Psychology for
                       Human Development
                     </span>
@@ -298,22 +281,20 @@ export function ScheduleComponent() {
                 </TableRow>
                 <TableRow>
                   <TableCell className="p-4 font-medium text-foreground">
-                    07:00 pm
+                    <p className="whitespace-normal">07:00 pm</p>
                   </TableCell>
-                  <TableCell className="p-4 font-medium text-foreground"></TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p>Fellowship Night(Cocktails)</p>
-                    <p>Announcement of Official Results of Elections</p>
-                    <span>Awarding of Certified Specialists</span>
+                    <p className="whitespace-normal">Fellowship Night(Cocktails)</p>
+                    <p className="whitespace-normal">Announcement of Official Results of Elections</p>
+                    <span className="whitespace-normal">Awarding of Certified Specialists</span>
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="p-4 font-medium text-foreground">
-                    8:00 am - 06:00 pm
+                    <p className="whitespace-normal">8:00 am - 06:00 pm</p>
                   </TableCell>
-                  <TableCell className="p-4 font-medium text-foreground"></TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p>e-Poster Presentations</p>
+                    <p className="whitespace-normal">e-Poster Presentations</p>
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -325,495 +306,470 @@ export function ScheduleComponent() {
             <TabsList>
               <TabsTrigger value="1">Parallel Session A</TabsTrigger>
               <TabsTrigger value="2">Parallel Session B</TabsTrigger>
-              <TabsTrigger value="3">Parallel Session C</TabsTrigger>
-              <TabsTrigger value="4">Parallel Session D</TabsTrigger>
-              <TabsTrigger value="5">Parallel Session E</TabsTrigger>
+              {/* <TabsTrigger value="3">Parallel Session C</TabsTrigger> */}
+              {/* <TabsTrigger value="4">Parallel Session D</TabsTrigger> */}
+              {/* <TabsTrigger value="5">Parallel Session E</TabsTrigger> */}
             </TabsList>
             <TabsContent value="1">
-              <p>Time: 8:30 am - 10:00 am</p>
-              <div>
-                <Table className="min-w-[800px]">
+              <p className="whitespace-normal">Time: 8:30 am - 10:00 am</p>
+              <div className="w-screen overflow-x-auto">
+                <Table className="w-full">
                   <TableBody>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        New Room 1
+                        <p className="whitespace-normal">New Room 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 1
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr. Karen Katrina V. Trinidad</p>
-                        <p>
+                        <p className="whitespace-normal">Learning Session 1</p>
+                        <br />
+                        <p className="whitespace-normal">Dr. Karen Katrina V. Trinidad</p>
+                        <p className="whitespace-normal">
                           Chair, Department of Psychology, College of
                           Science, University of Santo Tomas
                         </p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           The Important Role Psychologist Play in Sports
                         </p>
                         <br />
-                        <span>Moderator: Alyssa Kae Alegre</span>
+                        <span className="whitespace-normal">Moderator: Alyssa Kae Alegre</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        New Room 2
+                        <p className="whitespace-normal">New Room 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 2
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr. Henndy Ginting</p>
-                        <p>Licensed Psychologist, Indonesia</p>
+                        <p className="whitespace-normal">Learning Session 2</p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="whitespace-normal">Dr. Henndy Ginting</p>
+                        <p className="whitespace-normal">Licensed Psychologist, Indonesia</p>
+                        <br />
+                        <p className="font-bold text-1xl whitespace-normal">
                           Assessment of Personality Styles dan Disorders
                         </p>
                         <br />
-                        <span>Moderator: Raj Pallon</span>
+                        <span className="whitespace-normal">Moderator: Raj Pallon</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        New Room 3
+                        <p className="whitespace-normal">New Room 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 3
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
-                        <p>Ms. Karen Rose Vardeleon</p>
-                        <p>Founding Partner of Childfam-Possibilities</p>
+                        <p className="whitespace-normal">Learning Session 3</p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="whitespace-normal">Ms. Karen Rose Vardeleon</p>
+                        <p className="whitespace-normal">Founding Partner of Childfam-Possibilities</p>
+                        <br />
+                        <p className="font-bold text-1xl whitespace-normal">
                           Deliberate Practice for Counselors
                         </p>
                         <br />
-                        <span>Moderator: Alyssa Marie Dar Juan</span>
+                        <span className="whitespace-normal">Moderator: Alyssa Marie Dar Juan</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Mahogany Hall
+                        <p className="whitespace-normal">Mahogany Hall</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 4
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr. Mary Grace Serranilla-Orquiza</p>
-                        <p>(PAP Developmental Psych Division)</p>
-                        <p>
+                        <p className="whitespace-normal">Learning Session 4</p>
+                        <br />
+                        <p className="whitespace-normal">Dr. Mary Grace Serranilla-Orquiza</p>
+                        <p className="whitespace-normal">(PAP Developmental Psych Division)</p>
+                        <p className="whitespace-normal">
                           President and Founder, GrayMatters Psychological
                           and Consultancy, Inc.
                         </p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Mapping Practices, Pioneering Progress:
                           Innovations in Elderly Mental Health Care for
                           Aging Filipinos
                         </p>
                         <br />
-                        <p>Moderator: Ma. Catherine Pestaño-Africa</p>
+                        <p className="whitespace-normal">Moderator: Ma. Catherine Pestaño-Africa</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Yakal Hall 1
+                        <p className="whitespace-normal">Yakal Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 5
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr. Clarissa F. Delariarte</p>
-                        <p>Licensed Psychologist and Guidance Counsellor</p>
+                        <p className="whitespace-normal">Learning Session 5</p>
+                        <p className="whitespace-normal">Dr. Clarissa F. Delariarte</p>
+                        <p className="whitespace-normal">Licensed Psychologist and Guidance Counsellor</p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           The value of Qualitative Findings in the Practice
                           of Psychology
                         </p>
                         <br />
-                        <p>Moderator: Sr. Angelina M. Julom</p>
+                        <p className="whitespace-normal">Moderator: Sr. Angelina M. Julom</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Layco
+                        <p className="whitespace-normal">Layco</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 6
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
-                        <p>Oliver B. Sta. Ana</p>
-                        <p>Edicational Psychology Division</p>
+                        <p className="whitespace-normal">Learning Session 6</p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="whitespace-normal">Oliver B. Sta. Ana</p>
+                        <p className="whitespace-normal">Edicational Psychology Division</p>
+                        <br />
+                        <p className="font-bold text-1xl whitespace-normal">
                           Why Academic Resilience Matters in the Context of
                           Climate Change
                         </p>
                         <br />
-                        <p>Moderator: Elise Limson</p>
+                        <p className="whitespace-normal">Moderator: Elise Limson</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Hotel Quincentannial
+                        <p className="whitespace-normal">Hotel Quincentannial</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 7
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Learning Session 7</p>
                         <br />
-                        <p className="font-bold text-1xl">APA Panel</p>
+                        <p className="font-bold text-1xl whitespace-normal">APA Panel</p>
                         <br />
-                        <p>Moderator: Carlos Buan</p>
+                        <p className="whitespace-normal">Moderator: Carlos Buan</p>
                       </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
               </div>
-              <p>Organized Symposium 1-6: 8:30 am - 10:00 am</p>
-              <div>
-                <Table className="min-w-[800px]">
+              <p className="whitespace-normal">Organized Symposium 1-6: 8:30 am - 10:00 am</p>
+              <div className="w-screen overflow-x-auto">
+                <Table className="w-full">
                   <TableBody>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasurers Hall 1
+                        <p className="whitespace-normal">Treasurers Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Vulnerable Communities Focus
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr. Edo Jaya</p>
-                        <p>Researcher and clinical Psychologist</p>
-                        <p>Indonesian Psychological Healthcare Center</p>
+                        <p className="whitespace-normal">Vulnerable Communities Focus</p>
                         <br />
-                        <span>Convenor: Henmar Cardiño</span>
+                        <p className="whitespace-normal">Dr. Edo Jaya</p>
+                        <p className="whitespace-normal">Researcher and clinical Psychologist</p>
+                        <p className="whitespace-normal">Indonesian Psychological Healthcare Center</p>
+                        <br />
+                        <span className="whitespace-normal">Convenor: Henmar Cardiño</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasurers Hall 2
+                        <p className="whitespace-normal">Treasurers Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Substance Use Prevention and Rehabilitation in the
-                        Philippines: Approaches, Evidences and Narrative
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
-                        <p>Trixia Anne C. Co</p>
-                        <p>
+                        <p className="whitespace-normal">Substance Use Prevention and Rehabilitation in the Philippines: Approaches, Evidences and Narrative</p>
+                        <br />
+                        <p className="whitespace-normal">Trixia Anne C. Co</p>
+                        <p className="whitespace-normal">
                           Chairperson - Substance Use, Prevention, and
                           Recovery
                         </p>
                         <br />
-                        <span>Convenor: Trixia Anne C. Co</span>
+                        <span className="whitespace-normal">Convenor: Trixia Anne C. Co</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasurers Hall 3
+                        <p className="whitespace-normal">Treasurers Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Psychological Landscape in Sports and Movement
-                        Exploring Anxiety, Motivation and Mental Health
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
-                        <p>Naira Orbeta</p>
-                        <p>Sports Psychology SIG</p>
+                        <p className="whitespace-normal">Psychological Landscape in Sports and Movement Exploring Anxiety, Motivation and Mental Health</p><br />
+                        <p className="whitespace-normal">Naira Orbeta</p>
+                        <p className="whitespace-normal">Sports Psychology SIG</p>
                         <br />
-                        <span>Convenor: Naira Orbeta</span>
+                        <span className="whitespace-normal">Convenor: Naira Orbeta</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasures Hall 4
+                        <p className="whitespace-normal">Treasurers Hall 4</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Queer Justice and Advocacy in the Philippines
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
-                        <p>Rolf Gian Marcos</p>
-                        <p>LGBT Psychology SIG</p>
+                        <p className="whitespace-normal">Queer Justice and Advocacy in the Philippines</p><br />
+                        <p className="whitespace-normal">Rolf Gian Marcos</p>
+                        <p className="whitespace-normal">LGBT Psychology SIG</p>
                         <br />
-                        <p>Convenor: Rolf Gian Marcos</p>
+                        <p className="whitespace-normal">Convenor: Rolf Gian Marcos</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Narra Hall 1
+                        <p className="whitespace-normal">Narra Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Navigating Filipino Work Realities: Leadership, Team
-                        Development, and Indigenous HR Practices
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
-                        <p>Riyan Portuguez</p>
-                        <p>Chairperson - Industrial Organizational</p>
-                        <p>Psychology Division</p>
+                        <p className="whitespace-normal">Navigating Filipino Work Realities: Leadership, Team Development, and Indigenous HR Practices</p>
                         <br />
-                        <p>Convenor: Riyan Portuguez</p>
+                        <p className="whitespace-normal">Riyan Portuguez</p>
+                        <p className="whitespace-normal">Chairperson - Industrial Organizational</p>
+                        <p className="whitespace-normal">Psychology Division</p>
+                        <br />
+                        <p className="whitespace-normal">Convenor: Riyan Portuguez</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Narra Hall 2
+                        <p className="whitespace-normal">Narra Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Wellbeing and Mental Health in Higher Education
-                        Frameworks, Protocols, and Best Practices
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
-                        <p>Kristine Faith C. Moral</p>
-                        <p>Chairperson - N.NCR Chapter</p>
+                        <p className="whitespace-normal">Wellbeing and Mental Health in Higher Education Frameworks, Protocols, and Best Practices</p>
                         <br />
-                        <p>Convenor: Kristine Faith C. Moral</p>
+                        <p className="whitespace-normal">Kristine Faith C. Moral</p>
+                        <p className="whitespace-normal">Chairperson - N.NCR Chapter</p>
+                        <br />
+                        <p className="whitespace-normal">Convenor: Kristine Faith C. Moral</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Yakal Hall 2
+                        <p className="whitespace-normal">Yakal Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Culturally Responsive Mindfulness BaseD-Program
-                        Initial Outcomes and Evidence of Feasibility and
-                        Acceptability
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
-                        <p>Angelique Pearl Virtue P. Villasanta</p>
-                        <p>Research Psychology SIG</p>
+                        <p className="whitespace-normal">Culturally Responsive Mindfulness BaseD-Program Initial Outcomes and Evidence of Feasibility and Acceptability</p>
                         <br />
-                        <p>
+                        <p className="whitespace-normal">Angelique Pearl Virtue P. Villasanta</p>
+                        <p className="whitespace-normal">Research Psychology SIG</p>
+                        <br />
+                        <p className="whitespace-normal">
                           Convenor: Angelique Pearl Virtue P. Villasanta
                         </p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        10:00 am
+                        <p className="whitespace-normal">10:00 am</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Health Break
+                        <p className="whitespace-normal">Health Break</p>
                       </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground"></TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
               </div>
             </TabsContent>
             <TabsContent value="2">
-              <p>Time: 10:30 am - 12:00 pm</p>
+              <p className="whitespace-normal">Time: 10:30 am - 12:00 pm</p>
               <div>
                 <Table className="min-w-[800px]">
                   <TableBody>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        New Room 1
+                        <p className="whitespace-normal">New Room 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 1
+                        <p className="whitespace-normal">Learning Session 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Ms. Maria Adela Guerreroy</p>
-                        <p>DSWD Program Management Bureau</p>
+                        <p className="whitespace-normal">Ms. Maria Adela Guerreroy</p>
+                        <p className="whitespace-normal">DSWD Program Management Bureau</p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Psychological Practice in Social Work
                         </p>
                         <br />
-                        <span>Moderator: Alyssa Kae Alegre</span>
+                        <span className="whitespace-normal">Moderator: Alyssa Kae Alegre</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        New Room 2
+                        <p className="whitespace-normal">New Room 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 2
+                        <p className="whitespace-normal">Learning Session 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr. Patricia Hayres Arroyo Perez</p>
-                        <p>
+                        <p className="whitespace-normal">Dr. Patricia Hayres Arroyo Perez</p>
+                        <p className="whitespace-normal">
                           Faculty Member, Department of Psychology, Adler
                           University, Chicago, USA
                         </p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           The global Context of Psychology and Human Rights
                         </p>
                         <br />
-                        <span>Moderator: Ar-jay Perez</span>
+                        <span className="whitespace-normal">Moderator: Ar-jay Perez</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        New Room 3
+                        <p className="whitespace-normal">New Room 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 3
+                        <p className="whitespace-normal">Learning Session 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Ms. Irene MArie S. Isleta</p>
-                        <p>
+                        <p className="whitespace-normal">Ms. Irene MArie S. Isleta</p>
+                        <p className="whitespace-normal">
                           Assistant Vice President, Human Resources Group,
                           St. Luke's Medical Center
                         </p>
-                        <p>
+                        <p className="whitespace-normal">
                           2023 President - Philippine Society for Talent
                           Development
                         </p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Human Sustainability at Work: Mental Health,
                           Organizational Vulture, and Employee Engagement
                         </p>
                         <br />
-                        <span>Moderator: Abraham Linco</span>
+                        <span className="whitespace-normal">Moderator: Abraham Linco</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Mahogany Hall
+                        <p className="whitespace-normal">Mahogany Hall</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 4
+                        <p className="whitespace-normal">Learning Session 4</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Ms. Elaine Salansan Ferrer</p>
-                        <p>
+                        <p className="whitespace-normal">Ms. Elaine Salansan Ferrer</p>
+                        <p className="whitespace-normal">
                           Training Lead Mental Health and Psychological
                           Services SIG
                         </p>
-                        <p>
+                        <p className="whitespace-normal">
                           PsycServ, Freelance Training and People
                           Development Consultant
                         </p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Beyond PFA: Exploring Best PRactices outside of
                           Psychological First Aid
                         </p>
                         <br />
-                        <p>Moderator: Ma. Jun Angelo Sungalo</p>
+                        <p className="whitespace-normal">Moderator: Ma. Jun Angelo Sungalo</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Yakal Hall 1
+                        <p className="whitespace-normal">Yakal Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 5
+                        <p className="whitespace-normal">Learning Session 5</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr. Arsenio Sze Alianan Jr.</p>
-                        <p>
+                        <p className="whitespace-normal">Dr. Arsenio Sze Alianan Jr.</p>
+                        <p className="whitespace-normal">
                           Faculty Member, Department of Psychology, Ateneo
                           de Manila University
                         </p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           GenAI in the Conduct of Psychological Assessment
                         </p>
                         <br />
-                        <p>Moderator: Sr. Angelina Julom</p>
+                        <p className="whitespace-normal">Moderator: Sr. Angelina Julom</p>
                       </TableCell>
                     </TableRow>
                     <TableRow onClick={() => handleRowClick(users[1])}>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Layco
+                        <p className="whitespace-normal">Layco</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 6
+                        <p className="whitespace-normal">Learning Session 6</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Mr. Adrian Toh</p>
-                        <p>
+                        <p className="whitespace-normal">Mr. Adrian Toh</p>
+                        <p className="whitespace-normal">
                           President, Singapore Psychological Society Science
                         </p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Ethical Decision-Making Process
                         </p>
                         <br />
-                        <p>Moderator: Faridah Kristi Wetherick</p>
+                        <p className="whitespace-normal">Moderator: Faridah Kristi Wetherick</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Hotel Quincentannial
+                        <p className="whitespace-normal">Hotel Quincentannial</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 7
+                        <p className="whitespace-normal">Learning Session 7</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <br />
-                        <p className="font-bold text-1xl">APA Panel</p>
+                        <p className="font-bold text-1xl whitespace-normal">APA Panel</p>
                         <br />
-                        <p>Moderator: Carlos Buan</p>
+                        <p className="whitespace-normal">Moderator: Carlos Buan</p>
                       </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
               </div>
-              <p>Organized Symposium 1-6: 10:30 am - 12:00 pm</p>
+              <p className="whitespace-normal">Organized Symposium 1-6: 10:30 am - 12:00 pm</p>
               <div>
                 <Table className="min-w-[800px]">
                   <TableBody>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasurers Hall 1
+                        <p className="whitespace-normal">Treasurers Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Psychological Responses to Climate Crisis
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>John Jamir Benzon R. Aruta</p>
-                        <p>Chairperson</p>
-                        <p>Environmental Psychology SIG</p>
+                        <p className="whitespace-normal">John Jamir Benzon R. Aruta</p>
+                        <p className="whitespace-normal">Chairperson</p>
+                        <p className="whitespace-normal">Environmental Psychology SIG</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasurers Hall 2
+                        <p className="whitespace-normal">Treasurers Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Struggles and Strength Stories of Hope, Healing and
                         Well-being
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Gabriel Sebastian N. Lizada</p>
-                        <p>Chairperson</p>
-                        <p>Positive Psychology SIG</p>
+                        <p className="whitespace-normal">Gabriel Sebastian N. Lizada</p>
+                        <p className="whitespace-normal">Chairperson</p>
+                        <p className="whitespace-normal">Positive Psychology SIG</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasurers Hall 3
+                        <p className="whitespace-normal">Treasurers Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Pathways to Education, Prosociality, and Youth
                         Participation
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Jeremiah Paul C. Silvestre</p>
-                        <p>Chairperson</p>
-                        <p>Social Psychology Division</p>
+                        <p className="whitespace-normal">Jeremiah Paul C. Silvestre</p>
+                        <p className="whitespace-normal">Chairperson</p>
+                        <p className="whitespace-normal">Social Psychology Division</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasures Hall 4
+                        <p className="whitespace-normal">Treasurers Hall 4</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Reimagining Pedagogical Futures: Innovations,
                         Ethics, and AI in Psychology Learning and Teaching
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Pat Kathlyn Dione D. Ramirez</p>
-                        <p>Chairperson</p>
-                        <p>Teaching Psychology</p>
+                        <p className="whitespace-normal">Pat Kathlyn Dione D. Ramirez</p>
+                        <p className="whitespace-normal">Chairperson</p>
+                        <p className="whitespace-normal">Teaching Psychology</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Narra Hall 1
+                        <p className="whitespace-normal">Narra Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Care and Connection in Neurodiverse Realities:
@@ -821,27 +777,27 @@ export function ScheduleComponent() {
                         Relationship
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Antero Rosauro V. Arias Jr.</p>
-                        <p>Chairperson</p>
-                        <p>Person with Disabilities Psych-SIG</p>
+                        <p className="whitespace-normal">Antero Rosauro V. Arias Jr.</p>
+                        <p className="whitespace-normal">Chairperson</p>
+                        <p className="whitespace-normal">Person with Disabilities Psych-SIG</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Narra Hall 2
+                        <p className="whitespace-normal">Narra Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Experiences in Sports: Perspective on Participation,
                         Resilience, Rights and Relationship
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>David Kuyunjik Damian</p>
-                        <p>Sports Psychology SIG</p>
+                        <p className="whitespace-normal">David Kuyunjik Damian</p>
+                        <p className="whitespace-normal">Sports Psychology SIG</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Yakal Hall 2
+                        <p className="whitespace-normal">Yakal Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Intersecting Minds: Cultural and Clinical
@@ -849,8 +805,8 @@ export function ScheduleComponent() {
                         Compulsive Disorders in Southeast Asia
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Peejay D. Bengwasan</p>
-                        <p>Clinical Psych Division</p>
+                        <p className="whitespace-normal">Peejay D. Bengwasan</p>
+                        <p className="whitespace-normal">Clinical Psych Division</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -870,17 +826,17 @@ export function ScheduleComponent() {
                         Chapter Meeting
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Bicol</p>
-                        <p>Northern Luzon</p>
-                        <p>Central Luzon</p>
-                        <p>CALABARZON-MIMAROPA</p>
-                        <p>Southern Mindanao</p>
-                        <p>NCR South</p>
-                        <p>NCR North</p>
-                        <p>Western Visayas</p>
-                        <p>Northern Mindanao</p>
-                        <p>Western Mindanao</p>
-                        <p>Cebu Leyte Samar Biliran (CLSB)</p>
+                        <p className="whitespace-normal">Bicol</p>
+                        <p className="whitespace-normal">Northern Luzon</p>
+                        <p className="whitespace-normal">Central Luzon</p>
+                        <p className="whitespace-normal">CALABARZON-MIMAROPA</p>
+                        <p className="whitespace-normal">Southern Mindanao</p>
+                        <p className="whitespace-normal">NCR South</p>
+                        <p className="whitespace-normal">NCR North</p>
+                        <p className="whitespace-normal">Western Visayas</p>
+                        <p className="whitespace-normal">Northern Mindanao</p>
+                        <p className="whitespace-normal">Western Mindanao</p>
+                        <p className="whitespace-normal">Cebu Leyte Samar Biliran (CLSB)</p>
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -888,178 +844,178 @@ export function ScheduleComponent() {
               </div>
             </TabsContent>
             <TabsContent value="3">
-              <p>Time: 1:00 pm - 2:30 pm</p>
+              <p className="whitespace-normal">Time: 1:00 pm - 2:30 pm</p>
               <div>
                 <Table className="min-w-[800px]">
                   <TableBody>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        New Room 1
+                        <p className="whitespace-normal">New Room 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 1
+                        <p className="whitespace-normal">Learning Session 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr. Ron R. Resurrecion</p>
-                        <p>
+                        <p className="whitespace-normal">Dr. Ron R. Resurrecion</p>
+                        <p className="whitespace-normal">
                           Director, Student Success Center, De La Salle
                           University
                         </p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Towards Inclusive Education: Facilitators,
                           Barriers, and Insights from Higher Education
                           Teachers
                         </p>
                         <br />
-                        <span>Moderator: Abigail Capay</span>
+                        <span className="whitespace-normal">Moderator: Abigail Capay</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        New Room 2
+                        <p className="whitespace-normal">New Room 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 2
+                        <p className="whitespace-normal">Learning Session 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Elvira C. David</p>
-                        <p>Professor, Holy Angel University</p>
-                        <p>
+                        <p className="whitespace-normal">Elvira C. David</p>
+                        <p className="whitespace-normal">Professor, Holy Angel University</p>
+                        <p className="whitespace-normal">
                           Clinical and Assessment Practitioner, Espada
                           Psychological Consultancy
                         </p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Strength-Based Approach in Assessment: Integration
                           and Practice Considerations
                         </p>
                         <br />
-                        <span>Moderator: Rachel C. Reyes-Laureano</span>
+                        <span className="whitespace-normal">Moderator: Rachel C. Reyes-Laureano</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        New Room 3
+                        <p className="whitespace-normal">New Room 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 3
+                        <p className="whitespace-normal">Learning Session 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr. Mira Alexis P. Ofreneo</p>
-                        <p>Director, University Gender Hub</p>
-                        <p>Ateneo de Manila Unisersity</p>
+                        <p className="whitespace-normal">Dr. Mira Alexis P. Ofreneo</p>
+                        <p className="whitespace-normal">Director, University Gender Hub</p>
+                        <p className="whitespace-normal">Ateneo de Manila Unisersity</p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Institutionalizing Gender-Inclusive Practices in
                           HEIs: The Story of the Ateneo Gender Hub
                         </p>
                         <br />
-                        <span>Moderator: Rolf Gian Marcos</span>
+                        <span className="whitespace-normal">Moderator: Rolf Gian Marcos</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Mahogany Hall
+                        <p className="whitespace-normal">Mahogany Hall</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 4
+                        <p className="whitespace-normal">Learning Session 4</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Hon. Judge Jose Nathaniel S. Andal</p>
-                        <p>Regional Trial Court Judge, Cebu City</p>
+                        <p className="whitespace-normal">Hon. Judge Jose Nathaniel S. Andal</p>
+                        <p className="whitespace-normal">Regional Trial Court Judge, Cebu City</p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Psychological Practice in Family Court Civil Cases
                         </p>
                         <br />
-                        <p>Moderator: Odette Esteve</p>
+                        <p className="whitespace-normal">Moderator: Odette Esteve</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Layco
+                        <p className="whitespace-normal">Layco</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 5
+                        <p className="whitespace-normal">Learning Session 5</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>
+                        <p className="whitespace-normal">
                           England Danne B. Castro (Social Psych Division)
                         </p>
-                        <p>Faculty, De La Salle University</p>
+                        <p className="whitespace-normal">Faculty, De La Salle University</p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Ugnayan: Applying Social Psychology to Advocay
                           Work and Community Action
                         </p>
                         <br />
-                        <p>Moderator: Jeremiah Paul Silvestre</p>
+                        <p className="whitespace-normal">Moderator: Jeremiah Paul Silvestre</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Hotel Quincentannial
+                        <p className="whitespace-normal">Hotel Quincentannial</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 6
+                        <p className="whitespace-normal">Learning Session 6</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <br />
-                        <p className="font-bold text-1xl">APA Panel</p>
+                        <p className="font-bold text-1xl whitespace-normal">APA Panel</p>
                         <br />
-                        <p>Moderator: Carlos Buan</p>
+                        <p className="whitespace-normal">Moderator: Carlos Buan</p>
                       </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
               </div>
-              <p>Organized Symposium 1-6: 1:00 pm - 2:30 pm</p>
+              <p className="whitespace-normal">Organized Symposium 1-6: 1:00 pm - 2:30 pm</p>
               <div>
                 <Table className="min-w-[800px]">
                   <TableBody>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasurers Hall 1
+                        <p className="whitespace-normal">Treasurers Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Regional Roots, Gloobal Goals: Psychology in Action
                         for Health, Education, Inclusion, and Resilience
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Mahjalin Araiza B. Diez</p>
-                        <p>CALABARZON Chapter</p>
+                        <p className="whitespace-normal">Mahjalin Araiza B. Diez</p>
+                        <p className="whitespace-normal">CALABARZON Chapter</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasurers Hall 2
+                        <p className="whitespace-normal">Treasurers Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         A Community that Cares: Task Shifting Mental Health
                         Initiatives in Underserved Settings
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Jun Angelo Sunglaon</p>
-                        <p>Mental Health and Psychosocial Services</p>
+                        <p className="whitespace-normal">Jun Angelo Sunglaon</p>
+                        <p className="whitespace-normal">Mental Health and Psychosocial Services</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasurers Hall 3
+                        <p className="whitespace-normal">Treasurers Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Approaches in Learning Cognitive Development of
                         Children and Adults
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Jericho Medel</p>
-                        <p>Developmental Psychology Division</p>
+                        <p className="whitespace-normal">Jericho Medel</p>
+                        <p className="whitespace-normal">Developmental Psychology Division</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasures Hall 4
+                        <p className="whitespace-normal">Treasurers Hall 4</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Counseling Psychology and clinical Governance:
@@ -1067,39 +1023,39 @@ export function ScheduleComponent() {
                         Professional Care
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Lance Lyle De Jesus</p>
-                        <p>Counseling PSychology Division</p>
+                        <p className="whitespace-normal">Lance Lyle De Jesus</p>
+                        <p className="whitespace-normal">Counseling PSychology Division</p>
                         <br />
-                        <p>Convenor: Alessandra Arpon</p>
+                        <p className="whitespace-normal">Convenor: Alessandra Arpon</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Narra Hall 1
+                        <p className="whitespace-normal">Narra Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Effectiveness and Impact of Interventions
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr. Lianne P. Alampay</p>
+                        <p className="whitespace-normal">Dr. Lianne P. Alampay</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Narra Hall 2
+                        <p className="whitespace-normal">Narra Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         From Pathogenesis to Recovery: Exploring the
                         Spectrum of Mental Health Disorder
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Peejay Bengwasan</p>
-                        <p>Clinical Psychology</p>
+                        <p className="whitespace-normal">Peejay Bengwasan</p>
+                        <p className="whitespace-normal">Clinical Psychology</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Yakal Hall 1
+                        <p className="whitespace-normal">Yakal Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Resilience and Well-being in Northern Mindanao: Key
@@ -1107,23 +1063,23 @@ export function ScheduleComponent() {
                         Intervention
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Jayson Manaois</p>
-                        <p>Northern Mindanao Chapter</p>
+                        <p className="whitespace-normal">Jayson Manaois</p>
+                        <p className="whitespace-normal">Northern Mindanao Chapter</p>
                         <br />
-                        <p>Convenor: Yayet Dela Peña</p>
+                        <p className="whitespace-normal">Convenor: Yayet Dela Peña</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Yakal Hall 2
+                        <p className="whitespace-normal">Yakal Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Queering and Decolonizing Psychology in Asia
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Mx. Kyle Tan</p>
+                        <p className="whitespace-normal">Mx. Kyle Tan</p>
                         <br />
-                        <p>Convenor: Ar-Jay Perez</p>
+                        <p className="whitespace-normal">Convenor: Ar-Jay Perez</p>
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -1131,183 +1087,183 @@ export function ScheduleComponent() {
               </div>
             </TabsContent>
             <TabsContent value="4">
-              <p>Time: 2:30 pm - 4:00 pm</p>
+              <p className="whitespace-normal">Time: 2:30 pm - 4:00 pm</p>
               <div>
                 <Table className="min-w-[800px]">
                   <TableBody>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        New Room 1
+                        <p className="whitespace-normal">New Room 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 1
+                        <p className="whitespace-normal">Learning Session 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Alexandria Blake c. Real-Pisalbo</p>
-                        <p>(Environmental Psych SIG)</p>
+                        <p className="whitespace-normal">Alexandria Blake c. Real-Pisalbo</p>
+                        <p className="whitespace-normal">(Environmental Psych SIG)</p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Practicing Nature-based Therapy as a
                           Psychoterapeutic Approach and a Pathway toward
                           Environmental Action
                         </p>
                         <br />
-                        <span>Moderator: Maica Pineda</span>
+                        <span className="whitespace-normal">Moderator: Maica Pineda</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        New Room 2
+                        <p className="whitespace-normal">New Room 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 2
+                        <p className="whitespace-normal">Learning Session 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Peejay D. Bengwasan</p>
-                        <p>(Clinical Psych Division)</p>
-                        <p>De La Salle University</p>
+                        <p className="whitespace-normal">Peejay D. Bengwasan</p>
+                        <p className="whitespace-normal">(Clinical Psych Division)</p>
+                        <p className="whitespace-normal">De La Salle University</p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Fifty Minutes to Change: Crafting a CBT Session
                           That Works
                         </p>
                         <br />
-                        <span>Moderator: Raphael O. Inocencio</span>
+                        <span className="whitespace-normal">Moderator: Raphael O. Inocencio</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        New Room 3
+                        <p className="whitespace-normal">New Room 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 3
+                        <p className="whitespace-normal">Learning Session 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Aneesh Kumar, PhD</p>
-                        <p>Associate Professor</p>
-                        <p>CHRIST University (Bengaluru, India)</p>
+                        <p className="whitespace-normal">Aneesh Kumar, PhD</p>
+                        <p className="whitespace-normal">Associate Professor</p>
+                        <p className="whitespace-normal">CHRIST University (Bengaluru, India)</p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Centering the Learner, Centering the World:
                           Psychological Literacy and Competency-based
                           Psychology Education
                         </p>
                         <br />
-                        <span>Moderator: Ver Reyes</span>
+                        <span className="whitespace-normal">Moderator: Ver Reyes</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Mahogany Hall
+                        <p className="whitespace-normal">Mahogany Hall</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 4
+                        <p className="whitespace-normal">Learning Session 4</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Angelique Pearl Virtue P. Villasanta</p>
-                        <p>
+                        <p className="whitespace-normal">Angelique Pearl Virtue P. Villasanta</p>
+                        <p className="whitespace-normal">
                           Instructor, Department of Psychology, Ateneo de
                           Manila University
                         </p>
-                        <p>
+                        <p className="whitespace-normal">
                           Principal Investigator, Sexual Violence and
                           Healing Research, Gender Justice Research
                           Collective, Ateneo de Manila University
                         </p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Reimagining Research: A Brief Introduction to
                           Feminist Research Practices in Psychology
                         </p>
                         <br />
-                        <p>Moderator: Jaime Felice Caringal-Go</p>
+                        <p className="whitespace-normal">Moderator: Jaime Felice Caringal-Go</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Layco
+                        <p className="whitespace-normal">Layco</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 5
+                        <p className="whitespace-normal">Learning Session 5</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Gabriel Sebastian N. Lizada</p>
-                        <p>
+                        <p className="whitespace-normal">Gabriel Sebastian N. Lizada</p>
+                        <p className="whitespace-normal">
                           Co-Managing Partner, Olive Branch Wellbeing
                           Center, Davao City, Philippines
                         </p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Bazinga! Why Your Feelings Know Things Before You
                           Do
                         </p>
                         <br />
-                        <p>Moderator: Merimee T. Siena</p>
+                        <p className="whitespace-normal">Moderator: Merimee T. Siena</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Hotel Quincentannial
+                        <p className="whitespace-normal">Hotel Quincentannial</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 6
+                        <p className="whitespace-normal">Learning Session 6</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Trixia Anne C. Co</p>
-                        <p>
+                        <p className="whitespace-normal">Trixia Anne C. Co</p>
+                        <p className="whitespace-normal">
                           President, Singapore Psychological Society Science
                         </p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Strengthening Coaching and Supervision in
                           Community-Based Drug Rehabilitation Programs
                         </p>
                         <br />
-                        <p>Moderator: Gino Cabrera</p>
+                        <p className="whitespace-normal">Moderator: Gino Cabrera</p>
                       </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
               </div>
-              <p>Organized Symposium 1-6: 2:30 pm - 4:00 pm</p>
+              <p className="whitespace-normal">Organized Symposium 1-6: 2:30 pm - 4:00 pm</p>
               <div>
                 <Table className="min-w-[800px]">
                   <TableBody>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasurers Hall 1
+                        <p className="whitespace-normal">Treasurers Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Psychological Testing and Assessment in the
                         Philippines
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr. Arsenio Sze Allanan Jr.</p>
-                        <p>Assessment Psychology SIG</p>
+                        <p className="whitespace-normal">Dr. Arsenio Sze Allanan Jr.</p>
+                        <p className="whitespace-normal">Assessment Psychology SIG</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasurers Hall 2
+                        <p className="whitespace-normal">Treasurers Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Multilalyered Political Psychology of Sustainable
                         Peace
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr Joshua Uyheng</p>
+                        <p className="whitespace-normal">Dr Joshua Uyheng</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasurers Hall 3
+                        <p className="whitespace-normal">Treasurers Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         NGO and Community Transformation in the Philippines
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr Josephine Perez</p>
-                        <p>
+                        <p className="whitespace-normal">Dr Josephine Perez</p>
+                        <p className="whitespace-normal">
                           Deparment of Psychology, Ateneo de Manila
                           University
                         </p>
@@ -1315,62 +1271,62 @@ export function ScheduleComponent() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasures Hall 4
+                        <p className="whitespace-normal">Treasurers Hall 4</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Psychology at the Forefront of Public Health
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr Nino Jose Mateo</p>
+                        <p className="whitespace-normal">Dr Nino Jose Mateo</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Narra Hall 1
+                        <p className="whitespace-normal">Narra Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Best Practicess in Clinical Supervision
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr. Anna Cristina Tuazon</p>
-                        <p>University of the Philippines Diliman</p>
+                        <p className="whitespace-normal">Dr. Anna Cristina Tuazon</p>
+                        <p className="whitespace-normal">University of the Philippines Diliman</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Narra Hall 2
+                        <p className="whitespace-normal">Narra Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Transformative Narrative of Empowered and
                         Extraordinary Filipino Women
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr. Olive Carandang</p>
+                        <p className="whitespace-normal">Dr. Olive Carandang</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Yakal Hall 1
+                        <p className="whitespace-normal">Yakal Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Acheiving Learning Competencies and Sound
                         Psychological Wellbeing
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr. Julie Ann C. Faustino</p>
+                        <p className="whitespace-normal">Dr. Julie Ann C. Faustino</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Yakal Hall 2
+                        <p className="whitespace-normal">Yakal Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Instruction, Support, and Beliefs in Southeast Asian
                         Math Engagement
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Paul Angelo Arcega</p>
-                        <p>
+                        <p className="whitespace-normal">Paul Angelo Arcega</p>
+                        <p className="whitespace-normal">
                           Department of Psychology od De La Salle University
                         </p>
                       </TableCell>
@@ -1389,149 +1345,149 @@ export function ScheduleComponent() {
               </div>
             </TabsContent>
             <TabsContent value="5">
-              <p>Time: 4:00 pm - 6:00 pm</p>
+              <p className="whitespace-normal">Time: 4:00 pm - 6:00 pm</p>
               <div>
                 <Table className="min-w-[800px]">
                   <TableBody>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        New Room 1
+                        <p className="whitespace-normal">New Room 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 1
+                        <p className="whitespace-normal">Learning Session 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Hon. Dr. Hector M. Perez</p>
-                        <p>
+                        <p className="whitespace-normal">Hon. Dr. Hector M. Perez</p>
+                        <p className="whitespace-normal">
                           Member, Professional Regulatory Board of
                           Psychology
                         </p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Psychologist as Expert Witnesses
                         </p>
                         <br />
-                        <span>Moderator: Andrew Macalma</span>
+                        <span className="whitespace-normal">Moderator: Andrew Macalma</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        New Room 2
+                        <p className="whitespace-normal">New Room 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 2
+                        <p className="whitespace-normal">Learning Session 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Hon. Dr. Imelda Virginia G. villar</p>
-                        <p>
+                        <p className="whitespace-normal">Hon. Dr. Imelda Virginia G. villar</p>
+                        <p className="whitespace-normal">
                           Member, Professional Regulatory Board of
                           Psychology
                         </p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           A Quick Look at A Quick Look at Neurolinguistic
                           Programming (NLP)
                         </p>
                         <br />
-                        <span>Moderator: Maryjun Delgado</span>
+                        <span className="whitespace-normal">Moderator: Maryjun Delgado</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        New Room 3
+                        <p className="whitespace-normal">New Room 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 3
+                        <p className="whitespace-normal">Learning Session 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Dr. Rhodora Gail T. Ilagan</p>
-                        <p>
+                        <p className="whitespace-normal">Dr. Rhodora Gail T. Ilagan</p>
+                        <p className="whitespace-normal">
                           Faculty Member, Department of Psychology, Ateneo
                           de Davao University
                         </p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Disaster Situations: Psychological Practice and
                           Response
                         </p>
                         <br />
-                        <span>Moderator: Maureen Lara</span>
+                        <span className="whitespace-normal">Moderator: Maureen Lara</span>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Mahogany Hall
+                        <p className="whitespace-normal">Mahogany Hall</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 4
+                        <p className="whitespace-normal">Learning Session 4</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Kenneth Roy V. Arana</p>
-                        <p>Psychologist, Rebel Fitness Inc.</p>
+                        <p className="whitespace-normal">Kenneth Roy V. Arana</p>
+                        <p className="whitespace-normal">Psychologist, Rebel Fitness Inc.</p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           The Psychology of Injury and Rehabilitation:
                           Supporting Mental and Emotional Recovery
                         </p>
                         <br />
-                        <p>Moderator: David Kuyunjik Damian</p>
+                        <p className="whitespace-normal">Moderator: David Kuyunjik Damian</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Layco
+                        <p className="whitespace-normal">Layco</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 5
+                        <p className="whitespace-normal">Learning Session 5</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Jun angelo Sungalo</p>
-                        <p>Mental Health and Psychosocial Services SIG</p>
-                        <p>Chairperson PAP</p>
+                        <p className="whitespace-normal">Jun angelo Sungalo</p>
+                        <p className="whitespace-normal">Mental Health and Psychosocial Services SIG</p>
+                        <p className="whitespace-normal">Chairperson PAP</p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Introduction to Global and Public Mental Health:
                           Critical Perspectives, Local Realities, and
                           Sustainable future
                         </p>
                         <br />
-                        <p>Moderator: Gladys Canillo</p>
+                        <p className="whitespace-normal">Moderator: Gladys Canillo</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Hotel Quincentannial
+                        <p className="whitespace-normal">Hotel Quincentannial</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Learning Session 6
+                        <p className="whitespace-normal">Learning Session 6</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Antero Rosauro Arias Jr.</p>
+                        <p className="whitespace-normal">Antero Rosauro Arias Jr.</p>
                         <br />
-                        <p className="font-bold text-1xl">
+                        <p className="font-bold text-1xl whitespace-normal">
                           Meaning-Making of Caregivers of Neurodivergents
                         </p>
                         <br />
-                        <p>Moderator: Kate Anjelline Dela Cruz</p>
+                        <p className="whitespace-normal">Moderator: Kate Anjelline Dela Cruz</p>
                       </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
               </div>
-              <p>Organized Symposium 1-4: 4:00 pm - 6:00 pm</p>
+              <p className="whitespace-normal">Organized Symposium 1-4: 4:00 pm - 6:00 pm</p>
               <div>
                 <Table className="min-w-[800px]">
                   <TableBody>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasurers Hall 1
+                        <p className="whitespace-normal">Treasurers Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Issues in Lifespan Development Across Contexts
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Danielle Ochoa</p>
-                        <p>
+                        <p className="whitespace-normal">Danielle Ochoa</p>
+                        <p className="whitespace-normal">
                           Associate Professor at the Department of
                           Psychology, University of the Philippines Diliman
                         </p>
@@ -1539,57 +1495,57 @@ export function ScheduleComponent() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasurers Hall 2
+                        <p className="whitespace-normal">Treasurers Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Psychological Insights to Engage Minds and the
                         Future
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Oliver B. Sta. Ana</p>
+                        <p className="whitespace-normal">Oliver B. Sta. Ana</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasurers Hall 3
+                        <p className="whitespace-normal">Treasurers Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Strengthening Meaning, Wellbeing and Workplace
                         Mental Health in the Filipino Context
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Abraham Linco</p>
-                        <p>Industrial Organizational Psychology</p>
+                        <p className="whitespace-normal">Abraham Linco</p>
+                        <p className="whitespace-normal">Industrial Organizational Psychology</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Treasures Hall 4
+                        <p className="whitespace-normal">Treasurers Hall 4</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         From Fear to Flourishing Understanding Hope,
                         Compassion, and Mental Health in Youth
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Merimee T. Siena</p>
-                        <p>Positive Psychology SIG</p>
+                        <p className="whitespace-normal">Merimee T. Siena</p>
+                        <p className="whitespace-normal">Positive Psychology SIG</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Narra Hall 1
+                        <p className="whitespace-normal">Narra Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Queer Lives Across the Lifespan
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Ken Andrei B. Cuarto</p>
-                        <p>LGBT Psych SIG</p>
+                        <p className="whitespace-normal">Ken Andrei B. Cuarto</p>
+                        <p className="whitespace-normal">LGBT Psych SIG</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Narra Hall 2
+                        <p className="whitespace-normal">Narra Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Adventure in Marriage and family Theraphy:
@@ -1597,34 +1553,34 @@ export function ScheduleComponent() {
                         Work Experience in the Philippines
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Raphael O. Inocencio</p>
-                        <p>Clinical Psychology Division</p>
+                        <p className="whitespace-normal">Raphael O. Inocencio</p>
+                        <p className="whitespace-normal">Clinical Psychology Division</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Yakal Hall 1
+                        <p className="whitespace-normal">Yakal Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Cultural Values, Social Action, and Transnational
                         Solidarity
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>England Castro</p>
-                        <p>Social Psychology Division</p>
+                        <p className="whitespace-normal">England Castro</p>
+                        <p className="whitespace-normal">Social Psychology Division</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Yakal Hall 2
+                        <p className="whitespace-normal">Yakal Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         Resilient Psychology for Equitable Futures in Work,
                         Techonology, and Urban Communities
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p>Junix Delos Santos</p>
-                        <p>Teaching Psychology</p>
+                        <p className="whitespace-normal">Junix Delos Santos</p>
+                        <p className="whitespace-normal">Teaching Psychology</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -1643,58 +1599,58 @@ export function ScheduleComponent() {
           </Tabs>
         </TabsContent>
         <TabsContent value="3">
-          <p>Parallel Session F: 7:30 am - 09:00 am</p>
+          <p className="whitespace-normal">Parallel Session F: 7:30 am - 09:00 am</p>
           <div>
             <Table className="min-w-[800px]">
               <TableBody>
                 <TableRow>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Treasurers Hall 1
+                    <p className="whitespace-normal">Treasurers Hall 1</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Learning Session 1
+                    <p className="whitespace-normal">Learning Session 1</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p>Assoc. Prof. Nanchatsan Sakunpong</p>
-                    <p>Associate Professor of Psyhology, Srinakharinwirot University, Thailand</p>
+                    <p className="whitespace-normal">Assoc. Prof. Nanchatsan Sakunpong</p>
+                    <p className="whitespace-normal">Associate Professor of Psyhology, Srinakharinwirot University, Thailand</p>
                     <br />
-                    <p className="font-bold text-1xl">
+                    <p className="font-bold text-1xl whitespace-normal">
                       Healing in Nature: Forest Theraphy for LGBTQ+ Mental Health and Well-Being
                     </p>
                     <br />
-                    <p>Moderator: Faridah Kristi Wetherick</p>
+                    <p className="whitespace-normal">Moderator: Faridah Kristi Wetherick</p>
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Treasurers Hall 2
+                    <p className="whitespace-normal">Treasurers Hall 2</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
                     Learning Sesstion 2
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p>Dr. Jusmawati Fauzaman</p>
-                    <p>Vice President, Malaysian Psychological Association</p>
+                    <p className="whitespace-normal">Dr. Jusmawati Fauzaman</p>
+                    <p className="whitespace-normal">Vice President, Malaysian Psychological Association</p>
                     <br />
-                    <p className="font-bold text-1xl"> Rejuvinating the Soul in the Study of Psychology</p>
+                    <p className="font-bold text-1xl whitespace-normal"> Rejuvinating the Soul in the Study of Psychology</p>
                     <br />
-                    <p>Moderator: Marianne Taladua</p>
+                    <p className="whitespace-normal">Moderator: Marianne Taladua</p>
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Layco
+                    <p className="whitespace-normal">Layco</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Learning Session 3
+                    <p className="whitespace-normal">Learning Session 3</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p>Dr. Henndy Ginting</p>
-                    <p>Licensed Psychologist, Indonesia</p>
+                    <p className="whitespace-normal">Dr. Henndy Ginting</p>
+                    <p className="whitespace-normal">Licensed Psychologist, Indonesia</p>
                     <br />
-                    <p>Healthy Behaviors in Chronic Illness</p>
+                    <p className="whitespace-normal">Healthy Behaviors in Chronic Illness</p>
                     <br />
-                    <p>Moderator: John Manuel Kliatchko</p>
+                    <p className="whitespace-normal">Moderator: John Manuel Kliatchko</p>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -1702,11 +1658,11 @@ export function ScheduleComponent() {
                     Hotel Quincentennial
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Learning Session 4
+                    <p className="whitespace-normal">Learning Session 4</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p>APA Panel</p>
-                    <p>Moderator: Maria Isabel Lemen</p>
+                    <p className="whitespace-normal">APA Panel</p>
+                    <p className="whitespace-normal">Moderator: Maria Isabel Lemen</p>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -1717,43 +1673,43 @@ export function ScheduleComponent() {
                     SIG Meetings
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p>Environmental Psychology</p>
-                    <p>LBGTQ Psychology</p>
-                    <p>Teaching Psychology</p>
-                    <p>Mental Health and Psychosocial Psychology</p>
-                    <p>Positive Psychology</p>
-                    <p>PWD Psychology</p>
-                    <p>Research Psychology</p>
-                    <p>Psych Public Service</p>
-                    <p>Sports Psychology</p>
-                    <p>Substance Use</p>
+                    <p className="whitespace-normal">Environmental Psychology</p>
+                    <p className="whitespace-normal">LBGTQ Psychology</p>
+                    <p className="whitespace-normal">Teaching Psychology</p>
+                    <p className="whitespace-normal">Mental Health and Psychosocial Psychology</p>
+                    <p className="whitespace-normal">Positive Psychology</p>
+                    <p className="whitespace-normal">PWD Psychology</p>
+                    <p className="whitespace-normal">Research Psychology</p>
+                    <p className="whitespace-normal">Psych Public Service</p>
+                    <p className="whitespace-normal">Sports Psychology</p>
+                    <p className="whitespace-normal">Substance Use</p>
                   </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
           </div>
-          <p>Parallel Session F: 8:30 am - 10:00 am</p>
+          <p className="whitespace-normal">Parallel Session F: 8:30 am - 10:00 am</p>
           <div>
             <Table className="min-w-[800px]">
               <TableBody>
                 <TableRow>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Treasurers Hall 3
+                    <p className="whitespace-normal">Treasurers Hall 3</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Learning Session 1
+                    <p className="whitespace-normal">Learning Session 1</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p>Victor Go Weng Yew</p>
-                    <p>Group Ceo, HELP Education Group</p>
-                    <p>Former President, PSIMA (Malaysian Psychology Association)</p>
-                    <p>Former President, ARUPS (ASEAN Regional Union of Psychological Science)</p>
+                    <p className="whitespace-normal">Victor Go Weng Yew</p>
+                    <p className="whitespace-normal">Group Ceo, HELP Education Group</p>
+                    <p className="whitespace-normal">Former President, PSIMA (Malaysian Psychology Association)</p>
+                    <p className="whitespace-normal">Former President, ARUPS (ASEAN Regional Union of Psychological Science)</p>
                     <br />
-                    <p className="font-bold text-1xl">
+                    <p className="font-bold text-1xl whitespace-normal">
                       The Future of Psychology in a VUCA World
                     </p>
                     <br />
-                    <p>Moderator: Faridah Kristi Wetherick</p>
+                    <p className="whitespace-normal">Moderator: Faridah Kristi Wetherick</p>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -1761,32 +1717,32 @@ export function ScheduleComponent() {
                     Seminary Hall 1
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Learning Session 2
+                    <p className="whitespace-normal">Learning Session 2</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p>Dr. Daniella Maryam Mohd Mokhtar</p>
-                    <p>Assistant Secretary, Malaysian Psychological Association</p>
+                    <p className="whitespace-normal">Dr. Daniella Maryam Mohd Mokhtar</p>
+                    <p className="whitespace-normal">Assistant Secretary, Malaysian Psychological Association</p>
                     <br />
-                    <p className="font-bold text-1xl"> Strengthening Personal Resilience - Coping with Workplace Bullying</p>
+                    <p className="font-bold text-1xl whitespace-normal"> Strengthening Personal Resilience - Coping with Workplace Bullying</p>
                     <br />
-                    <p>Moderator: Juniebe Manganohoy</p>
+                    <p className="whitespace-normal">Moderator: Juniebe Manganohoy</p>
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Layco
+                    <p className="whitespace-normal">Layco</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Learning Session 3
+                    <p className="whitespace-normal">Learning Session 3</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p>Mr. Jeremy Heng</p>
-                    <p>Senior Psychologist, Deputy Head Singapore</p>
-                    <p>Children's Society. Past Honoray Secretary of Singapore Psychology Society (SPS)</p>
+                    <p className="whitespace-normal">Mr. Jeremy Heng</p>
+                    <p className="whitespace-normal">Senior Psychologist, Deputy Head Singapore</p>
+                    <p className="whitespace-normal">Children's Society. Past Honoray Secretary of Singapore Psychology Society (SPS)</p>
                     <br />
-                    <p className="font-bold text-1xl">Promoting Trauma Recovery in Residential Care: A Singaporean Perspective</p>
+                    <p className="font-bold text-1xl whitespace-normal">Promoting Trauma Recovery in Residential Care: A Singaporean Perspective</p>
                     <br />
-                    <p>Moderator: John Manuel Kliatchko</p>
+                    <p className="whitespace-normal">Moderator: John Manuel Kliatchko</p>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -1794,11 +1750,11 @@ export function ScheduleComponent() {
                     Hotel Quincentennial
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    Learning Session 4
+                    <p className="whitespace-normal">Learning Session 4</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p>APA Panel</p>
-                    <p>Moderator: Maria Isabel Lemen</p>
+                    <p className="whitespace-normal">APA Panel</p>
+                    <p className="whitespace-normal">Moderator: Maria Isabel Lemen</p>
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -1826,9 +1782,9 @@ export function ScheduleComponent() {
                     Oral Paper Symposium
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p className="font-bold text-1xl">Trauma Recovery, Parental Support, and Youth Mental Health: Community-Based Interventions Across Southeast Asia</p>
+                    <p className="font-bold text-1xl whitespace-normal">Trauma Recovery, Parental Support, and Youth Mental Health: Community-Based Interventions Across Southeast Asia</p>
                     <br />
-                    <p>Moderator: Armenia Montano</p>
+                    <p className="whitespace-normal">Moderator: Armenia Montano</p>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -1839,9 +1795,9 @@ export function ScheduleComponent() {
                     Oral Paper Symposion 2
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p className="font-bold text-1xl">Work, Culture, and Mental Health: Understanding Human Behavior in Diverse Contexts</p>
+                    <p className="font-bold text-1xl whitespace-normal">Work, Culture, and Mental Health: Understanding Human Behavior in Diverse Contexts</p>
                     <br />
-                    <p>Moderator: Henmar Cardino</p>
+                    <p className="whitespace-normal">Moderator: Henmar Cardino</p>
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -1858,13 +1814,13 @@ export function ScheduleComponent() {
                     Division Meeting
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p>Clinical PSychology</p>
-                    <p>Counseling PSychology</p>
-                    <p>Industrial / Organizational PSychology</p>
-                    <p>Developmental PSychology</p>
-                    <p>Educational PSychology</p>
-                    <p>Assesment PSychology</p>
-                    <p>Social PSychology</p>
+                    <p className="whitespace-normal">Clinical PSychology</p>
+                    <p className="whitespace-normal">Counseling PSychology</p>
+                    <p className="whitespace-normal">Industrial / Organizational PSychology</p>
+                    <p className="whitespace-normal">Developmental PSychology</p>
+                    <p className="whitespace-normal">Educational PSychology</p>
+                    <p className="whitespace-normal">Assesment PSychology</p>
+                    <p className="whitespace-normal">Social PSychology</p>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -1875,10 +1831,10 @@ export function ScheduleComponent() {
 
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p>Dr. Maria Caridad H. Tarroja</p>
-                    <p>2010-2012 PAP President</p>
+                    <p className="whitespace-normal">Dr. Maria Caridad H. Tarroja</p>
+                    <p className="whitespace-normal">2010-2012 PAP President</p>
                     <br />
-                    <p className="font-bold text-1xl">Update Report on the PSychology Law Revisions</p>
+                    <p className="font-bold text-1xl whitespace-normal">Update Report on the PSychology Law Revisions</p>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -1888,11 +1844,11 @@ export function ScheduleComponent() {
                   <TableCell className="p-4 font-medium text-foreground">
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p>Dr. Miriam P. Cue</p>
-                    <p>Professional Regulatory Board of Psychology</p>
-                    <p>Chairperson</p>
+                    <p className="whitespace-normal">Dr. Miriam P. Cue</p>
+                    <p className="whitespace-normal">Professional Regulatory Board of Psychology</p>
+                    <p className="whitespace-normal">Chairperson</p>
                     <br />
-                    <p className="font-bold text-1xl">Work, Culture, and Mental Health: Understanding Human Behavior in Diverse Contexts</p>
+                    <p className="font-bold text-1xl whitespace-normal">Work, Culture, and Mental Health: Understanding Human Behavior in Diverse Contexts</p>
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -1915,10 +1871,10 @@ export function ScheduleComponent() {
               </Avatar>
               <CardTitle>{selectedUser?.name}</CardTitle>
               <CardDescription className="space-y-1">
-                <p>{selectedUser?.title}</p>
+                <p className="whitespace-normal">{selectedUser?.title}</p>
               </CardDescription>
               <CardDescription className="space-y-1">
-                <p>{selectedUser?.title2}</p>
+                <p className="whitespace-normal">{selectedUser?.title2}</p>
               </CardDescription>
             </CardHeader>
 
