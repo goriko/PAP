@@ -306,9 +306,11 @@ export function ScheduleComponent() {
             <TabsList>
               <TabsTrigger value="1">Parallel Session A</TabsTrigger>
               <TabsTrigger value="2">Parallel Session B</TabsTrigger>
-              {/* <TabsTrigger value="3">Parallel Session C</TabsTrigger> */}
-              {/* <TabsTrigger value="4">Parallel Session D</TabsTrigger> */}
-              {/* <TabsTrigger value="5">Parallel Session E</TabsTrigger> */}
+              <TabsTrigger value="3">Parallel Session C</TabsTrigger>
+            </TabsList>
+            <TabsList>
+              <TabsTrigger value="4">Parallel Session D</TabsTrigger>
+              <TabsTrigger value="5">Parallel Session E</TabsTrigger>
             </TabsList>
             <TabsContent value="1">
               <p className="whitespace-normal">Time: 8:30 am - 10:00 am</p>
@@ -556,8 +558,8 @@ export function ScheduleComponent() {
             </TabsContent>
             <TabsContent value="2">
               <p className="whitespace-normal">Time: 10:30 am - 12:00 pm</p>
-              <div>
-                <Table className="min-w-[800px]">
+              <div className="w-screen overflow-x-auto">
+                <Table className="w-full">
                   <TableBody>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
@@ -565,8 +567,7 @@ export function ScheduleComponent() {
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 1</p>
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <br />
                         <p className="whitespace-normal">Ms. Maria Adela Guerreroy</p>
                         <p className="whitespace-normal">DSWD Program Management Bureau</p>
                         <br />
@@ -583,8 +584,7 @@ export function ScheduleComponent() {
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 2</p>
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <br />
                         <p className="whitespace-normal">Dr. Patricia Hayres Arroyo Perez</p>
                         <p className="whitespace-normal">
                           Faculty Member, Department of Psychology, Adler
@@ -604,8 +604,7 @@ export function ScheduleComponent() {
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 3</p>
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <br />
                         <p className="whitespace-normal">Ms. Irene MArie S. Isleta</p>
                         <p className="whitespace-normal">
                           Assistant Vice President, Human Resources Group,
@@ -630,8 +629,7 @@ export function ScheduleComponent() {
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 4</p>
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <br />
                         <p className="whitespace-normal">Ms. Elaine Salansan Ferrer</p>
                         <p className="whitespace-normal">
                           Training Lead Mental Health and Psychological
@@ -656,8 +654,7 @@ export function ScheduleComponent() {
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 5</p>
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <br />
                         <p className="whitespace-normal">Dr. Arsenio Sze Alianan Jr.</p>
                         <p className="whitespace-normal">
                           Faculty Member, Department of Psychology, Ateneo
@@ -677,8 +674,7 @@ export function ScheduleComponent() {
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 6</p>
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <br />
                         <p className="whitespace-normal">Mr. Adrian Toh</p>
                         <p className="whitespace-normal">
                           President, Singapore Psychological Society Science
@@ -697,8 +693,6 @@ export function ScheduleComponent() {
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 7</p>
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
                         <br />
                         <p className="font-bold text-1xl whitespace-normal">APA Panel</p>
                         <br />
@@ -709,17 +703,16 @@ export function ScheduleComponent() {
                 </Table>
               </div>
               <p className="whitespace-normal">Organized Symposium 1-6: 10:30 am - 12:00 pm</p>
-              <div>
-                <Table className="min-w-[800px]">
+              <div className="w-screen overflow-x-auto">
+                <Table className="w-full">
                   <TableBody>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Treasurers Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Psychological Responses to Climate Crisis
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Psychological Responses to Climate Crisis</p>
+                        <br />
                         <p className="whitespace-normal">John Jamir Benzon R. Aruta</p>
                         <p className="whitespace-normal">Chairperson</p>
                         <p className="whitespace-normal">Environmental Psychology SIG</p>
@@ -730,10 +723,8 @@ export function ScheduleComponent() {
                         <p className="whitespace-normal">Treasurers Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Struggles and Strength Stories of Hope, Healing and
-                        Well-being
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Struggles and Strength Stories of Hope, Healing and Well-being</p>
+                        <br />
                         <p className="whitespace-normal">Gabriel Sebastian N. Lizada</p>
                         <p className="whitespace-normal">Chairperson</p>
                         <p className="whitespace-normal">Positive Psychology SIG</p>
@@ -744,10 +735,8 @@ export function ScheduleComponent() {
                         <p className="whitespace-normal">Treasurers Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Pathways to Education, Prosociality, and Youth
-                        Participation
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Pathways to Education, Prosociality, and Youth Participation</p>
+                        <br />
                         <p className="whitespace-normal">Jeremiah Paul C. Silvestre</p>
                         <p className="whitespace-normal">Chairperson</p>
                         <p className="whitespace-normal">Social Psychology Division</p>
@@ -758,10 +747,8 @@ export function ScheduleComponent() {
                         <p className="whitespace-normal">Treasurers Hall 4</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Reimagining Pedagogical Futures: Innovations,
-                        Ethics, and AI in Psychology Learning and Teaching
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Reimagining Pedagogical Futures: Innovations, Ethics, and AI in Psychology Learning and Teaching</p>
+                        <br />
                         <p className="whitespace-normal">Pat Kathlyn Dione D. Ramirez</p>
                         <p className="whitespace-normal">Chairperson</p>
                         <p className="whitespace-normal">Teaching Psychology</p>
@@ -772,11 +759,8 @@ export function ScheduleComponent() {
                         <p className="whitespace-normal">Narra Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Care and Connection in Neurodiverse Realities:
-                        Filipino Narrativesof Resilience, Rights and
-                        Relationship
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Care and Connection in Neurodiverse Realities: Filipino Narrativesof Resilience, Rights and Relationship</p>
+                        <br />
                         <p className="whitespace-normal">Antero Rosauro V. Arias Jr.</p>
                         <p className="whitespace-normal">Chairperson</p>
                         <p className="whitespace-normal">Person with Disabilities Psych-SIG</p>
@@ -787,10 +771,8 @@ export function ScheduleComponent() {
                         <p className="whitespace-normal">Narra Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Experiences in Sports: Perspective on Participation,
-                        Resilience, Rights and Relationship
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Experiences in Sports: Perspective on Participation, Resilience, Rights and Relationship</p>
+                        <br />
                         <p className="whitespace-normal">David Kuyunjik Damian</p>
                         <p className="whitespace-normal">Sports Psychology SIG</p>
                       </TableCell>
@@ -800,32 +782,27 @@ export function ScheduleComponent() {
                         <p className="whitespace-normal">Yakal Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Intersecting Minds: Cultural and Clinical
-                        Perspectives on Body Dysmorphic and Obsessive
-                        Compulsive Disorders in Southeast Asia
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Intersecting Minds: Cultural and Clinical Perspectives on Body Dysmorphic and Obsessive Compulsive Disorders in Southeast Asia</p>
+                        <br />
                         <p className="whitespace-normal">Peejay D. Bengwasan</p>
                         <p className="whitespace-normal">Clinical Psych Division</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        12:00 pm
+                        <p className="whitespace-normal">12:00 pm</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Lunch Break
+                        <p className="whitespace-normal">Lunch Break</p>
                       </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground"></TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        12:00 pm - 1:00 pm
+                        <p className="whitespace-normal">12:00 pm - 1:00 pm</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Chapter Meeting
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Chapter Meeting</p>
+                        <br />
                         <p className="whitespace-normal">Bicol</p>
                         <p className="whitespace-normal">Northern Luzon</p>
                         <p className="whitespace-normal">Central Luzon</p>
@@ -845,8 +822,8 @@ export function ScheduleComponent() {
             </TabsContent>
             <TabsContent value="3">
               <p className="whitespace-normal">Time: 1:00 pm - 2:30 pm</p>
-              <div>
-                <Table className="min-w-[800px]">
+              <div className="w-screen overflow-x-auto">
+                <Table className="w-full">
                   <TableBody>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
@@ -854,8 +831,7 @@ export function ScheduleComponent() {
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 1</p>
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <br />
                         <p className="whitespace-normal">Dr. Ron R. Resurrecion</p>
                         <p className="whitespace-normal">
                           Director, Student Success Center, De La Salle
@@ -877,8 +853,7 @@ export function ScheduleComponent() {
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 2</p>
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <br />
                         <p className="whitespace-normal">Elvira C. David</p>
                         <p className="whitespace-normal">Professor, Holy Angel University</p>
                         <p className="whitespace-normal">
@@ -900,8 +875,7 @@ export function ScheduleComponent() {
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 3</p>
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <br />
                         <p className="whitespace-normal">Dr. Mira Alexis P. Ofreneo</p>
                         <p className="whitespace-normal">Director, University Gender Hub</p>
                         <p className="whitespace-normal">Ateneo de Manila Unisersity</p>
@@ -920,8 +894,7 @@ export function ScheduleComponent() {
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 4</p>
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <br />
                         <p className="whitespace-normal">Hon. Judge Jose Nathaniel S. Andal</p>
                         <p className="whitespace-normal">Regional Trial Court Judge, Cebu City</p>
                         <br />
@@ -938,8 +911,7 @@ export function ScheduleComponent() {
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 5</p>
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <br />
                         <p className="whitespace-normal">
                           England Danne B. Castro (Social Psych Division)
                         </p>
@@ -959,8 +931,6 @@ export function ScheduleComponent() {
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 6</p>
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
                         <br />
                         <p className="font-bold text-1xl whitespace-normal">APA Panel</p>
                         <br />
@@ -971,18 +941,17 @@ export function ScheduleComponent() {
                 </Table>
               </div>
               <p className="whitespace-normal">Organized Symposium 1-6: 1:00 pm - 2:30 pm</p>
-              <div>
-                <Table className="min-w-[800px]">
+              <div className="w-screen overflow-x-auto">
+                <Table className="w-full">
                   <TableBody>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Treasurers Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Regional Roots, Gloobal Goals: Psychology in Action
-                        for Health, Education, Inclusion, and Resilience
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Regional Roots, Gloobal Goals: Psychology in Action
+                          for Health, Education, Inclusion, and Resilience</p>
+                        <br />
                         <p className="whitespace-normal">Mahjalin Araiza B. Diez</p>
                         <p className="whitespace-normal">CALABARZON Chapter</p>
                       </TableCell>
@@ -992,10 +961,9 @@ export function ScheduleComponent() {
                         <p className="whitespace-normal">Treasurers Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        A Community that Cares: Task Shifting Mental Health
-                        Initiatives in Underserved Settings
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">A Community that Cares: Task Shifting Mental Health
+                          Initiatives in Underserved Settings</p>
+                        <br />
                         <p className="whitespace-normal">Jun Angelo Sunglaon</p>
                         <p className="whitespace-normal">Mental Health and Psychosocial Services</p>
                       </TableCell>
@@ -1005,10 +973,9 @@ export function ScheduleComponent() {
                         <p className="whitespace-normal">Treasurers Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Approaches in Learning Cognitive Development of
-                        Children and Adults
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Tpproaches in Learning Cognitive Development of
+                          Children and Adults</p>
+                        <br />
                         <p className="whitespace-normal">Jericho Medel</p>
                         <p className="whitespace-normal">Developmental Psychology Division</p>
                       </TableCell>
@@ -1018,11 +985,10 @@ export function ScheduleComponent() {
                         <p className="whitespace-normal">Treasurers Hall 4</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Counseling Psychology and clinical Governance:
-                        Latest Trends in Client Needs, Systems, and
-                        Professional Care
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Counseling Psychology and clinical Governance:
+                          Latest Trends in Client Needs, Systems, and
+                          Professional Care</p>
+                        <br />
                         <p className="whitespace-normal">Lance Lyle De Jesus</p>
                         <p className="whitespace-normal">Counseling PSychology Division</p>
                         <br />
@@ -1034,9 +1000,8 @@ export function ScheduleComponent() {
                         <p className="whitespace-normal">Narra Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Effectiveness and Impact of Interventions
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Effectiveness and Impact of Interventions</p>
+                        <br />
                         <p className="whitespace-normal">Dr. Lianne P. Alampay</p>
                       </TableCell>
                     </TableRow>
@@ -1045,10 +1010,9 @@ export function ScheduleComponent() {
                         <p className="whitespace-normal">Narra Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        From Pathogenesis to Recovery: Exploring the
-                        Spectrum of Mental Health Disorder
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">From Pathogenesis to Recovery: Exploring the
+                          Spectrum of Mental Health Disorder</p>
+                        <br />
                         <p className="whitespace-normal">Peejay Bengwasan</p>
                         <p className="whitespace-normal">Clinical Psychology</p>
                       </TableCell>
@@ -1058,11 +1022,10 @@ export function ScheduleComponent() {
                         <p className="whitespace-normal">Yakal Hall 1</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Resilience and Well-being in Northern Mindanao: Key
-                        Features and Implications to Mental Health
-                        Intervention
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Resilience and Well-being in Northern Mindanao: Key
+                          Features and Implications to Mental Health
+                          Intervention</p>
+                        <br />
                         <p className="whitespace-normal">Jayson Manaois</p>
                         <p className="whitespace-normal">Northern Mindanao Chapter</p>
                         <br />
@@ -1074,9 +1037,8 @@ export function ScheduleComponent() {
                         <p className="whitespace-normal">Yakal Hall 2</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        Queering and Decolonizing Psychology in Asia
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Queering and Decolonizing Psychology in Asia</p>
+                        <br />
                         <p className="whitespace-normal">Mx. Kyle Tan</p>
                         <br />
                         <p className="whitespace-normal">Convenor: Ar-Jay Perez</p>
