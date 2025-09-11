@@ -43,7 +43,7 @@ const getMenuItems = (userRole: UserRoleEnum) => {
 			title: "Home",
 			url: "/",
 			icon: Home,
-			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
+			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN, UserRoleEnumSchema.Enum.USER],
 		},
 		{
 			title: "Logs",

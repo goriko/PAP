@@ -6,7 +6,7 @@ export default async function AppLayout({
 	children: React.ReactNode;
 }) {
 	// Route protection logic
-	await requireAdmin();
+	// await requireAdmin();
 
 	return <>{children}</>;
 }
