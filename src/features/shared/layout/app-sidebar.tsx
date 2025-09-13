@@ -101,7 +101,7 @@ const getMenuItems = (userRole: UserRoleEnum) => {
 		},
 		{
 			title: "Evaluation",
-			url: "/",
+			url: "/evaluation",
 			icon: Clipboard,
 			roles: [
 				UserRoleEnumSchema.Enum.USER,
