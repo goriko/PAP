@@ -15,11 +15,23 @@ import {
 } from "@/features/shared/components/base/tabs";
 import FileUpload from "./file-upload";
 import UserInputForm from "./user-input-form";
+import UserTable, { User } from "./user-table";
+import { useState } from "react";
 
-const RegistrationForm = () => {
+export default function RegistrationForm({ initialUsers }: { initialUsers: User[] }) {
+	const [users, setUsers] = useState<User[]>(initialUsers);
+
+	const handleUserAdded = async () => {
+		const res = await fetch("/api/users", { cache: "no-store" });
+		if (res.ok) {
+			const latestUsers = await res.json();
+			setUsers(latestUsers);
+		}
+	};
+
 	return (
 		<Card className="w-full overflow-y-auto border-border shadow-sm">
-			<CardHeader className="space-y-1 ">
+			<CardHeader className="space-y-1">
 				<CardTitle className="font-bold text-foreground text-xl">
 					Registration
 				</CardTitle>
@@ -29,7 +41,7 @@ const RegistrationForm = () => {
 			</CardHeader>
 			<CardContent>
 				<Tabs defaultValue="upload" className="w-full">
-					<TabsList className="grid h-fit w-full grid-cols-2 gap-2 rounded-full border border-input bg-background p-2">
+					<TabsList className="grid h-fit w-full grid-cols-3 gap-2 rounded-full border border-input bg-background p-2">
 						<TabsTrigger
 							value="upload"
 							className="text-foreground data-[state=active]:border-input data-[state=active]:bg-accent data-[state=active]:shadow-none"
@@ -42,6 +54,12 @@ const RegistrationForm = () => {
 						>
 							Manual Entry
 						</TabsTrigger>
+						<TabsTrigger
+							value="users"
+							className="text-foreground data-[state=active]:border-input data-[state=active]:bg-accent data-[state=active]:shadow-none"
+						>
+							User List
+						</TabsTrigger>
 					</TabsList>
 
 					<TabsContent value="upload" className="mt-6">
@@ -49,12 +67,14 @@ const RegistrationForm = () => {
 					</TabsContent>
 
 					<TabsContent value="manual" className="mt-6">
-						<UserInputForm />
+						<UserInputForm onUserAdded={handleUserAdded} />
+					</TabsContent>
+
+					<TabsContent value="users" className="mt-6">
+						<UserTable users={users} />
 					</TabsContent>
 				</Tabs>
 			</CardContent>
 		</Card>
 	);
-};
-
-export default RegistrationForm;
+}
