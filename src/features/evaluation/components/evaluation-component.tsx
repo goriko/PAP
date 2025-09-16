@@ -1,6 +1,8 @@
 "use client";
 
+import { FullQrLog } from "@/features/terminal/components/terminal-page";
 import React, { useState } from "react";
+import { saveEvaluationAction } from "@/infrastructure/server/actions/save-evaluation.action";
 
 interface Question {
     id: string;
@@ -21,6 +23,10 @@ interface RatingsState {
 
 interface TextAnswersState {
     [key: string]: string;
+}
+
+interface EvaluationProps {
+    userLogs: FullQrLog[];
 }
 
 const ratingScale = [
@@ -125,12 +131,39 @@ const logisticsQuestions: Question[] = [
     { id: "log-9", text: "SLU classrooms and facilities were adequate", required: true },
 ];
 
-export function EvaluationComponent() {
+export function EvaluationComponent({ userLogs }: EvaluationProps) {
     const [ratings, setRatings] = useState<RatingsState>({});
     const [textAnswers, setTextAnswers] = useState<TextAnswersState>({});
     const [selectedSessions, setSelectedSessions] = useState<string[]>([]);
     const [selectedParallel, setSelectedParallel] = useState<string[]>([]);
     const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
+    const [loading, setLoading] = useState(false);
+    console.log(userLogs);
+    const hasCheckedIn = userLogs.some(
+        (l) => l.content.context.confirmationData.actionType === "check-in"
+    );
+
+    // Find learning sessions the user attended
+    const attendedSessions = userLogs
+        .filter((l) => l.content.context.confirmationData.actionType === "check-in")
+        .map((l) => {
+            const eventTitle = l.content.context.confirmationData.event;
+            const session = learningSessions.find(
+                (s) => s.id === eventTitle || s.title === eventTitle
+            );
+            return session?.id;
+        })
+        .filter(Boolean) as string[];
+
+    if (!hasCheckedIn) {
+        return (
+            <div className="p-6 text-center">
+                <p className="text-xl font-semibold text-destructive">
+                    You must check in first before answering the evaluation.
+                </p>
+            </div>
+        );
+    }
 
     const handleRatingChange = (questionId: string, value: number) => {
         setRatings((prev) => ({ ...prev, [questionId]: value }));
@@ -164,6 +197,17 @@ export function EvaluationComponent() {
                 }
             });
         });
+        attendedSessions.forEach((sessionId) => {
+            learningSessionQuestions.forEach((q) => {
+                const key = `${sessionId}-${q.id}`;
+                if (q.required && (ratings[key] === null || ratings[key] === undefined)) {
+                    newErrors[key] = true;
+                }
+            });
+            if (!textAnswers[`${sessionId}-feedback`] || textAnswers[`${sessionId}-feedback`].trim() === "") {
+                newErrors[`${sessionId}-feedback`] = true;
+            }
+        });
 
         if (!textAnswers["overall-comments"] || textAnswers["overall-comments"].trim() === "") {
             newErrors["overall-comments"] = true;
@@ -173,16 +217,44 @@ export function EvaluationComponent() {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!validateForm()) return;
 
-        console.log("Ratings:", ratings);
-        console.log("Text Answers:", textAnswers);
-        console.log("Selected Sessions:", selectedSessions);
-        console.log("Selected Parallel:", selectedParallel);
-        alert("Evaluation submitted. Thank you!");
+        const userId = userLogs[0]?.content.context.user.userId;
+        if (!userId) {
+            alert("User ID not found, cannot submit evaluation.");
+            return;
+        }
+
+        const evaluationData = {
+            userId,
+            ratings: Object.fromEntries(
+                Object.entries(ratings).filter(([, value]) => value !== null)
+            ) as Record<string, number>,
+            textAnswers,
+            selectedSessions,
+            selectedParallel,
+            submittedAt: new Date().toISOString(),
+        };
+
+        try {
+            setLoading(true);
+            const result = await saveEvaluationAction(evaluationData);
+            alert("Evaluation submitted. Thank you!");
+
+            setRatings({});
+            setTextAnswers({});
+            setSelectedSessions([]);
+            setSelectedParallel([]);
+        } catch (error) {
+            console.error("Error saving evaluation:", error);
+            alert("Something went wrong while saving your evaluation.");
+        } finally {
+            setLoading(false);
+        }
     };
+
 
     return (
         <div className="max-w-4xl mx-auto p-6">
@@ -232,26 +304,77 @@ export function EvaluationComponent() {
                 ))}
 
                 {/* Part 4: Learning Sessions */}
-                <div className="p-6 rounded-xl shadow bg-card text-card-foreground">
-                    <h2 className="text-xl font-semibold mb-4">PART 4: Learning Session</h2>
-                    <select
-                        className="border rounded-lg p-2 w-full mb-4"
-                        onChange={(e) => handleAddSession(e.target.value)}
-                        defaultValue=""
-                    >
-                        <option value="" disabled>-- Choose a session --</option>
-                        {learningSessions.map((s) => (
-                            <option key={s.id} value={s.id}>{s.id} | {s.title}</option>
-                        ))}
-                    </select>
-                    {selectedSessions.map((sessionId) => {
-                        const session = learningSessions.find((s) => s.id === sessionId);
-                        return (
-                            <div key={sessionId} className="mb-6 border-t pt-4">
-                                <h3 className="font-semibold mb-2">{session?.title}</h3>
-                                {learningSessionQuestions.map((q) => (
-                                    <div key={`${sessionId}-${q.id}`} className="flex flex-col gap-2 mb-2">
-                                        <p className={errors[`${sessionId}-${q.id}`] ? "text-destructive font-medium" : ""}>
+                {attendedSessions.length > 0 && (
+                    <div className="p-6 rounded-xl shadow bg-card text-card-foreground">
+                        <h2 className="text-xl font-semibold mb-4">PART 4: Learning Sessions</h2>
+
+                        {attendedSessions.map((sessionId) => {
+                            const session = learningSessions.find((s) => s.id === sessionId);
+                            if (!session) return null;
+
+                            return (
+                                <div key={sessionId} className="mb-6 border-t pt-4">
+                                    <h3 className="font-semibold mb-2">{session.title}</h3>
+
+                                    {learningSessionQuestions.map((q) => (
+                                        <div key={`${sessionId}-${q.id}`} className="flex flex-col gap-2 mb-2">
+                                            <p className={errors[`${sessionId}-${q.id}`] ? "text-destructive font-medium" : ""}>
+                                                {q.text}{q.required && <span className="text-destructive">*</span>}
+                                            </p>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
+                                                {ratingScale.map((r) => (
+                                                    <button
+                                                        key={r.value}
+                                                        type="button"
+                                                        className={`px-3 py-1 rounded-lg border text-left ${ratings[`${sessionId}-${q.id}`] === r.value
+                                                            ? "bg-primary text-primary-foreground"
+                                                            : "bg-background"
+                                                            }`}
+                                                        onClick={() => handleRatingChange(`${sessionId}-${q.id}`, r.value)}
+                                                    >
+                                                        {r.value} - {r.label}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+
+                                    {/* Feedback required */}
+                                    <label
+                                        className={errors[`${sessionId}-feedback`] ? "text-destructive font-medium" : ""}
+                                    >
+                                        Additional comments for this session <span className="text-destructive">*</span>
+                                    </label>
+                                    <textarea
+                                        className={`w-full border rounded-lg p-2 ${errors[`${sessionId}-feedback`] ? "border-destructive" : ""
+                                            }`}
+                                        rows={3}
+                                        value={textAnswers[`${sessionId}-feedback`] || ""}
+                                        onChange={(e) => handleTextChange(`${sessionId}-feedback`, e.target.value)}
+                                    />
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
+
+
+                {/* Part 5: Parallel Papers */}
+                {attendedSessions.length > 0 && (
+                    <div className="p-6 rounded-xl shadow bg-card text-card-foreground">
+                        <h2 className="text-xl font-semibold mb-4">PART 5: Parallel Paper Presentations</h2>
+                        <input
+                            type="text"
+                            placeholder="Enter title of presentation"
+                            className="border rounded-lg p-2 w-full mb-4"
+                            onBlur={(e) => handleAddParallel(e.target.value)}
+                        />
+                        {selectedParallel.map((title) => (
+                            <div key={title} className="mb-6 border-t pt-4">
+                                <h3 className="font-semibold mb-2">{title}</h3>
+                                {parallelPaperQuestions.map((q) => (
+                                    <div key={`${title}-${q.id}`} className="flex flex-col gap-2 mb-2">
+                                        <p className={errors[`${title}-${q.id}`] ? "text-destructive font-medium" : ""}>
                                             {q.text}{q.required && <span className="text-destructive">*</span>}
                                         </p>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
@@ -259,11 +382,11 @@ export function EvaluationComponent() {
                                                 <button
                                                     key={r.value}
                                                     type="button"
-                                                    className={`px-3 py-1 rounded-lg border text-left ${ratings[`${sessionId}-${q.id}`] === r.value
+                                                    className={`px-3 py-1 rounded-lg border text-left ${ratings[`${title}-${q.id}`] === r.value
                                                         ? "bg-primary text-primary-foreground"
                                                         : "bg-background"
                                                         }`}
-                                                    onClick={() => handleRatingChange(`${sessionId}-${q.id}`, r.value)}
+                                                    onClick={() => handleRatingChange(`${title}-${q.id}`, r.value)}
                                                 >
                                                     {r.value} - {r.label}
                                                 </button>
@@ -274,57 +397,13 @@ export function EvaluationComponent() {
                                 <textarea
                                     className="w-full border rounded-lg p-2"
                                     rows={3}
-                                    value={textAnswers[`${sessionId}-feedback`] || ""}
-                                    onChange={(e) => handleTextChange(`${sessionId}-feedback`, e.target.value)}
+                                    value={textAnswers[`${title}-feedback`] || ""}
+                                    onChange={(e) => handleTextChange(`${title}-feedback`, e.target.value)}
                                 />
                             </div>
-                        );
-                    })}
-                </div>
-
-                {/* Part 5: Parallel Papers */}
-                <div className="p-6 rounded-xl shadow bg-card text-card-foreground">
-                    <h2 className="text-xl font-semibold mb-4">PART 5: Parallel Paper Presentations</h2>
-                    <input
-                        type="text"
-                        placeholder="Enter title of presentation"
-                        className="border rounded-lg p-2 w-full mb-4"
-                        onBlur={(e) => handleAddParallel(e.target.value)}
-                    />
-                    {selectedParallel.map((title) => (
-                        <div key={title} className="mb-6 border-t pt-4">
-                            <h3 className="font-semibold mb-2">{title}</h3>
-                            {parallelPaperQuestions.map((q) => (
-                                <div key={`${title}-${q.id}`} className="flex flex-col gap-2 mb-2">
-                                    <p className={errors[`${title}-${q.id}`] ? "text-destructive font-medium" : ""}>
-                                        {q.text}{q.required && <span className="text-destructive">*</span>}
-                                    </p>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
-                                        {ratingScale.map((r) => (
-                                            <button
-                                                key={r.value}
-                                                type="button"
-                                                className={`px-3 py-1 rounded-lg border text-left ${ratings[`${title}-${q.id}`] === r.value
-                                                    ? "bg-primary text-primary-foreground"
-                                                    : "bg-background"
-                                                    }`}
-                                                onClick={() => handleRatingChange(`${title}-${q.id}`, r.value)}
-                                            >
-                                                {r.value} - {r.label}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
-                            <textarea
-                                className="w-full border rounded-lg p-2"
-                                rows={3}
-                                value={textAnswers[`${title}-feedback`] || ""}
-                                onChange={(e) => handleTextChange(`${title}-feedback`, e.target.value)}
-                            />
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                )}
 
                 {/* Part 6: Logistics */}
                 <div className="p-6 rounded-xl shadow bg-card text-card-foreground">
@@ -375,9 +454,10 @@ export function EvaluationComponent() {
 
                 <button
                     type="submit"
-                    className="px-6 py-2 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90"
+                    disabled={loading}
+                    className="px-6 py-2 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
                 >
-                    Submit Evaluation
+                    {loading ? "Submitting..." : "Submit Evaluation"}
                 </button>
             </form>
         </div>
