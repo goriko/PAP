@@ -37,7 +37,7 @@ import {
 import { Button } from "@/features/shared/components/base/button"
 
 // Menu items with role restrictions
-const getMenuItems = (userRole: UserRoleEnum) => {
+const getMenuItems = (userRole: UserRoleEnum, userId?: string) => {
 	const allItems = [
 		{
 			title: "Home",
@@ -99,15 +99,16 @@ const getMenuItems = (userRole: UserRoleEnum) => {
 				UserRoleEnumSchema.Enum.ADMIN,
 			],
 		},
-		{
-			title: "Evaluation",
-			url: "/",
-			icon: Clipboard,
-			roles: [
-				UserRoleEnumSchema.Enum.USER,
-			],
-		},
 	];
+
+	if (userId) {
+		allItems.push({
+			title: "Evaluation",
+			url: `/evaluation/${userId}`,
+			icon: Clipboard,
+			roles: [UserRoleEnumSchema.Enum.USER],
+		});
+	}
 
 	return allItems.filter((item) => item.roles.includes(userRole));
 };
@@ -121,8 +122,8 @@ export async function AppSidebar() {
 
 	const userName = session.data?.user.name;
 	const userRole = session.data?.user.role as UserRoleEnum;
-
-	const menuItems = getMenuItems(userRole);
+	const userId = session.data?.user.id;
+	const menuItems = getMenuItems(userRole, userId);
 
 	return (
 		<Sidebar collapsible="icon">
