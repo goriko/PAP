@@ -3,18 +3,16 @@ import { LogsService } from "@/infrastructure/server/services/logs.service";
 import { Logger } from "@/features/shared/lib/logger";
 import type { FullQrLog } from "@/features/terminal/components/terminal-page";
 
-interface EvaluationPageProps {
-    params: { userId: string };
-}
-
 export const dynamic = "force-dynamic";
 
-export default async function EvaluationPage({ params }: EvaluationPageProps) {
+export default async function EvaluationPage({ params, }: { params: Promise<{ userId: string }>; }) {
+    const { userId } = await params;
+
     const logsService = new LogsService(new Logger({ name: "ServerEvaluation" }));
     const allLogsRaw = await logsService.getLogs({ group: "qr", limit: 1000 });
     const userLogs: FullQrLog[] = allLogsRaw.filter((l) => {
         const logUserId = (l.content as any)?.context?.user?.userId;
-        return String(logUserId) === String(params.userId);
+        return String(logUserId) === String(userId);
     }) as FullQrLog[];
 
     const hasCheckedIn = userLogs.some((l) => {
