@@ -24,7 +24,7 @@ const initialFormData: FormData = {
 	role: UserRoleEnumSchema.Enum.USER,
 };
 
-const UserInputForm = () => {
+export default function UserInputForm({ onUserAdded }: { onUserAdded?: () => void }) {
 	const [formData, setFormData] = useState<FormData>(initialFormData);
 	const mutation = useRegisterUserManually();
 
@@ -39,6 +39,7 @@ const UserInputForm = () => {
 			onSuccess: (data) => {
 				toast.success(data.message);
 				setFormData(initialFormData);
+				onUserAdded?.();
 			},
 			onError: (error) => {
 				toast.error(error.message);
@@ -141,5 +142,3 @@ const UserInputForm = () => {
 		</form>
 	);
 };
-
-export default UserInputForm;

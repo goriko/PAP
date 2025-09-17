@@ -39,7 +39,7 @@ export function SetupPrompt({
 	};
 	return (
 		<Dialog open={open}>
-			<DialogContent>
+			<DialogContent className="max-w-md w-full flex flex-col">
 				<DialogHeader>
 					<DialogTitle>Setup Scanner</DialogTitle>
 				</DialogHeader>
@@ -51,12 +51,12 @@ export function SetupPrompt({
 						value={event}
 						onValueChange={(value) => onUpdate({ event: value, terminalId })}
 					>
-						<SelectTrigger>
-							<SelectValue placeholder="Choose event" />
+						<SelectTrigger className="w-full">
+							<SelectValue placeholder="Choose event" className="truncate" />
 						</SelectTrigger>
 						<SelectContent>
 							{VALID_EVENT_NAMES.map((ename) => (
-								<SelectItem key={ename} value={ename}>
+								<SelectItem key={ename} value={ename} className="whitespace-normal break-words max-w-xs">
 									{ename}
 								</SelectItem>
 							))}

@@ -16,6 +16,8 @@ export const metadata: Metadata = {
 	description: "PAP Annual Convention Registration System",
 	icons: {
 		icon: "/papIcon.png",
+		shortcut: "/papIcon.png",
+		apple: "/papIcon.png",
 	},
 };
 
