@@ -137,7 +137,7 @@ export function ScheduleComponent() {
                     <br />
                     <p className="whitespace-normal">Prof. Brigitte Khoury, PhD</p>
                     <span className="whitespace-normal">
-                      President-Elect, Internationl Union of Psychological
+                      President-Elect, International Union of Psychological
                       Societies
                     </span>
                   </TableCell>
@@ -154,6 +154,7 @@ export function ScheduleComponent() {
                       President, ASEAN regional Union of Psychological
                       Societies
                     </p>
+                    <br />
                     <span className="whitespace-normal">
                       Advancing Mental Health in ASEAN: Bridging Policy,
                       Practice, and Cultural Diversity
@@ -172,6 +173,7 @@ export function ScheduleComponent() {
                       Chief Executive Officer, American Psychological
                       Association
                     </p>
+                    <br />
                     <span className="whitespace-normal">
                       Scaling Public Health Approaches for Mental Health
                       Through Innovations in Policy, Community-Based Care
@@ -184,10 +186,11 @@ export function ScheduleComponent() {
                     <p className="whitespace-normal">11:00 am</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p className="whitespace-normal">Plenary Session 3</p>
+                    <p className="whitespace-normal">Plenary Session 2</p>
                     <br />
                     <p className="whitespace-normal">Dr. Debra Kawahara</p>
                     <p className="whitespace-normal">President, American Psychological Association</p>
+                    <br />
                     <span className="whitespace-normal">
                       Integrating Intersectionality and Feminist Principles
                       to Empower Diverse Populations
@@ -223,6 +226,7 @@ export function ScheduleComponent() {
                       the Philippines
                     </p>
                     <p className="whitespace-normal">Of Counsel, VBSP Law Offices</p>
+                    <br />
                     <span className="whitespace-normal">
                       The Law Meets Psychology: A Cross-Disciplinary Path to
                       Justice and Well-Being (The Philippine Experience)
@@ -234,7 +238,7 @@ export function ScheduleComponent() {
                     <p className="whitespace-normal">02:30 pm</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p className="whitespace-normal">Plenary Session 4</p>
+                    <p className="whitespace-normal">Plenary Session 3</p>
                     <br />
                     <p className="whitespace-normal">Dr. Rose Marie Clemenia</p>
                     <p className="whitespace-normal">
@@ -245,9 +249,9 @@ export function ScheduleComponent() {
                       2015 PRC Outstanding Professional of the Year in the
                       Field of Psychology
                     </p>
+                    <br />
                     <span className="whitespace-normal">
-                      Reflections on the Practice of Filipino Psychology for
-                      Human Development
+                      Philippine Perspective on Counseling PSychology: Future Opportunities for ASEAN'S Broader Mental Health Agenda
                     </span>
                   </TableCell>
                 </TableRow>
@@ -256,7 +260,7 @@ export function ScheduleComponent() {
                     <p className="whitespace-normal">03:30 pm</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p className="whitespace-normal">Plenary Session 5</p>
+                    <p className="whitespace-normal">Plenary Session 4</p>
                     <br />
                     <p className="whitespace-normal">Dr. Grace H. Aguiling-Dalisay</p>
                     <p className="whitespace-normal">
@@ -266,6 +270,7 @@ export function ScheduleComponent() {
                     <p className="whitespace-normal">
                       President and CEO, Center for Educational Measurement
                     </p>
+                    <br />
                     <span className="whitespace-normal">
                       Reflections on the Practice of Filipino Psychology for
                       Human Development
@@ -279,12 +284,11 @@ export function ScheduleComponent() {
                   <TableCell className="p-4 font-medium text-foreground">
                     <p className="whitespace-normal">Fellowship Night(Cocktails)</p>
                     <p className="whitespace-normal">Announcement of Official Results of Elections</p>
-                    <span className="whitespace-normal">Awarding of Certified Specialists</span>
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p className="whitespace-normal">8:00 am - 06:00 pm</p>
+                    <p className="whitespace-normal">8:00 pm - 06:00 pm</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
                     <p className="whitespace-normal">e-Poster Presentations</p>
@@ -349,7 +353,7 @@ export function ScheduleComponent() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p className="whitespace-normal">New Room 3</p>
+                        <p className="whitespace-normal">Yakal Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 3</p>
@@ -429,7 +433,11 @@ export function ScheduleComponent() {
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 7</p>
                         <br />
-                        <p className="font-bold text-1xl whitespace-normal">APA Panel</p>
+                        <p className="font-bold text-1xl whitespace-normal">Brian Riedesel & Ronal Brown (APA)</p>
+                        <br />
+                        <p className="font-bold text-1xl whitespace-normal">
+                          Interventions for Psychology in Health and Wellbeing: From Traditional to Modern
+                        </p>
                         <br />
                         <p className="whitespace-normal">Moderator: Carlos Buan</p>
                       </TableCell>
@@ -485,7 +493,7 @@ export function ScheduleComponent() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p className="whitespace-normal">Treasurers Hall 4</p>
+                        <p className="whitespace-normal">Narra Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Queer Justice and Advocacy in the Philippines</p><br />
@@ -585,7 +593,7 @@ export function ScheduleComponent() {
                         </p>
                         <br />
                         <p className="font-bold text-1xl whitespace-normal">
-                          The global Context of Psychology and Human Rights
+                          The Global Context of Psychology and Human Rights
                         </p>
                         <br />
                         <span className="whitespace-normal">Moderator: Ar-jay Perez</span>
@@ -593,7 +601,7 @@ export function ScheduleComponent() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p className="whitespace-normal">New Room 3</p>
+                        <p className="whitespace-normal">Yakal Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 3</p>
@@ -737,7 +745,7 @@ export function ScheduleComponent() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p className="whitespace-normal">Treasurers Hall 4</p>
+                        <p className="whitespace-normal">Narra Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Reimagining Pedagogical Futures: Innovations, Ethics, and AI in Psychology Learning and Teaching</p>
@@ -864,7 +872,7 @@ export function ScheduleComponent() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p className="whitespace-normal">New Room 3</p>
+                        <p className="whitespace-normal">Yakal Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 3</p>
@@ -966,7 +974,7 @@ export function ScheduleComponent() {
                         <p className="whitespace-normal">Treasurers Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p className="whitespace-normal">Tpproaches in Learning Cognitive Development of
+                        <p className="whitespace-normal">Approaches in Learning Cognitive Development of
                           Children and Adults</p>
                         <br />
                         <p className="whitespace-normal">Jericho Medel</p>
@@ -975,7 +983,7 @@ export function ScheduleComponent() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p className="whitespace-normal">Treasurers Hall 4</p>
+                        <p className="whitespace-normal">Narra Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Counseling Psychology and clinical Governance:
@@ -1086,7 +1094,7 @@ export function ScheduleComponent() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p className="whitespace-normal">New Room 3</p>
+                        <p className="whitespace-normal">Yakal Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 3</p>
@@ -1216,7 +1224,7 @@ export function ScheduleComponent() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p className="whitespace-normal">Treasurers Hall 4</p>
+                        <p className="whitespace-normal">Narra Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Psychology at the Forefront of Public Health</p>
@@ -1331,7 +1339,7 @@ export function ScheduleComponent() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p className="whitespace-normal">New Room 3</p>
+                        <p className="whitespace-normal">Yakal Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 3</p>
@@ -1450,7 +1458,7 @@ export function ScheduleComponent() {
                     </TableRow>
                     <TableRow>
                       <TableCell className="p-4 font-medium text-foreground">
-                        <p className="whitespace-normal">Treasurers Hall 4</p>
+                        <p className="whitespace-normal">Narra Hall 3</p>
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">From Fear to Flourishing Understanding Hope,
@@ -1506,14 +1514,6 @@ export function ScheduleComponent() {
                         <br />
                         <p className="whitespace-normal">Junix Delos Santos</p>
                         <p className="whitespace-normal">Teaching Psychology</p>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="p-4 font-medium text-foreground">
-                        <p className="whitespace-normal">4:00 pm</p>
-                      </TableCell>
-                      <TableCell className="p-4 font-medium text-foreground">
-                        <p className="whitespace-normal">Health Break</p>
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -1581,7 +1581,10 @@ export function ScheduleComponent() {
                   <TableCell className="p-4 font-medium text-foreground">
                     <p className="whitespace-normal">Learning Session 4</p>
                     <br />
-                    <p className="whitespace-normal">APA Panel</p>
+                    <p className="whitespace-normal">Raphael Gunner (APA)</p>
+                    <br />
+                    <p className="font-bold text-1xl whitespace-normal">Contemporary Tend in Clinical Practice: Reflections on my Journey from Interpretation to Experience</p>
+                    <br />
                     <p className="whitespace-normal">Moderator: Maria Isabel Lemen</p>
                   </TableCell>
                 </TableRow>
@@ -1632,7 +1635,7 @@ export function ScheduleComponent() {
                 </TableRow>
                 <TableRow>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p className="whitespace-normal">Seminary Hall 1</p>
+                    <p className="whitespace-normal">NArra Hall 3</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
                     <p className="whitespace-normal">Learning Session 2</p>
@@ -1668,7 +1671,10 @@ export function ScheduleComponent() {
                   <TableCell className="p-4 font-medium text-foreground">
                     <p className="whitespace-normal">Learning Session 4</p>
                     <br />
-                    <p className="whitespace-normal">APA Panel</p>
+                    <p className="whitespace-normal">Nancy Sidun (APA)</p>
+                    <br />
+                    <p className="font-bold text-1xl whitespace-normal">Change and Catastrophe: Gendered Impacts of the Lahaina Wildfire on Filipino Women</p>
+                    <br />
                     <p className="whitespace-normal">Moderator: Maria Isabel Lemen</p>
                   </TableCell>
                 </TableRow>
@@ -1752,7 +1758,7 @@ export function ScheduleComponent() {
                     <p className="whitespace-normal">Professional Regulatory Board of Psychology</p>
                     <p className="whitespace-normal">Chairperson</p>
                     <br />
-                    <p className="font-bold text-1xl whitespace-normal">Work, Culture, and Mental Health: Understanding Human Behavior in Diverse Contexts</p>
+                    <p className="font-bold text-1xl whitespace-normal">Shaping The Future of Professionals Psychology: The IPCP and Its Implications for Education, Career PAthways, Specialization, and Internal Mobility</p>
                   </TableCell>
                 </TableRow>
               </TableBody>
