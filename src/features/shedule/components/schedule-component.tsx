@@ -238,7 +238,7 @@ export function ScheduleComponent() {
                     <p className="whitespace-normal">02:30 pm</p>
                   </TableCell>
                   <TableCell className="p-4 font-medium text-foreground">
-                    <p className="whitespace-normal">Plenary Session 3</p>
+                    <p className="whitespace-normal">Plenary Session 4</p>
                     <br />
                     <p className="whitespace-normal">Dr. Rose Marie Clemenia</p>
                     <p className="whitespace-normal">
@@ -340,6 +340,9 @@ export function ScheduleComponent() {
                       </TableCell>
                       <TableCell className="p-4 font-medium text-foreground">
                         <p className="whitespace-normal">Learning Session 2</p>
+                        <br />
+                        <p className="whitespace-normal">Dr. Henndy Ginting</p>
+                        <p className="whitespace-normal">Licensed Psychologist, Indonesia</p>
                         <br />
                         <p className="whitespace-normal">Dr. Henndy Ginting</p>
                         <p className="whitespace-normal">Licensed Psychologist, Indonesia</p>
@@ -1442,6 +1445,18 @@ export function ScheduleComponent() {
                           Future</p>
                         <br />
                         <p className="whitespace-normal">Oliver B. Sta. Ana</p>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Treasurers Hall 3</p>
+                      </TableCell>
+                      <TableCell className="p-4 font-medium text-foreground">
+                        <p className="whitespace-normal">Strengthening Meaning, Wellbeing and Workplace
+                          Mental Health in the Filipino Context</p>
+                        <br />
+                        <p className="whitespace-normal">Abraham Linco</p>
+                        <p className="whitespace-normal">Industrial Organizational Psychology</p>
                       </TableCell>
                     </TableRow>
                     <TableRow>
