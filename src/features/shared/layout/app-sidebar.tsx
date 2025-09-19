@@ -110,7 +110,6 @@ const getMenuItems = (userRole: UserRoleEnum, userId?: string) => {
 	// 		roles: [UserRoleEnumSchema.Enum.USER],
 	// 	});
 	// }
-
 	return allItems.filter((item) => item.roles.includes(userRole));
 };
 
