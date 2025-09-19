@@ -15,10 +15,19 @@ import type { ScanResult } from "@/features/qr-code/components/scanner/types/sca
 import type { ConfirmationData } from "@/features/qr-code/components/scanner/types/confirmation-data";
 import { QrCodeLogSchema } from "@/features/logs/types/qr-code-log";
 import { useClaimUserKit } from "./data/use-claim-user-kit";
+import { useCheckInUserEvent } from "./data/use-check-in-user-event";
 import { toast } from "sonner";
 import { SetupPrompt } from "./setup-prompt";
 
-export function QRScannerPage() {
+// BroadcastChannel for notifying terminal page to refetch
+const checkInChannel = typeof window !== 'undefined' && 'BroadcastChannel' in window ? new BroadcastChannel('user-event-checkin') : null;
+// Helper to get eventId from event title
+function getEventIdByTitle(events: Event[], title: string): number | null {
+	const found = events.find(e => e.title === title);
+	return found ? found.id : null;
+}
+type Event = { id: number; title: string };
+export function QRScannerPage({ events }: { events: Event[] }) {
 	const [scanResult, setScanResult] = useState<ScanResult | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [cameraReady, setCameraReady] = useState(false);
@@ -26,9 +35,8 @@ export function QRScannerPage() {
 	const [showConfirmation, setShowConfirmation] = useState(false);
 	const [showSuccess, setShowSuccess] = useState(false);
 	const [scannerActive, setScannerActive] = useState(true);
-
-	const eventRef = useRef<string>("");
-	const terminalRef = useRef<string>("");
+	const [setupOpen, setSetupOpen] = useState(true);
+	const [isProcessing, setIsProcessing] = useState(false);
 	const [confirmationData, setConfirmationData] = useState<ConfirmationData>({
 		actionType: QRScanActionEnum.CHECK_IN,
 		event: "",
@@ -37,34 +45,9 @@ export function QRScannerPage() {
 		hasClaimedKit: false,
 	});
 
-	const [isProcessing, setIsProcessing] = useState(false);
-	const [setupOpen, setSetupOpen] = useState(true);
-
-	const mutation = useClaimUserKit();
-
-	const handleQrScan = async (userId: string) => {
-		try {
-			const res = await fetch(`/user/${userId}`);
-			const data = await res.json();
-
-			const updatedData: ConfirmationData = {
-				actionType: QRScanActionEnum.CHECK_IN,
-				event: eventRef.current || confirmationData.event || "",
-				terminalId: terminalRef.current || confirmationData.terminalId || "",
-				hasClaimedKit: Boolean(data.hasClaimedKit),
-				kitClaiming: Boolean(data.hasClaimedKit),
-			};
-
-			handleUpdateConfirmationData(updatedData);
-			return updatedData;
-		} catch (err) {
-			Logger.error("Failed to fetch user data:", { err });
-			setError("Failed to fetch user data. Please try again.");
-			return null;
-		}
-	};
-
-	// Check camera permissions on component mount
+	const kitClaimMutation = useClaimUserKit();
+	const checkInUserEventMutation = useCheckInUserEvent();
+	// Camera permission check
 	useEffect(() => {
 		const checkCameraPermission = async () => {
 			try {
@@ -72,7 +55,6 @@ export function QRScannerPage() {
 					video: true,
 				});
 				stream.getTracks().forEach((track) => track.stop());
-
 				setPermissionStatus("granted");
 				setCameraReady(true);
 			} catch (err) {
@@ -81,99 +63,136 @@ export function QRScannerPage() {
 				setError(`Camera access denied: ${err}`);
 			}
 		};
-
 		checkCameraPermission();
 	}, []);
 
-	const handleScanResult = async (detectedCodes: any[]) => {
-		if (!scannerActive || showConfirmation || showSuccess) return;
-
-		if (detectedCodes && detectedCodes.length > 0) {
-			const firstCode = detectedCodes[0];
-
-			try {
-				const decryptedData = decryptUserData(firstCode.rawValue);
-
-				const result: ScanResult = {
-					rawData: firstCode.rawValue,
-					decryptedData,
-					timestamp: new Date(),
-				};
-
-				setScanResult(result);
-				setError(null);
-				setScannerActive(false);
-
-				const updatedConfirmation = await handleQrScan(decryptedData.userId);
-				if (!updatedConfirmation) return;
-
-				const selectedEvent = (eventRef.current || "").toLowerCase();
-				if (
-					selectedEvent === "main event" ||
-					selectedEvent === "pre-convention"
-				) {
-					setShowConfirmation(true);
-				} else {
-					setShowConfirmation(false);
-
-					const finalConfirmation: ConfirmationData = {
-						...updatedConfirmation,
-						event:
-							updatedConfirmation.event ||
-							eventRef.current ||
-							confirmationData.event ||
-							"",
-						terminalId:
-							updatedConfirmation.terminalId ||
-							terminalRef.current ||
-							confirmationData.terminalId ||
-							"",
-					};
-
-					handleUpdateConfirmationData(finalConfirmation);
-					await doConfirmAction(finalConfirmation, result);
-					setScanResult(null);
-					setScannerActive(true);
-				}
-			} catch (e) {
-				handleScanError(e);
-			}
-		}
+	// SetupPrompt handlers
+	const handleUpdateConfirmationData = (data: Partial<ConfirmationData>) => {
+		setConfirmationData((prev) => ({ ...prev, ...data }));
 	};
-
+	const handleSetupConfirm = () => {
+		setSetupOpen(false);
+	};
+	// Scanner error handler
 	const handleScanError = (error: unknown) => {
 		Logger.error("QR Scanner error:", { error });
-
 		const errorMessage =
 			error && typeof error === "object" && "message" in error
 				? (error as { message: string }).message
 				: "Unknown scanner error";
-
 		setError(`Scanner error: ${errorMessage}`);
 	};
 
-	const doConfirmAction = async (
-		finalData: ConfirmationData,
-		finalResult: ScanResult,
-	) => {
-		setIsProcessing(true);
-
+	// Fetch user data for confirmation
+	const fetchUserConfirmation = async (userId: string) => {
 		try {
-			const context = QrCodeLogSchema.parse({
-				user: finalResult.decryptedData,
-				confirmationData: finalData,
-			});
+			const res = await fetch(`/user/${userId}`);
+			const data = await res.json();
+			const claimed =
+				typeof data.hasClaimedKit === "boolean"
+					? data.hasClaimedKit
+					: typeof data.has_claimed_kit === "boolean"
+						? data.has_claimed_kit
+						: false;
+			return {
+				hasClaimedKit: claimed,
+				kitClaiming: claimed,
+			};
+		} catch (err) {
+			Logger.error("Failed to fetch user data:", { err });
+			setError("Failed to fetch user data. Please try again.");
+			return null;
+		}
+	};
 
-			Logger.info(`QR Scanned at Terminal ${finalData.terminalId}`, {
-				group: LOG_GROUPS.QR,
-				context,
-			});
+	// Helper: check if event is a main event or pre-convention
+	const isMainOrPreConvention = (eventStr: string) => {
+		const lower = eventStr.toLowerCase();
+		return (
+			lower.includes("main event day 1") ||
+			lower.includes("main event day 2") ||
+			lower.includes("main event day 3") ||
+			lower.includes("pre-convention")
+		);
+	};
 
-			mutation.mutate({
-				userId: finalResult.decryptedData.userId,
-				hasClaimedKit: finalData.kitClaiming,
-			});
+	// Confirm action handler
+	const doConfirmAction = async (finalData: ConfirmationData, finalResult: ScanResult, skipLog?: boolean) => {
+		setIsProcessing(true);
+		try {
+			let updatedConfirmationData = finalData;
+			// Always upsert user_event check-in for all events, using correct eventId
+			const eventId = getEventIdByTitle(events, finalData.event);
+			if (eventId) {
+				checkInUserEventMutation.mutate({
+					userId: finalResult.decryptedData.userId,
+					eventId,
+					terminalId: finalData.terminalId,
+				}, {
+					onSuccess: () => {
+						checkInChannel && checkInChannel.postMessage({ type: 'checkin', eventId, terminalId: finalData.terminalId });
+					}
+				});
+			}
+			// Only mutate kit claim for main/pre-convention events
+			if (isMainOrPreConvention(finalData.event)) {
+				await kitClaimMutation.mutateAsync({
+					userId: finalResult.decryptedData.userId,
+					hasClaimedKit: finalData.kitClaiming,
+				});
+				// Broadcast after kit claim as well
+				if (eventId) {
+					checkInChannel && checkInChannel.postMessage({ type: 'kitclaim', eventId, terminalId: finalData.terminalId });
+				}
+				// Refetch user data and update kit status in UI and for logging
+				const userConfirmation = await fetchUserConfirmation(finalResult.decryptedData.userId);
 
+				// If event is NOT main/preconvention, auto-check-in and skip confirmation/setup
+				const eventStr = confirmationData.event || "";
+				const isMain = isMainOrPreConvention(eventStr);
+				if (!isMain) {
+					// Auto check-in
+					const eventId = getEventIdByTitle(events, eventStr);
+					if (eventId) {
+						checkInUserEventMutation.mutate({
+							userId: finalResult.decryptedData.userId,
+							eventId,
+							terminalId: confirmationData.terminalId,
+						}, {
+							onSuccess: () => {
+								// Broadcast to terminal page to refetch
+								checkInChannel && checkInChannel.postMessage({ type: 'checkin', eventId, terminalId: confirmationData.terminalId });
+								toast.success("Checked in!");
+								setShowSuccess(true);
+								setTimeout(() => setShowSuccess(false), 2000);
+								setScanResult(null);
+								setScannerActive(true);
+							}
+						});
+					}
+					return;
+				}
+				// Otherwise, show confirmation as usual
+				setShowConfirmation(true);
+				if (userConfirmation) {
+					updatedConfirmationData = {
+						...finalData,
+						hasClaimedKit: userConfirmation.hasClaimedKit,
+						kitClaiming: userConfirmation.kitClaiming,
+					};
+					setConfirmationData((prev) => ({ ...prev, hasClaimedKit: userConfirmation.hasClaimedKit, kitClaiming: userConfirmation.kitClaiming }));
+				}
+			}
+			if (!skipLog) {
+				const context = QrCodeLogSchema.parse({
+					user: finalResult.decryptedData,
+					confirmationData: updatedConfirmationData,
+				});
+				Logger.info(`QR Scanned at Terminal ${finalData.terminalId}`, {
+					group: LOG_GROUPS.QR,
+					context,
+				});
+			}
 			toast.success("Action processed successfully!");
 			setShowConfirmation(false);
 			setShowSuccess(true);
@@ -186,64 +205,92 @@ export function QRScannerPage() {
 		}
 	};
 
-	const handleConfirmAction = async () => {
-		if (!scanResult) {
-			return;
+	// Scan result handler
+	const handleScanResult = async (detectedCodes: any[]) => {
+		if (!scannerActive || showConfirmation || showSuccess) return;
+		if (detectedCodes && detectedCodes.length > 0) {
+			const firstCode = detectedCodes[0];
+			try {
+				const decryptedData = decryptUserData(firstCode.rawValue);
+				const eventStr = confirmationData.event || "";
+				const isMain = isMainOrPreConvention(eventStr);
+				if (!isMain) {
+					// Auto check-in for non-main/preconvention events
+					const eventId = getEventIdByTitle(events, eventStr);
+					if (eventId) {
+						checkInUserEventMutation.mutate({
+							userId: decryptedData.userId,
+							eventId,
+							terminalId: confirmationData.terminalId,
+						}, {
+							onSuccess: () => {
+								checkInChannel && checkInChannel.postMessage({ type: 'checkin', eventId, terminalId: confirmationData.terminalId });
+								toast.success("Checked in!");
+								setShowSuccess(true);
+								setTimeout(() => setShowSuccess(false), 2000);
+								setScanResult(null);
+								setScannerActive(true);
+							}
+						});
+					}
+					return;
+				}
+				// For main/preconvention events, show confirmation/setup
+				const result: ScanResult = {
+					rawData: firstCode.rawValue,
+					decryptedData,
+					timestamp: new Date(),
+				};
+				setScanResult(result);
+				setError(null);
+				setScannerActive(false);
+				// Fetch user kit status
+				const userConfirmation = await fetchUserConfirmation(decryptedData.userId);
+				if (!userConfirmation) return;
+				setConfirmationData((prev) => ({
+					...prev,
+					hasClaimedKit: userConfirmation.hasClaimedKit,
+					kitClaiming: userConfirmation.kitClaiming,
+				}));
+				setShowConfirmation(true);
+			} catch (e) {
+				handleScanError(e);
+			}
 		}
+	};
+
+	// ConfirmationSheet handlers
+	const handleUpdateShowConfirmation = (open: boolean) => {
+		setShowConfirmation(open);
+		if (!open) {
+			setScanResult(null);
+			setScannerActive(true);
+		}
+	};
+	const handleConfirmAction = async () => {
+		if (!scanResult) return;
 		await doConfirmAction(confirmationData, scanResult);
 		setScanResult(null);
 		setScannerActive(true);
 	};
-
 	const handleCancelScan = () => {
 		setShowConfirmation(false);
-		setScannerActive(true);
 		setScanResult(null);
-		setConfirmationData((prev) => ({
-			actionType: QRScanActionEnum.CHECK_IN,
-			event: prev.event,
-			terminalId: prev.terminalId,
-			kitClaiming: false,
-			hasClaimedKit: false,
-		}));
-	};
-
-	const handleUpdateConfirmationData = (data: Partial<ConfirmationData>) => {
-		if (data.event !== undefined) {
-			eventRef.current = data.event;
-		}
-		if (data.terminalId !== undefined) {
-			terminalRef.current = data.terminalId;
-		}
-		setConfirmationData((prev) => ({ ...prev, ...data }));
-	};
-
-	const handleUpdateShowConfirmation = (isOpen: boolean) => {
-		if (!isOpen) {
-			handleCancelScan();
-		}
-
-		setShowConfirmation(isOpen);
-	};
-
-	const handleSetupConfirm = () => {
-		setSetupOpen(false); // close the dialog
+		setScannerActive(true);
 	};
 
 	return (
-		<div className="col-span-full flex flex-col">
-			<div className="flex flex-col space-y-4 p-4 sm:space-y-6 sm:p-6">
-				<QRScannerHeader />
-
-				<CameraStatusCard
-					permissionStatus={permissionStatus}
-					terminalId={confirmationData.terminalId}
-					event={confirmationData.event}
-				/>
-
-				{error && <ErrorCard error={error} />}
-				{showSuccess && <SuccessCard />}
-
+		<div className="flex flex-col space-y-4 p-4 sm:space-y-6 sm:p-6">
+			<QRScannerHeader />
+			<CameraStatusCard
+				permissionStatus={permissionStatus}
+				terminalId={confirmationData.terminalId}
+				event={confirmationData.event}
+			/>
+			{error && <ErrorCard error={error} />}
+			{showSuccess && <SuccessCard />}
+			{/* Only allow scanning if event and terminalId are set */}
+			{confirmationData.event && confirmationData.terminalId ? (
 				<ScannerCard
 					cameraReady={cameraReady}
 					permissionStatus={permissionStatus}
@@ -252,32 +299,27 @@ export function QRScannerPage() {
 					scannerActive={scannerActive}
 					showSuccess={showSuccess}
 				/>
-
-				<TroubleshootingCard />
-
-				{["main event", "pre-convention"].includes(
-					(eventRef.current || confirmationData.event || "").toLowerCase(),
-				) && (
-					<ConfirmationSheet
-						open={showConfirmation}
-						onOpenChange={handleUpdateShowConfirmation}
-						scanResult={scanResult}
-						confirmationData={confirmationData}
-						onUpdateData={handleUpdateConfirmationData}
-						onConfirm={handleConfirmAction}
-						onCancel={handleCancelScan}
-						isProcessing={isProcessing}
-					/>
-				)}
-
-				<SetupPrompt
-					open={setupOpen}
-					event={confirmationData.event}
-					terminalId={confirmationData.terminalId}
-					onUpdate={handleUpdateConfirmationData}
-					onConfirm={handleSetupConfirm}
-				/>
-			</div>
+			) : null}
+			<TroubleshootingCard />
+			<ConfirmationSheet
+				open={showConfirmation}
+				onOpenChange={handleUpdateShowConfirmation}
+				scanResult={scanResult}
+				confirmationData={confirmationData}
+				onUpdateData={handleUpdateConfirmationData}
+				onConfirm={handleConfirmAction}
+				onCancel={handleCancelScan}
+				isProcessing={isProcessing}
+			/>
+			{/* Always show SetupPrompt if event or terminalId is not set */}
+			<SetupPrompt
+				open={setupOpen || !confirmationData.event || !confirmationData.terminalId}
+				event={confirmationData.event}
+				terminalId={confirmationData.terminalId}
+				onUpdate={handleUpdateConfirmationData}
+				onConfirm={handleSetupConfirm}
+				events={events}
+			/>
 		</div>
 	);
 }
