@@ -172,7 +172,7 @@ export function ScheduleComponent() {
                     <p className="whitespace-normal">
                       Chief Executive Officer, American Psychological
                       Association
-                    </p
+                    </p>
                     <br />
                     <span className="whitespace-normal">
                       Scaling Public Health Approaches for Mental Health
