@@ -89,27 +89,27 @@ const getMenuItems = (userRole: UserRoleEnum, userId?: string) => {
 				UserRoleEnumSchema.Enum.ADMIN,
 			],
 		},
-		{
-			title: "Souvenir",
-			url: "https://heyzine.com/flip-book/f899f08b83.html?fbclid=IwY2xjawMqr-5leHRuA2FlbQIxMABicmlkETE4Z1JOY0hvbnRERlRuc2JYAR6x2Jg0sU2GWe48XEbPw4E71isiKUopUbqbnoY3eOO1nznEJlJCzwgEf-yJ2g_aem_04k5fAnzd1zAsSQXFi29xQ",
-			icon: Gift,
-			roles: [
-				UserRoleEnumSchema.Enum.USER,
-				UserRoleEnumSchema.Enum.STAFF,
-				UserRoleEnumSchema.Enum.ADMIN,
-			],
-		},
+		//temporarily removed for live
+		// {
+		// 	title: "Souvenir",
+		// 	url: "https://heyzine.com/flip-book/648597a8bd.html?fbclid=IwY2xjawM3vKdleHRuA2FlbQIxMQABHigrkNW6xrg3RzghSpajraSVvhuOUUUAE1sEO8fluUYUTl-CnNZ994yd5vBK_aem_NhByHzbg-keQQlV_vf0k9g",
+		// 	icon: Gift,
+		// 	roles: [
+		// 		UserRoleEnumSchema.Enum.USER,
+		// 		UserRoleEnumSchema.Enum.STAFF,
+		// 		UserRoleEnumSchema.Enum.ADMIN,
+		// 	],
+		// },
 	];
-
-	if (userId) {
-		allItems.push({
-			title: "Evaluation",
-			url: `/evaluation/${userId}`,
-			icon: Clipboard,
-			roles: [UserRoleEnumSchema.Enum.USER],
-		});
-	}
-
+	//temporarily removed for live
+	// if (userId) {
+	// 	allItems.push({
+	// 		title: "Evaluation",
+	// 		url: `/evaluation/${userId}`,
+	// 		icon: Clipboard,
+	// 		roles: [UserRoleEnumSchema.Enum.USER],
+	// 	});
+	// }
 	return allItems.filter((item) => item.roles.includes(userRole));
 };
 
