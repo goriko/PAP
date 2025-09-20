@@ -3,20 +3,24 @@ import { NextRequest, NextResponse } from "next/server";
 import db from "@/infrastructure/db";
 import { userEvent } from "@/infrastructure/db/schema/auth.schema";
 
-// GET /api/user-event?eventId=123
+// GET /api/user-event?eventId=123&userId=abc&terminalId=xyz
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
+    const userId = searchParams.get("userId");
     const eventId = searchParams.get("eventId");
     const terminalId = searchParams.get("terminalId");
-    if (!eventId) {
-        return NextResponse.json({ error: "Missing eventId" }, { status: 400 });
+
+    if (!userId && !eventId && !terminalId) {
+        return NextResponse.json({ error: "At least one filter required" }, { status: 400 });
     }
-    const filters = [eq(userEvent.eventId, Number(eventId))];
-    if (terminalId) {
-        filters.push(eq(userEvent.terminalId, terminalId));
-    }
-    const whereClause = and(...filters);
-    const rows = await db.select().from(userEvent).where(whereClause);
+
+    const filters = [];
+    if (userId) filters.push(eq(userEvent.userId, userId));
+    if (eventId) filters.push(eq(userEvent.eventId, Number(eventId)));
+    if (terminalId) filters.push(eq(userEvent.terminalId, terminalId));
+
+    const rows = await db.select().from(userEvent).where(and(...filters));
+
     return NextResponse.json(rows);
 }
 // POST /api/user-event
