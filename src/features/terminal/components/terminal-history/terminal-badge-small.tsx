@@ -1,4 +1,24 @@
-import type { FullQrLog } from "../terminal-page";
+type FullQrLog = {
+	content: {
+		context: {
+			user: {
+				userId: string;
+				name?: string;
+				email?: string;
+				photoUrl?: string;
+				[key: string]: any;
+			};
+			confirmationData: {
+				event: string;
+				hasClaimedKit?: boolean;
+				actionType: string;
+				[key: string]: any;
+			};
+			[key: string]: any;
+		};
+		time: string;
+	};
+};
 
 export function TerminalBadgeSmall({ log }: { log: FullQrLog }) {
 	const user = log.content.context.user;
