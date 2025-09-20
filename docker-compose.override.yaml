@@ -1,7 +1,7 @@
 services:
   app:
     deploy:
-      replicas: 3
+      replicas: 13
     networks:
       coolify: null
     container_name: !reset null
