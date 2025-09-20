@@ -10,7 +10,7 @@
     "dev": "tsx run.ts",
     "build:client": "next build",
     "build:server": "tsup",
-    "ci": "pnpm run db:push && pnpm run build",
+    "ci": "pnpm run db:migrate && pnpm run build",
     "build": "dotenvx run -- concurrently --kill-others-on-fail -n client,server -c magenta,cyan \"pnpm run build:client\" \"pnpm run build:server\"",
     "start:client": "next start",
     "start:server": "dotenvx run -- cross-var \"node dist/index.mjs | pino-postgres --connection $DB_URL --pass-through\"",
