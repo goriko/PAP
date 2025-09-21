@@ -6,15 +6,11 @@ export class EvaluationService {
         userId: string;
         ratings: Record<string, number>;
         textAnswers?: Record<string, string>;
-        selectedSessions?: string[];
-        selectedParallel?: string[];
     }) {
         return await db.insert(evaluation).values({
             userId: data.userId,
             ratings: data.ratings,
-            textAnswers: data.textAnswers,
-            selectedSessions: data.selectedSessions ?? [],
-            selectedParallel: data.selectedParallel ?? [],
+            textAnswers: data.textAnswers
         });
     }
 }
