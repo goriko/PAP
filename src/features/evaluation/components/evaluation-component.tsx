@@ -1,6 +1,5 @@
 "use client";
 
-import { FullQrLog } from "@/features/terminal/components/terminal-page";
 import React, { useState } from "react";
 import { saveEvaluationAction } from "@/infrastructure/server/actions/save-evaluation.action";
 
@@ -26,7 +25,12 @@ interface TextAnswersState {
 }
 
 interface EvaluationProps {
-    userLogs: FullQrLog[];
+    user: {
+        id: string;
+        name: string;
+        email: string;
+    };
+    attendedEvents: { eventId: number; title: string | null }[];
 }
 
 const ratingScale = [
@@ -78,12 +82,13 @@ const sections: Section[] = [
 ];
 
 // Learning Sessions (Part 4)
+// update the titles and ids to match the data in event_name table
 const learningSessions = [
-    { id: "A1", title: "Dialogical and Embodied Approaches to Feminist Counseling: Transformative Healing from Sexual Violence (Francis Gevers Hall, Diego Silang Bldg.)" },
-    { id: "A2", title: "Rethinking Psychology Curriculum: Considerations for Promoting Philippine Psychology (P700, Waldo Perfecto Bldg.)" },
-    { id: "A3", title: "Psychological Incapacity in Court Annulment Cases (Center for Culture and the Arts)" },
-    { id: "B1", title: "RACE Against Suicide Toolkit: A Gatekeeper Training Toolkit for Suicide Prevention in Schools (Francis Gevers Hall, Diego Silang Bldg.)" },
-    { id: "B2", title: "The Application of Choice Theory Reality Therapy in Facilitating Support Groups for Postpartum Mothers (Center for Culture and the Arts)" },
+    { id: "1", title: "Pre-Convention" },
+    { id: "2", title: "Main Event Day 1" },
+    { id: "5", title: "The Important Role Psychologists Play in Sports" },
+    { id: "6", title: "Assessment of Personality Styles and Disorders" },
+    { id: "3", title: "Main Event Day 2" },
     { id: "B3", title: "Enhancing Awareness And Dialogue By Utilizing Dreams, Fairy Tales And Identification-Projection Experiments (P701, Waldo Perfecto Bldg.)" },
     { id: "C1", title: "Designing and Facilitating Safe Spaces for Young Women, Men, and LGBT+ Youth (P701, Waldo Perfecto Bldg.)" },
     { id: "C2", title: "Proposing a Philippine Journal of Psychology Special Issue (Center for Culture and the Arts)" },
@@ -131,39 +136,13 @@ const logisticsQuestions: Question[] = [
     { id: "log-9", text: "SLU classrooms and facilities were adequate", required: true },
 ];
 
-export function EvaluationComponent({ userLogs }: EvaluationProps) {
+export function EvaluationComponent({ user, attendedEvents }: EvaluationProps) {
     const [ratings, setRatings] = useState<RatingsState>({});
     const [textAnswers, setTextAnswers] = useState<TextAnswersState>({});
     const [selectedSessions, setSelectedSessions] = useState<string[]>([]);
     const [selectedParallel, setSelectedParallel] = useState<string[]>([]);
     const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
     const [loading, setLoading] = useState(false);
-    console.log(userLogs);
-    const hasCheckedIn = userLogs.some(
-        (l) => l.content.context.confirmationData.actionType === "check-in"
-    );
-
-    // Find learning sessions the user attended
-    const attendedSessions = userLogs
-        .filter((l) => l.content.context.confirmationData.actionType === "check-in")
-        .map((l) => {
-            const eventTitle = l.content.context.confirmationData.event;
-            const session = learningSessions.find(
-                (s) => s.id === eventTitle || s.title === eventTitle
-            );
-            return session?.id;
-        })
-        .filter(Boolean) as string[];
-
-    if (!hasCheckedIn) {
-        return (
-            <div className="p-6 text-center">
-                <p className="text-xl font-semibold text-destructive">
-                    You must check in first before answering the evaluation.
-                </p>
-            </div>
-        );
-    }
 
     const handleRatingChange = (questionId: string, value: number) => {
         setRatings((prev) => ({ ...prev, [questionId]: value }));
@@ -190,24 +169,15 @@ export function EvaluationComponent({ userLogs }: EvaluationProps) {
     const validateForm = () => {
         const newErrors: { [key: string]: boolean } = {};
 
-        [...sections, { id: "logistics", title: "PART 6", questions: logisticsQuestions }].forEach((section) => {
-            section.questions.forEach((q) => {
-                if (q.required && (ratings[q.id] === null || ratings[q.id] === undefined)) {
-                    newErrors[q.id] = true;
-                }
-            });
-        });
-        attendedSessions.forEach((sessionId) => {
-            learningSessionQuestions.forEach((q) => {
-                const key = `${sessionId}-${q.id}`;
-                if (q.required && (ratings[key] === null || ratings[key] === undefined)) {
-                    newErrors[key] = true;
-                }
-            });
-            if (!textAnswers[`${sessionId}-feedback`] || textAnswers[`${sessionId}-feedback`].trim() === "") {
-                newErrors[`${sessionId}-feedback`] = true;
+        [...sections, { id: "logistics", title: "PART 6", questions: logisticsQuestions }].forEach(
+            (section) => {
+                section.questions.forEach((q) => {
+                    if (q.required && (ratings[q.id] === null || ratings[q.id] === undefined)) {
+                        newErrors[q.id] = true;
+                    }
+                });
             }
-        });
+        );
 
         if (!textAnswers["overall-comments"] || textAnswers["overall-comments"].trim() === "") {
             newErrors["overall-comments"] = true;
@@ -221,28 +191,23 @@ export function EvaluationComponent({ userLogs }: EvaluationProps) {
         e.preventDefault();
         if (!validateForm()) return;
 
-        const userId = userLogs[0]?.content.context.user.userId;
-        if (!userId) {
-            alert("User ID not found, cannot submit evaluation.");
-            return;
-        }
+        const sanitizedRatings: Record<string, number> = Object.fromEntries(
+            Object.entries(ratings).map(([k, v]) => [k, v ?? 0])
+        );
 
         const evaluationData = {
-            userId,
-            ratings: Object.fromEntries(
-                Object.entries(ratings).filter(([, value]) => value !== null)
-            ) as Record<string, number>,
+            userId: user.id,
+            ratings: sanitizedRatings,
             textAnswers,
-            selectedSessions,
+            // selectedSessions,
             selectedParallel,
             submittedAt: new Date().toISOString(),
         };
 
         try {
             setLoading(true);
-            const result = await saveEvaluationAction(evaluationData);
+            await saveEvaluationAction(evaluationData);
             alert("Evaluation submitted. Thank you!");
-
             setRatings({});
             setTextAnswers({});
             setSelectedSessions([]);
@@ -292,7 +257,8 @@ export function EvaluationComponent({ userLogs }: EvaluationProps) {
                                 <div>
                                     <label className="block mb-2">{section.openEnded}</label>
                                     <textarea
-                                        className={`w-full border rounded-lg p-2 ${errors[section.id] ? "border-destructive" : ""}`}
+                                        className={`w-full border rounded-lg p-2 ${errors[section.id] ? "border-destructive" : ""
+                                            }`}
                                         rows={3}
                                         value={textAnswers[section.id] || ""}
                                         onChange={(e) => handleTextChange(section.id, e.target.value)}
@@ -304,106 +270,110 @@ export function EvaluationComponent({ userLogs }: EvaluationProps) {
                 ))}
 
                 {/* Part 4: Learning Sessions */}
-                {attendedSessions.length > 0 && (
-                    <div className="p-6 rounded-xl shadow bg-card text-card-foreground">
-                        <h2 className="text-xl font-semibold mb-4">PART 4: Learning Sessions</h2>
+                <div className="p-6 rounded-xl shadow bg-card text-card-foreground">
+                    <h2 className="text-xl font-semibold mb-4">PART 4: Learning Sessions</h2>
 
-                        {attendedSessions.map((sessionId) => {
-                            const session = learningSessions.find((s) => s.id === sessionId);
-                            if (!session) return null;
+                    {attendedEvents.length === 0 ? (
+                        <p className="text-muted-foreground">No learning sessions attended.</p>
+                    ) : (
+                        attendedEvents
+                            // Only include sessions that exist in learningSessions
+                            .filter(ev => learningSessions.some(ls => ls.id === ev.eventId.toString()))
+                            .map(ev => {
+                                const session = learningSessions.find(ls => ls.id === ev.eventId.toString());
+                                if (!session) return null;
 
-                            return (
-                                <div key={sessionId} className="mb-6 border-t pt-4">
-                                    <h3 className="font-semibold mb-2">{session.title}</h3>
+                                return (
+                                    <div key={session.id} className="mb-6 p-4 rounded-lg border bg-background">
+                                        <p className="font-medium mb-4">{session.title}</p>
 
-                                    {learningSessionQuestions.map((q) => (
-                                        <div key={`${sessionId}-${q.id}`} className="flex flex-col gap-2 mb-2">
-                                            <p className={errors[`${sessionId}-${q.id}`] ? "text-destructive font-medium" : ""}>
-                                                {q.text}{q.required && <span className="text-destructive">*</span>}
-                                            </p>
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
-                                                {ratingScale.map((r) => (
-                                                    <button
-                                                        key={r.value}
-                                                        type="button"
-                                                        className={`px-3 py-1 rounded-lg border text-left ${ratings[`${sessionId}-${q.id}`] === r.value
-                                                            ? "bg-primary text-primary-foreground"
-                                                            : "bg-background"
-                                                            }`}
-                                                        onClick={() => handleRatingChange(`${sessionId}-${q.id}`, r.value)}
-                                                    >
-                                                        {r.value} - {r.label}
-                                                    </button>
-                                                ))}
+                                        {/* Questions */}
+                                        {learningSessionQuestions.map((q) => (
+                                            <div key={q.id} className="flex flex-col gap-2 mb-3">
+                                                <p className={errors[`session-${session.id}-${q.id}`] ? "text-destructive font-medium" : ""}>
+                                                    {q.text}{q.required && <span className="text-destructive">*</span>}
+                                                </p>
+                                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
+                                                    {ratingScale.map((r) => (
+                                                        <button
+                                                            key={r.value}
+                                                            type="button"
+                                                            className={`px-3 py-1 rounded-lg border text-left ${ratings[`session-${session.id}-${q.id}`] === r.value
+                                                                ? "bg-primary text-primary-foreground"
+                                                                : "bg-background"
+                                                                }`}
+                                                            onClick={() =>
+                                                                handleRatingChange(`session-${session.id}-${q.id}`, r.value)
+                                                            }
+                                                        >
+                                                            {r.value} - {r.label}
+                                                        </button>
+                                                    ))}
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
 
-                                    {/* Feedback required */}
-                                    <label
-                                        className={errors[`${sessionId}-feedback`] ? "text-destructive font-medium" : ""}
-                                    >
-                                        Additional comments for this session <span className="text-destructive">*</span>
-                                    </label>
-                                    <textarea
-                                        className={`w-full border rounded-lg p-2 ${errors[`${sessionId}-feedback`] ? "border-destructive" : ""
-                                            }`}
-                                        rows={3}
-                                        value={textAnswers[`${sessionId}-feedback`] || ""}
-                                        onChange={(e) => handleTextChange(`${sessionId}-feedback`, e.target.value)}
-                                    />
-                                </div>
-                            );
-                        })}
-                    </div>
-                )}
-
-
-                {/* Part 5: Parallel Papers */}
-                {attendedSessions.length > 0 && (
-                    <div className="p-6 rounded-xl shadow bg-card text-card-foreground">
-                        <h2 className="text-xl font-semibold mb-4">PART 5: Parallel Paper Presentations</h2>
-                        <input
-                            type="text"
-                            placeholder="Enter title of presentation"
-                            className="border rounded-lg p-2 w-full mb-4"
-                            onBlur={(e) => handleAddParallel(e.target.value)}
-                        />
-                        {selectedParallel.map((title) => (
-                            <div key={title} className="mb-6 border-t pt-4">
-                                <h3 className="font-semibold mb-2">{title}</h3>
-                                {parallelPaperQuestions.map((q) => (
-                                    <div key={`${title}-${q.id}`} className="flex flex-col gap-2 mb-2">
-                                        <p className={errors[`${title}-${q.id}`] ? "text-destructive font-medium" : ""}>
-                                            {q.text}{q.required && <span className="text-destructive">*</span>}
-                                        </p>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
-                                            {ratingScale.map((r) => (
-                                                <button
-                                                    key={r.value}
-                                                    type="button"
-                                                    className={`px-3 py-1 rounded-lg border text-left ${ratings[`${title}-${q.id}`] === r.value
-                                                        ? "bg-primary text-primary-foreground"
-                                                        : "bg-background"
-                                                        }`}
-                                                    onClick={() => handleRatingChange(`${title}-${q.id}`, r.value)}
-                                                >
-                                                    {r.value} - {r.label}
-                                                </button>
-                                            ))}
+                                        {/* Comments for the session */}
+                                        <div className="mt-4">
+                                            <label className="block mb-2 font-medium">How else can the facilitator improve in their delivery?</label>
+                                            <textarea
+                                                placeholder="Your comments..."
+                                                value={textAnswers[`session-comments-${session.id}`] || ""}
+                                                onChange={(e) =>
+                                                    handleTextChange(`session-comments-${session.id}`, e.target.value)
+                                                }
+                                                className="w-full border rounded-lg p-2"
+                                                rows={3}
+                                            />
                                         </div>
                                     </div>
-                                ))}
+                                );
+                            })
+                    )}
+                </div>
+
+                {/* Part 5: Parallel Papers */}
+                <div className="p-6 rounded-xl shadow bg-card text-card-foreground">
+                    <h2 className="text-xl font-semibold mb-4">PART 5: Parallel Papers</h2>
+                    {attendedEvents
+                        .filter(ev => ev.title?.toLowerCase().includes("parallel"))
+                        .map(ev => (
+                            <div key={ev.eventId} className="mb-6">
+                                <p className="font-medium mb-2">{ev.title}</p>
+                                <div className="flex gap-2">
+                                    {ratingScale.map((num) => (
+                                        <button
+                                            key={num.value}
+                                            className={`px-3 py-1 rounded ${ratings[`session-${ev.eventId}`] === num.value
+                                                ? "bg-primary text-primary-foreground"
+                                                : "bg-muted"
+                                                }`}
+                                            onClick={() =>
+                                                setRatings((prev) => ({
+                                                    ...prev,
+                                                    [`session-${ev.eventId}`]: num.value,
+                                                }))
+                                            }
+                                        >
+                                            {num.label}
+                                        </button>
+                                    ))}
+
+                                </div>
                                 <textarea
-                                    className="w-full border rounded-lg p-2"
-                                    rows={3}
-                                    value={textAnswers[`${title}-feedback`] || ""}
-                                    onChange={(e) => handleTextChange(`${title}-feedback`, e.target.value)}
+                                    placeholder="Comments..."
+                                    value={textAnswers[`parallel-${ev.eventId}`] || ""}
+                                    onChange={(e) =>
+                                        setTextAnswers(prev => ({
+                                            ...prev,
+                                            [`parallel-${ev.eventId}`]: e.target.value,
+                                        }))
+                                    }
+                                    className="w-full border rounded mt-2 p-2"
                                 />
                             </div>
                         ))}
-                    </div>
-                )}
+                </div>
 
                 {/* Part 6: Logistics */}
                 <div className="p-6 rounded-xl shadow bg-card text-card-foreground">
@@ -442,10 +412,12 @@ export function EvaluationComponent({ userLogs }: EvaluationProps) {
                 <div className="p-6 rounded-xl shadow bg-card text-card-foreground">
                     <h2 className="text-xl font-semibold mb-4">PART 7: Overall Comments</h2>
                     <label className={errors["overall-comments"] ? "text-destructive font-medium" : ""}>
-                        What are your overall comments, feedback, and suggestions? <span className="text-destructive">*</span>
+                        What are your overall comments, feedback, and suggestions?{" "}
+                        <span className="text-destructive">*</span>
                     </label>
                     <textarea
-                        className={`w-full border rounded-lg p-2 ${errors["overall-comments"] ? "border-destructive" : ""}`}
+                        className={`w-full border rounded-lg p-2 ${errors["overall-comments"] ? "border-destructive" : ""
+                            }`}
                         rows={4}
                         value={textAnswers["overall-comments"] || ""}
                         onChange={(e) => handleTextChange("overall-comments", e.target.value)}

@@ -13,17 +13,16 @@ import {
 	SelectContent,
 	SelectItem,
 } from "@/features/shared/components/base/select";
-import {
-	VALID_TERMINAL_IDS,
-	VALID_EVENT_NAMES,
-} from "./types/confirmation-data";
+import { VALID_TERMINAL_IDS } from "./types/confirmation-data";
 
+type Event = { id: number; title: string };
 type SetupPromptProps = {
 	open: boolean;
 	event: string;
 	terminalId: string;
 	onUpdate: (data: { event: string; terminalId: string }) => void;
 	onConfirm: () => void;
+	events: Event[];
 };
 
 export function SetupPrompt({
@@ -32,6 +31,7 @@ export function SetupPrompt({
 	terminalId,
 	onUpdate,
 	onConfirm,
+	events,
 }: SetupPromptProps) {
 	const handleConfirm = () => {
 		onUpdate({ event, terminalId });
@@ -55,9 +55,9 @@ export function SetupPrompt({
 							<SelectValue placeholder="Choose event" className="truncate" />
 						</SelectTrigger>
 						<SelectContent>
-							{VALID_EVENT_NAMES.map((ename) => (
-								<SelectItem key={ename} value={ename} className="whitespace-normal break-words max-w-xs">
-									{ename}
+							{events.map((ev) => (
+								<SelectItem key={ev.id} value={ev.title} className="whitespace-normal break-words max-w-xs">
+									{ev.title}
 								</SelectItem>
 							))}
 						</SelectContent>

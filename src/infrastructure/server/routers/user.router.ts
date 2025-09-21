@@ -1,3 +1,5 @@
+import { userEvent, eventName } from "@/infrastructure/db/schema/auth.schema";
+import { nanoid } from "nanoid";
 import { zValidator } from "@hono/zod-validator";
 import auth from "@/infrastructure/auth";
 import z from "zod/v4";
@@ -9,7 +11,7 @@ import { withRole } from "../middleware/with-role.middleware";
 import type { ServerErrorStatusCode } from "hono/utils/http-status";
 import db from "@/infrastructure/db";
 import { user } from "@/infrastructure/db/schema/auth.schema";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 
 const routes = factory
 	.createApp()
@@ -166,5 +168,45 @@ const routes = factory
 			});
 		},
 	);
+
+
+// PATCH /check-in/:userId (move inside routes chain)
+routes.patch(
+	"check-in/:userId",
+	zValidator("param", z.object({ userId: z.string() })),
+	zValidator("json", z.object({ eventId: z.number() })),
+	async (c) => {
+		const { userId } = c.req.valid("param");
+		const { eventId } = c.req.valid("json");
+
+		// Check if user already checked in for this event
+		const [existing] = await db
+			.select()
+			.from(userEvent)
+			.where(
+				and(
+					eq(userEvent.userId, userId),
+					eq(userEvent.eventId, eventId)
+				)
+			)
+			.execute();
+
+		if (existing) {
+			return c.json({ message: "User already checked in for this event" });
+		}
+
+		// Insert new check-in record
+		await db.insert(userEvent).values({
+			id: nanoid(),
+			userId,
+			eventId,
+			// checkedInAt: new Date(),
+			firstCheckinAt: new Date(),
+			lastCheckinAt: new Date(),
+		});
+
+		return c.json({ message: "User checked in successfully" });
+	}
+);
 
 export default routes;

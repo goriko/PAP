@@ -1,25 +1,47 @@
 import { EvaluationComponent } from "@/features/evaluation/components/evaluation-component";
-import { LogsService } from "@/infrastructure/server/services/logs.service";
-import { Logger } from "@/features/shared/lib/logger";
-import type { FullQrLog } from "@/features/terminal/components/terminal-page";
+import db from "@/infrastructure/db";
+import { user } from "@/infrastructure/db/schema/auth.schema";
+import { eq } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
-export default async function EvaluationPage({ params, }: { params: Promise<{ userId: string }>; }) {
-    const { userId } = await params;
+export default async function EvaluationPage(props: {
+    params: Promise<{ userId: string }>;
+}) {
+    const { userId } = await props.params;
 
-    const logsService = new LogsService(new Logger({ name: "ServerEvaluation" }));
-    const allLogsRaw = await logsService.getLogs({ group: "qr", limit: 1000 });
-    const userLogs: FullQrLog[] = allLogsRaw.filter((l) => {
-        const logUserId = (l.content as any)?.context?.user?.userId;
-        return String(logUserId) === String(userId);
-    }) as FullQrLog[];
+    // Check user exists
+    const [foundUser] = await db
+        .select()
+        .from(user)
+        .where(eq(user.id, userId));
 
-    const hasCheckedIn = userLogs.some((l) => {
-        const actionType = (l.content as any)?.context?.confirmationData?.actionType;
-        return actionType && actionType.toLowerCase() === "check-in";
-    });
+    if (!foundUser) {
+        return (
+            <div className="text-center mt-20 text-red-600 font-bold text-lg">
+                User not found.
+            </div>
+        );
+    }
 
+    // Fetch events user attended
+    const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user-event?userId=${userId}`,
+        { cache: "no-store" }
+    );
+
+    if (!res.ok) {
+        return (
+            <div className="text-center mt-20 text-red-600 font-bold text-lg">
+                Failed to load evaluation data.
+            </div>
+        );
+    }
+
+    const userEvents = await res.json();
+
+    // Require at least one check-in
+    const hasCheckedIn = userEvents.some((ue: any) => ue.firstCheckinAt !== null);
     if (!hasCheckedIn) {
         return (
             <div className="text-center mt-20 text-red-600 font-bold text-lg">
@@ -28,5 +50,5 @@ export default async function EvaluationPage({ params, }: { params: Promise<{ us
         );
     }
 
-    return <EvaluationComponent userLogs={userLogs} />;
+    return (<EvaluationComponent user={foundUser} attendedEvents={userEvents} />);
 }

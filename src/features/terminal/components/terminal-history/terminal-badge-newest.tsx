@@ -4,7 +4,28 @@ import {
 	TableCell,
 	TableRow,
 } from "@/features/shared/components/base/table";
-import type { FullQrLog } from "../terminal-page";
+
+type FullQrLog = {
+	content: {
+		context: {
+			user: {
+				userId: string;
+				name?: string;
+				email?: string;
+				photoUrl?: string;
+				[key: string]: any;
+			};
+			confirmationData: {
+				event: string;
+				hasClaimedKit?: boolean;
+				actionType: string;
+				[key: string]: any;
+			};
+			[key: string]: any;
+		};
+		time: string;
+	};
+};
 
 export function TerminalBadgeNewest({
 	log,
@@ -15,21 +36,20 @@ export function TerminalBadgeNewest({
 }) {
 	const user = log.content.context.user;
 	const { email, userId, photoUrl, ...userDetails } = user;
-	const { event, kitClaiming, actionType } =
-		log.content.context.confirmationData;
+	const { event, hasClaimedKit, actionType } = log.content.context.confirmationData;
 
+	// User is already checked in if there is any previous check-in for the same user and event (regardless of terminal)
 	const alreadyCheckedIn = allLogs.some(
 		(l) =>
 			l.content.context.user.userId === userId &&
 			l.content.context.confirmationData.event === event &&
 			l.content.context.confirmationData.actionType === "check-in" &&
-			new Date(l.content.time) < new Date(log.content.time),
+			new Date(l.content.time) < new Date(log.content.time)
 	);
 
 	const rows = {
 		...userDetails,
 		event,
-		kitClaiming,
 		actionType,
 		time: `${new Date(log.content.time).toLocaleDateString()} ${new Date(log.content.time).toLocaleTimeString()}`,
 	};
@@ -40,7 +60,7 @@ export function TerminalBadgeNewest({
 			<div className="flex-shrink-0">
 				{photoUrl ? (
 					<img
-						src="{photoUrl}"
+						src={photoUrl}
 						alt="User Photo"
 						className="h-32 w-32 rounded-md border object-cover"
 					/>
@@ -57,17 +77,6 @@ export function TerminalBadgeNewest({
 						<TableBody>
 							{Object.entries(rows).map(([key, value]) => {
 								let displayValue: string | boolean | number = "—";
-
-								if (
-									key === "kitClaiming" &&
-									!(
-										event.toLowerCase() === "main event" ||
-										event.toLowerCase() === "pre-convention"
-									)
-								) {
-									return null;
-								}
-
 								if (key === "actionType") {
 									if (value === "check-in") {
 										if (alreadyCheckedIn) {
@@ -80,17 +89,30 @@ export function TerminalBadgeNewest({
 									} else {
 										displayValue = String(value);
 									}
-								} else if (key === "kitClaiming") {
-									displayValue = value
-										? "✅ Kit has been claimed"
-										: "❌ Kit not claimed";
 								} else if (value !== null && value !== undefined) {
-									displayValue =
-										typeof value === "boolean"
-											? value.toString()
-											: String(value);
+									displayValue = String(value);
 								}
-
+								// Only show event row, and after it, show kit claim status if available
+								if (key === "event") {
+									return (
+										<>
+											<TableRow key={key} className="[&>:not(:last-child)]:border-r">
+												<TableCell className="py-2">{displayValue}</TableCell>
+											</TableRow>
+											{typeof hasClaimedKit === 'boolean' && (
+												<TableRow key="kit-status" className="[&>:not(:last-child)]:border-r">
+													<TableCell className="py-2">
+														{hasClaimedKit ? "✅ Kit has been claimed" : "❌ Kit not claimed"}
+													</TableCell>
+												</TableRow>
+											)}
+										</>
+									);
+								}
+								// Hide any boolean kit status row (true/false)
+								if (key === "hasClaimedKit" || key === "kitClaiming") {
+									return null;
+								}
 								return (
 									<TableRow
 										key={key}

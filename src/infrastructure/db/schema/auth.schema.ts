@@ -1,4 +1,20 @@
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, integer, serial } from "drizzle-orm/pg-core";
+// Table for event names
+export const eventName = pgTable("event_name", {
+	id: serial("id").primaryKey(),
+	title: text("title").notNull(),
+});
+
+// Table for tracking user event attendance (with checkedInAt)
+export const userEvent = pgTable("user_event", {
+	id: text("id").primaryKey(),
+	userId: text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
+	eventId: integer("event_id").notNull().references(() => eventName.id, { onDelete: "cascade" }),
+	// checkedInAt: timestamp("checked_in_at"),
+	firstCheckinAt: timestamp("first_checkin_at"),
+	lastCheckinAt: timestamp("last_checkin_at"),
+	terminalId: text("terminal_id"),
+});
 
 export const user = pgTable("user", {
 	id: text("id").primaryKey(),

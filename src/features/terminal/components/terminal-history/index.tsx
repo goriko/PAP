@@ -3,7 +3,28 @@ import { TerminalBadgeSmall } from "./terminal-badge-small";
 import { Clock } from "lucide-react";
 import { QRScanActionEnum } from "@/types/enums/QRScanActionEnum";
 import { cn } from "@/features/shared/lib/utils";
-import type { FullQrLog } from "../terminal-page";
+
+type FullQrLog = {
+	content: {
+		context: {
+			user: {
+				userId: string;
+				name?: string;
+				email?: string;
+				photoUrl?: string;
+				[key: string]: any;
+			};
+			confirmationData: {
+				event: string;
+				hasClaimedKit?: boolean;
+				actionType: string;
+				[key: string]: any;
+			};
+			[key: string]: any;
+		};
+		time: string;
+	};
+};
 
 export function TerminalHistory({
 	logs,
