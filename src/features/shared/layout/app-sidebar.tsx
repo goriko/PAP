@@ -9,8 +9,8 @@ import {
 	User,
 	Gift,
 	Clipboard,
+	Award
 } from "lucide-react";
-
 import {
 	Sidebar,
 	SidebarContent,
@@ -33,11 +33,14 @@ import {
 	type UserRoleEnum,
 	UserRoleEnumSchema,
 } from "@/types/enums/UserRoleEnum";
+import db from "@/infrastructure/db";
+import { settings } from "@/infrastructure/db/schema/auth.schema";
+import { evaluation } from "@/infrastructure/db/schema/evaluation.schema";
+import { eq } from "drizzle-orm";
 
-import { Button } from "@/features/shared/components/base/button"
 
 // Menu items with role restrictions
-const getMenuItems = (userRole: UserRoleEnum, userId?: string) => {
+const getMenuItems = (userRole: UserRoleEnum, systemSettings: { id: string, name: string, value: boolean }, userId?: string) => {
 	const allItems = [
 		{
 			title: "Home",
@@ -89,7 +92,6 @@ const getMenuItems = (userRole: UserRoleEnum, userId?: string) => {
 				UserRoleEnumSchema.Enum.ADMIN,
 			],
 		},
-		//temporarily removed for live
 		{
 			title: "Souvenir",
 			url: "https://heyzine.com/flip-book/648597a8bd.html?fbclid=IwY2xjawM3vKdleHRuA2FlbQIxMQABHigrkNW6xrg3RzghSpajraSVvhuOUUUAE1sEO8fluUYUTl-CnNZ994yd5vBK_aem_NhByHzbg-keQQlV_vf0k9g",
@@ -101,13 +103,22 @@ const getMenuItems = (userRole: UserRoleEnum, userId?: string) => {
 			],
 		},
 	];
-	//temporarily removed for live
-	if (userId) {
+	if (userId && (systemSettings && systemSettings.value == true)) {
 		allItems.push({
 			title: "Evaluation",
 			url: `/evaluation/${userId}`,
 			icon: Clipboard,
 			roles: [UserRoleEnumSchema.Enum.USER],
+		});
+		allItems.push({
+			title: "Certificate",
+			url: "/certificate",
+			icon: Award,
+			roles: [
+				UserRoleEnumSchema.Enum.USER,
+				UserRoleEnumSchema.Enum.STAFF,
+				UserRoleEnumSchema.Enum.ADMIN,
+			],
 		});
 	}
 	return allItems.filter((item) => item.roles.includes(userRole));
@@ -123,7 +134,15 @@ export async function AppSidebar() {
 	const userName = session.data?.user.name;
 	const userRole = session.data?.user.role as UserRoleEnum;
 	const userId = session.data?.user.id;
-	const menuItems = getMenuItems(userRole, userId);
+
+	const [systemSettings] = await db
+		.select()
+		.from(settings)
+		.where(eq(settings.name, "evaluation"));
+
+	console.log(systemSettings)
+
+	const menuItems = getMenuItems(userRole, systemSettings, userId);
 
 	return (
 		<Sidebar collapsible="icon">
