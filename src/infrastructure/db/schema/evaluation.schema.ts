@@ -9,8 +9,6 @@ export const evaluation = pgTable("evaluation", {
         .references(() => user.id, { onDelete: "cascade" }),
     ratings: jsonb("ratings").$type<Record<string, number>>().notNull(),
     textAnswers: jsonb("text_answers").$type<Record<string, string>>(),
-    selectedSessions: jsonb("selected_sessions").$type<string[]>().default([]),
-    selectedParallel: jsonb("selected_parallel").$type<string[]>().default([]),
     submittedAt: timestamp("submitted_at").defaultNow().notNull(),
 });
 

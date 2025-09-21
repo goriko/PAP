@@ -3,6 +3,7 @@ import { pgTable, text, timestamp, boolean, integer, serial } from "drizzle-orm/
 export const eventName = pgTable("event_name", {
 	id: serial("id").primaryKey(),
 	title: text("title").notNull(),
+	type: text("type").notNull(),
 });
 
 // Table for tracking user event attendance (with checkedInAt)
@@ -79,4 +80,12 @@ export const verification = pgTable("verification", {
 	updatedAt: timestamp("updated_at").$defaultFn(
 		() => /* @__PURE__ */ new Date(),
 	),
+});
+
+export const settings = pgTable("system_setting", {
+	id: text("id").primaryKey(),
+	name: text("name").notNull(),
+	value: boolean("value")
+		.$defaultFn(() => false)
+		.notNull(),
 });
