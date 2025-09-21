@@ -92,7 +92,7 @@ const getMenuItems = (userRole: UserRoleEnum, userId?: string) => {
 		//temporarily removed for live
 		{
 			title: "Souvenir",
-			url: "https://heyzine.com/flip-book/648597a8bd.html?fbclid=IwY2xjawM3vKdleHRuA2FlbQIxMQABHigrkNW6xrg3RzghSpajraSVvhuOUUUAE1sEO8fluUYUTl-CnNZ994yd5vBK_aem_NhByHzbg-keQQlV_vf0k9g",
+			url: "https://heyzine.com/flip-book/5813b75fa9.html?fbclid=IwY2xjawM8gz5leHRuA2FlbQIxMQABHgAQ7yaB_lXtiXavMELfTLD7z_k5w0gCwIK_WwcxGZz-P3TgeWIL1czpXiGh_aem_8Durts8mpsSNW1DZqmNFcg",
 			icon: Gift,
 			roles: [
 				UserRoleEnumSchema.Enum.USER,
