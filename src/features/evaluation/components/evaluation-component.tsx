@@ -3,15 +3,14 @@
 import React, { useEffect, useState } from "react";
 import { saveEvaluationAction } from "@/infrastructure/server/actions/save-evaluation.action";
 import { Separator } from "@/features/shared/components/base/separator";
-import { Speaker } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast } from "@/features/shared/lib/toast";
 
 interface Question {
   id: string;
   text: string;
   required?: boolean;
 }
-
 
 interface Section {
   id: string;
@@ -203,7 +202,10 @@ export function EvaluationComponent({ user, attendedEvents }: EvaluationProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      toast.warning("Please make sure to fill in all required fields before submitting.");
+      return
+    };
 
     const sanitizedRatings: Record<string, number> = Object.fromEntries(
       Object.entries(ratings).map(([k, v]) => [k, v ?? 0])
@@ -218,13 +220,13 @@ export function EvaluationComponent({ user, attendedEvents }: EvaluationProps) {
     try {
       setLoading(true);
       await saveEvaluationAction(evaluationData);
-      alert("Evaluation submitted. Thank you!");
+      toast.success("Evaluation successfully submitted")
       setRatings({});
       setTextAnswers({});
       router.push("/certificate");
     } catch (error) {
       console.error("Error saving evaluation:", error);
-      alert("Something went wrong while saving your evaluation.");
+      toast.warning("Something went wrong while saving your evaluation.");
     } finally {
       setLoading(false);
     }
