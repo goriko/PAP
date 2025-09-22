@@ -16,5 +16,11 @@ export function useUserEvents(eventId: number | null, terminalId?: string) {
         queryKey: ["user-events", eventId, terminalId],
         queryFn: () => fetchUserEvents(eventId!, terminalId),
         enabled: !!eventId,
+        select: (data) => {
+            return data
+                .sort((a: any, b: any) => new Date(b.last_checkin_at).getTime() - new Date(a.last_checkin_at).getTime())
+                .slice(0, 3);
+        },
+
     });
 }
