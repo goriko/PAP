@@ -126,9 +126,6 @@ export function TerminalPage({ events }: { events: Event[] }) {
 					) : (
 						<div className="flex w-full flex-col gap-4">
 							{reversedCheckedInUsers.map((u: any) => {
-
-								console.log(userEvents)
-
 								const checkedInAt = userEventMap[u.id]?.checkedInAt;
 								const firstCheckinAt = userEventMap[u.id]?.firstCheckinAt;
 								const lastCheckinAt = userEventMap[u.id]?.lastCheckinAt;

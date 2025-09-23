@@ -4,7 +4,6 @@ export const eventName = pgTable("event_name", {
 	id: serial("id").primaryKey(),
 	title: text("title").notNull(),
 	type: text("type").notNull(),
-});
 
 // Table for tracking user event attendance (with checkedInAt)
 export const userEvent = pgTable("user_event", {

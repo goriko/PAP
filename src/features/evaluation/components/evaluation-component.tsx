@@ -34,7 +34,6 @@ interface EvaluationProps {
     email: string;
   };
   attendedEvents: { user_event: { id: string; userId: string; eventId: number; firstCheckinAt: Date | null; lastCheckinAt: Date | null; terminalId: string | null; }; event_name: { id: number; title: string; type: string; } | null; }[];
-}
 
 const ratingScale = [
   { value: 4, label: "Strongly Agree" },
