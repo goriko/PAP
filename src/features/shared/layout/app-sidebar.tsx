@@ -52,13 +52,13 @@ const getMenuItems = (userRole: UserRoleEnum, systemSettings: { id: string, name
 			title: "Logs",
 			url: "/logs",
 			icon: Inbox,
-			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
+			roles: [UserRoleEnumSchema.Enum.ADMIN],
 		},
 		{
 			title: "Registration",
 			url: "/registration",
 			icon: UserPlus,
-			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
+			roles: [UserRoleEnumSchema.Enum.ADMIN],
 		},
 		{
 			title: "Terminal",
@@ -72,7 +72,6 @@ const getMenuItems = (userRole: UserRoleEnum, systemSettings: { id: string, name
 			icon: QrCode,
 			roles: [
 				UserRoleEnumSchema.Enum.USER,
-				UserRoleEnumSchema.Enum.STAFF,
 				UserRoleEnumSchema.Enum.ADMIN,
 			],
 		},
@@ -88,7 +87,6 @@ const getMenuItems = (userRole: UserRoleEnum, systemSettings: { id: string, name
 			icon: Calendar,
 			roles: [
 				UserRoleEnumSchema.Enum.USER,
-				UserRoleEnumSchema.Enum.STAFF,
 				UserRoleEnumSchema.Enum.ADMIN,
 			],
 		},
@@ -98,7 +96,6 @@ const getMenuItems = (userRole: UserRoleEnum, systemSettings: { id: string, name
 			icon: Gift,
 			roles: [
 				UserRoleEnumSchema.Enum.USER,
-				UserRoleEnumSchema.Enum.STAFF,
 				UserRoleEnumSchema.Enum.ADMIN,
 			],
 		},
@@ -108,7 +105,10 @@ const getMenuItems = (userRole: UserRoleEnum, systemSettings: { id: string, name
 			title: "Evaluation",
 			url: `/evaluation/${userId}`,
 			icon: Clipboard,
-			roles: [UserRoleEnumSchema.Enum.USER],
+			roles: [
+				UserRoleEnumSchema.Enum.USER,
+				UserRoleEnumSchema.Enum.ADMIN
+			],
 		});
 		allItems.push({
 			title: "Certificate",
@@ -116,7 +116,6 @@ const getMenuItems = (userRole: UserRoleEnum, systemSettings: { id: string, name
 			icon: Award,
 			roles: [
 				UserRoleEnumSchema.Enum.USER,
-				UserRoleEnumSchema.Enum.STAFF,
 				UserRoleEnumSchema.Enum.ADMIN,
 			],
 		});
