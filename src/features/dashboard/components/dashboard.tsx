@@ -11,6 +11,20 @@ import {
 	type UserRoleEnum,
 	UserRoleEnumSchema,
 } from "@/types/enums/UserRoleEnum";
+import { Card, CardContent } from "@/features/shared/components/base/card";
+import {
+	Building,
+	Calendar,
+	Home,
+	Inbox,
+	QrCode,
+	UserPlus,
+	MonitorStop,
+	User,
+	Gift,
+	Clipboard,
+	Award
+} from "lucide-react";
 
 export async function Dashboard() {
 	const session = (await authClient.getSession({
@@ -18,6 +32,8 @@ export async function Dashboard() {
 			headers: await headers(),
 		},
 	})) as { data: ExtendedSession | null };
+
+	const userId = session.data?.user.id;
 
 	const userRole = session.data?.user.role as UserRoleEnum;
 	if (userRole === UserRoleEnumSchema.Enum.ADMIN || userRole === UserRoleEnumSchema.Enum.STAFF) {
@@ -61,6 +77,76 @@ export async function Dashboard() {
 				September 24, 2025 Preconvention Workshops <br />
 				September 25–27, 2025 Convention
 			</p>
+
+			<div className="grid grid-cols-2 sm:grid-cols-4 gap-6 p-4">
+				<Card className="mx-auto w-full flex-grow">
+					<CardContent className="space-y-6">
+						<a
+							href="/"
+							className="flex flex-col items-center hover:bg-gray-100 transition"
+						>
+							<div className="text-blue-600 mb-2"><Home /></div>
+							<span className="text-sm font-medium text-gray-700">Home</span>
+						</a>
+					</CardContent>
+				</Card>
+				<Card className="mx-auto w-full flex-grow">
+					<CardContent className="space-y-6">
+						<a
+							href="/qr-code"
+							className="flex flex-col items-center hover:bg-gray-100 transition"
+						>
+							<div className="text-blue-600 mb-2"><QrCode /></div>
+							<span className="text-sm font-medium text-gray-700">QR Code</span>
+						</a>
+					</CardContent>
+				</Card>
+				<Card className="mx-auto w-full flex-grow">
+					<CardContent className="space-y-6">
+						<a
+							href="/schedule"
+							className="flex flex-col items-center hover:bg-gray-100 transition"
+						>
+							<div className="text-blue-600 mb-2"><Calendar /></div>
+							<span className="text-sm font-medium text-gray-700">Event Schedule</span>
+						</a>
+					</CardContent>
+				</Card>
+				<Card className="mx-auto w-full flex-grow">
+					<CardContent className="space-y-6">
+						<a
+							target="_blank"
+							href="https://heyzine.com/flip-book/5813b75fa9.html?fbclid=IwY2xjawM8gz5leHRuA2FlbQIxMQABHgAQ7yaB_lXtiXavMELfTLD7z_k5w0gCwIK_WwcxGZz-P3TgeWIL1czpXiGh_aem_8Durts8mpsSNW1DZqmNFcg"
+							className="flex flex-col items-center hover:bg-gray-100 transition"
+						>
+							<div className="text-blue-600 mb-2"><Gift /></div>
+							<span className="text-sm font-medium text-gray-700">Souvenir</span>
+						</a>
+					</CardContent>
+				</Card>
+				<Card className="mx-auto w-full flex-grow">
+					<CardContent className="space-y-6">
+						<a
+							href={`/evaluation/${userId}`}
+							className="flex flex-col items-center hover:bg-gray-100 transition"
+						>
+							<div className="text-blue-600 mb-2"><Clipboard /></div>
+							<span className="text-sm font-medium text-gray-700">Evaluation</span>
+						</a>
+					</CardContent>
+				</Card>
+				<Card className="mx-auto w-full flex-grow">
+					<CardContent className="space-y-6">
+						<a
+							href="/certificate"
+							className="flex flex-col items-center hover:bg-gray-100 transition"
+						>
+							<div className="text-blue-600 mb-2"><Award /></div>
+							<span className="text-sm font-medium text-gray-700">Certificate</span>
+						</a>
+					</CardContent>
+				</Card>
+			</div>
 		</div>
 	);
 
