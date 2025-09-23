@@ -20,7 +20,7 @@ import { toast } from "sonner";
 import { SetupPrompt } from "./setup-prompt";
 
 // BroadcastChannel for notifying terminal page to refetch
-const checkInChannel = typeof window !== 'undefined' && 'BroadcastChannel' in window ? new BroadcastChannel('user-event-checkin') : null;
+const checkInChannel = new BroadcastChannel('user-event-checkin');
 // Helper to get eventId from event title
 function getEventIdByTitle(events: Event[], title: string): number | null {
 	const found = events.find(e => e.title === title);
