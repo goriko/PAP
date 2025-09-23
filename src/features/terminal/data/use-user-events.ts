@@ -18,9 +18,8 @@ export function useUserEvents(eventId: number | null, terminalId?: string) {
         enabled: !!eventId,
         select: (data) => {
             return data
-                .sort((a: any, b: any) => new Date(b.last_checkin_at).getTime() - new Date(a.last_checkin_at).getTime())
-                .slice(0, 3);
+                .sort((a: any, b: any) => new Date(a.last_checkin_at).getTime() - new Date(b.last_checkin_at).getTime())
+                .slice(-3);
         },
-
     });
 }

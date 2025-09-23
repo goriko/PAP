@@ -70,6 +70,15 @@ export function TerminalPage({ events }: { events: Event[] }) {
 	const checkedInUsers = (users ?? []).filter((u: any) => userEventMap[u.id]);
 	const userInitial = users?.name?.charAt(0)?.toUpperCase() ?? "?";
 	const photoUrl = users?.photoUrl ?? null;
+	const orderedCheckedInUsers = checkedInUsers.sort((a: any, b: any) => {
+		const eventA = userEventMap[a.id];
+		const eventB = userEventMap[b.id];
+
+		// You can sort based on the last check-in time or another field from the event
+		return new Date(eventB.last_checkin_at).getTime() - new Date(eventA.last_checkin_at).getTime();
+	});
+
+	const reversedCheckedInUsers = [...orderedCheckedInUsers].reverse();
 	return (
 		<div className="grid">
 			<div className="mb-4 rounded-md border bg-accent p-6 py-4">
@@ -116,7 +125,10 @@ export function TerminalPage({ events }: { events: Event[] }) {
 						<p className="text-muted-foreground text-sm">None so far.</p>
 					) : (
 						<div className="flex w-full flex-col gap-4">
-							{checkedInUsers.map((u: any) => {
+							{reversedCheckedInUsers.map((u: any) => {
+
+								console.log(userEvents)
+
 								const checkedInAt = userEventMap[u.id]?.checkedInAt;
 								const firstCheckinAt = userEventMap[u.id]?.firstCheckinAt;
 								const lastCheckinAt = userEventMap[u.id]?.lastCheckinAt;
