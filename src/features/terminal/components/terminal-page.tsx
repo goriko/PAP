@@ -9,7 +9,7 @@ import { useState } from "react";
 import { DoorOpen, LogIn } from "lucide-react";
 import { VALID_TERMINAL_IDS } from "@/features/qr-code/components/scanner/types/confirmation-data";
 
-type Event = { id: number; title: string };
+type Event = { id: number; title: string; type: string };
 
 export function TerminalPage({ events }: { events: Event[] }) {
 	const [terminal, setTerminal] = useState<string>(VALID_TERMINAL_IDS[0]);
@@ -139,55 +139,59 @@ export function TerminalPage({ events }: { events: Event[] }) {
 								const photoUrl = u.photoUrl ?? null;
 
 								return (
-									<div
-										key={u.id}
-										className="flex items-start gap-4 rounded-md border bg-background p-4"
-									>
-										{/* Left side: image or initial */}
-										<div className="flex-shrink-0">
-											{photoUrl ? (
-												<img
-													src={photoUrl}
-													alt="User Photo"
-													className="h-20 w-20 rounded-md border object-cover"
-												/>
-											) : (
-												<div className="flex h-20 w-20 items-center justify-center rounded-md border bg-muted font-semibold text-3xl text-muted-foreground">
-													{userInitial}
-												</div>
-											)}
-										</div>
+									<>
+										<div
+											key={u.id}
+											className="flex items-start gap-4 rounded-md border bg-background p-4"
+										>
+											{/* Left side: image or initial */}
+											<div className="flex-shrink-0">
+												{photoUrl ? (
+													<img
+														src={photoUrl}
+														alt="User Photo"
+														className="h-20 w-20 rounded-md border object-cover"
+													/>
+												) : (
+													<div className="flex h-20 w-20 items-center justify-center rounded-md border bg-muted font-semibold text-3xl text-muted-foreground">
+														{userInitial}
+													</div>
+												)}
+											</div>
 
-										{/* Right side: table with user details */}
-										<div className="flex-grow overflow-auto">
-											<table className="w-full border-collapse border border-gray-200">
-												<tbody>
-													<tr>
-														{/* <td className="border p-2 font-semibold">Name</td> */}
-														<td className="border p-2">{u.name ?? "—"}</td>
-													</tr>
-													<tr>
-														{/* <td className="border p-2 font-semibold">Kit Claimed</td> */}
-														<td className="border p-2">
-															{u.hasClaimedKit ? "✅ Kit has been claimed" : "❌ Kit not claimed"}
-														</td>
-													</tr>
-													<tr>
+											{/* Right side: table with user details */}
+											<div className="flex-grow overflow-auto">
+												<table className="w-full border-collapse border border-gray-200">
+													<tbody>
+														<tr>
+															{/* <td className="border p-2 font-semibold">Name</td> */}
+															<td className="border p-2 text-2xl">{u.name ?? "—"}</td>
+														</tr>
+														{selectedEventObj?.type == "Main Event" && (
+															<tr>
+																{/* <td className="border p-2 font-semibold">Kit Claimed</td> */}
+																<td className="border p-2">
+																	{u.hasClaimedKit ? "✅ Kit has been claimed" : "❌ Kit not claimed"}
+																</td>
+															</tr>
+														)}
+														{/* <tr> */}
 														{/* <td className="border p-2 font-semibold">Checked In At</td> */}
-														<td className="border p-2">
+														{/* <td className="border p-2">
 															{firstCheckinAt
 																? new Date(firstCheckinAt).toLocaleString()
 																: "—"}
 														</td>
-													</tr>
-													<tr>
-														{/* <td className="border p-2 font-semibold">Status</td> */}
-														<td className="border p-2">{status}</td>
-													</tr>
-												</tbody>
-											</table>
+													</tr> */}
+														<tr>
+															{/* <td className="border p-2 font-semibold">Status</td> */}
+															<td className="border p-2">{status}</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
 										</div>
-									</div>
+									</>
 								);
 							})}
 						</div>
