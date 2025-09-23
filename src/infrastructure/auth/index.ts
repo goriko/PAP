@@ -54,6 +54,7 @@ const auth = betterAuth({
 			disableSignUp: true,
 			sendMagicLink: async ({ email, url }, _request) => {
 				try {
+					const timestamp = new Date().toLocaleString();
 					const magicLinkHtml = `
           <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 8px;">
             <h2 style="color: #333;">Hello 👋</h2>
@@ -66,6 +67,9 @@ const auth = betterAuth({
             </p>
             <p style="color: #555; font-size: 14px;">
               This link will expire in 15 minutes. If you did not request this, you can safely ignore this email.
+            </p>
+            <p style="color: #777; font-size: 12px; margin-top: 6px;">
+              Timestamp: ${timestamp}
             </p>
             <p style="color: #999; font-size: 12px; margin-top: 20px;">
               PAP Con 2025

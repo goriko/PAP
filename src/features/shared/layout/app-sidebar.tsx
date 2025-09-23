@@ -9,8 +9,8 @@ import {
 	User,
 	Gift,
 	Clipboard,
+	Award
 } from "lucide-react";
-
 import {
 	Sidebar,
 	SidebarContent,
@@ -33,11 +33,14 @@ import {
 	type UserRoleEnum,
 	UserRoleEnumSchema,
 } from "@/types/enums/UserRoleEnum";
+import db from "@/infrastructure/db";
+import { settings } from "@/infrastructure/db/schema/auth.schema";
+import { evaluation } from "@/infrastructure/db/schema/evaluation.schema";
+import { eq } from "drizzle-orm";
 
-import { Button } from "@/features/shared/components/base/button"
 
 // Menu items with role restrictions
-const getMenuItems = (userRole: UserRoleEnum, userId?: string) => {
+const getMenuItems = (userRole: UserRoleEnum, systemSettings: { id: string, name: string, value: boolean }, userId?: string) => {
 	const allItems = [
 		{
 			title: "Home",
@@ -49,13 +52,13 @@ const getMenuItems = (userRole: UserRoleEnum, userId?: string) => {
 			title: "Logs",
 			url: "/logs",
 			icon: Inbox,
-			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
+			roles: [UserRoleEnumSchema.Enum.ADMIN],
 		},
 		{
 			title: "Registration",
 			url: "/registration",
 			icon: UserPlus,
-			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
+			roles: [UserRoleEnumSchema.Enum.ADMIN],
 		},
 		{
 			title: "Terminal",
@@ -69,7 +72,6 @@ const getMenuItems = (userRole: UserRoleEnum, userId?: string) => {
 			icon: QrCode,
 			roles: [
 				UserRoleEnumSchema.Enum.USER,
-				UserRoleEnumSchema.Enum.STAFF,
 				UserRoleEnumSchema.Enum.ADMIN,
 			],
 		},
@@ -85,29 +87,37 @@ const getMenuItems = (userRole: UserRoleEnum, userId?: string) => {
 			icon: Calendar,
 			roles: [
 				UserRoleEnumSchema.Enum.USER,
-				UserRoleEnumSchema.Enum.STAFF,
 				UserRoleEnumSchema.Enum.ADMIN,
 			],
 		},
-		//temporarily removed for live
 		{
 			title: "Souvenir",
 			url: "https://heyzine.com/flip-book/5813b75fa9.html?fbclid=IwY2xjawM8gz5leHRuA2FlbQIxMQABHgAQ7yaB_lXtiXavMELfTLD7z_k5w0gCwIK_WwcxGZz-P3TgeWIL1czpXiGh_aem_8Durts8mpsSNW1DZqmNFcg",
 			icon: Gift,
 			roles: [
 				UserRoleEnumSchema.Enum.USER,
-				UserRoleEnumSchema.Enum.STAFF,
 				UserRoleEnumSchema.Enum.ADMIN,
 			],
 		},
 	];
-	//temporarily removed for live
-	if (userId) {
+	if (userId && (systemSettings && systemSettings.value == true)) {
 		allItems.push({
 			title: "Evaluation",
 			url: `/evaluation/${userId}`,
 			icon: Clipboard,
-			roles: [UserRoleEnumSchema.Enum.USER],
+			roles: [
+				UserRoleEnumSchema.Enum.USER,
+				UserRoleEnumSchema.Enum.ADMIN
+			],
+		});
+		allItems.push({
+			title: "Certificate",
+			url: "/certificate",
+			icon: Award,
+			roles: [
+				UserRoleEnumSchema.Enum.USER,
+				UserRoleEnumSchema.Enum.ADMIN,
+			],
 		});
 	}
 	return allItems.filter((item) => item.roles.includes(userRole));
@@ -123,7 +133,15 @@ export async function AppSidebar() {
 	const userName = session.data?.user.name;
 	const userRole = session.data?.user.role as UserRoleEnum;
 	const userId = session.data?.user.id;
-	const menuItems = getMenuItems(userRole, userId);
+
+	const [systemSettings] = await db
+		.select()
+		.from(settings)
+		.where(eq(settings.name, "evaluation"));
+
+	console.log(systemSettings)
+
+	const menuItems = getMenuItems(userRole, systemSettings, userId);
 
 	return (
 		<Sidebar collapsible="icon">
