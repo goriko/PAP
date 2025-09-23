@@ -26,6 +26,10 @@ import {
 	Award
 } from "lucide-react";
 
+import db from "@/infrastructure/db";
+import { settings } from "@/infrastructure/db/schema/auth.schema";
+import { eq } from "drizzle-orm";
+
 export async function Dashboard() {
 	const session = (await authClient.getSession({
 		fetchOptions: {
@@ -34,6 +38,11 @@ export async function Dashboard() {
 	})) as { data: ExtendedSession | null };
 
 	const userId = session.data?.user.id;
+
+	const [systemSettings] = await db
+		.select()
+		.from(settings)
+		.where(eq(settings.name, "evaluation"));
 
 	const userRole = session.data?.user.role as UserRoleEnum;
 	if (userRole === UserRoleEnumSchema.Enum.ADMIN || userRole === UserRoleEnumSchema.Enum.STAFF) {
@@ -124,28 +133,30 @@ export async function Dashboard() {
 						</a>
 					</CardContent>
 				</Card>
-				<Card className="mx-auto w-full flex-grow">
-					<CardContent className="space-y-6">
-						<a
-							href={`/evaluation/${userId}`}
-							className="flex flex-col items-center hover:bg-gray-100 transition"
-						>
-							<div className="text-blue-600 mb-2"><Clipboard /></div>
-							<span className="text-sm font-medium text-gray-700">Evaluation</span>
-						</a>
-					</CardContent>
-				</Card>
-				<Card className="mx-auto w-full flex-grow">
-					<CardContent className="space-y-6">
-						<a
-							href="/certificate"
-							className="flex flex-col items-center hover:bg-gray-100 transition"
-						>
-							<div className="text-blue-600 mb-2"><Award /></div>
-							<span className="text-sm font-medium text-gray-700">Certificate</span>
-						</a>
-					</CardContent>
-				</Card>
+				{systemSettings && systemSettings.value == true ? (<>
+					<Card className="mx-auto w-full flex-grow">
+						<CardContent className="space-y-6">
+							<a
+								href={`/evaluation/${userId}`}
+								className="flex flex-col items-center hover:bg-gray-100 transition"
+							>
+								<div className="text-blue-600 mb-2"><Clipboard /></div>
+								<span className="text-sm font-medium text-gray-700">Evaluation</span>
+							</a>
+						</CardContent>
+					</Card>
+					<Card className="mx-auto w-full flex-grow">
+						<CardContent className="space-y-6">
+							<a
+								href="/certificate"
+								className="flex flex-col items-center hover:bg-gray-100 transition"
+							>
+								<div className="text-blue-600 mb-2"><Award /></div>
+								<span className="text-sm font-medium text-gray-700">Certificate</span>
+							</a>
+						</CardContent>
+					</Card>
+				</>) : (<></>)}
 			</div>
 		</div>
 	);
