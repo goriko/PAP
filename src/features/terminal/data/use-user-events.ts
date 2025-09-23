@@ -21,4 +21,5 @@ export function useUserEvents(eventId: number | null, terminalId?: string) {
                 .sort((a: any, b: any) => new Date(a.last_checkin_at).getTime() - new Date(b.last_checkin_at).getTime())
                 .slice(-3);
         },
+    });
 }
