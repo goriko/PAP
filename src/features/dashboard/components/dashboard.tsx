@@ -148,7 +148,7 @@ export async function Dashboard() {
 					<Card className="mx-auto w-full flex-grow">
 						<CardContent className="space-y-6">
 							<a
-								href="/certificate"
+								href={`/certificate/${userId}`}
 								className="flex flex-col items-center hover:bg-gray-100 transition"
 							>
 								<div className="text-blue-600 mb-2"><Award /></div>

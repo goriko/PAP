@@ -112,7 +112,7 @@ const getMenuItems = (userRole: UserRoleEnum, systemSettings: { id: string, name
 		});
 		allItems.push({
 			title: "Certificate",
-			url: "/certificate",
+			url: `/certificate/${userId}`,
 			icon: Award,
 			roles: [
 				UserRoleEnumSchema.Enum.USER,
