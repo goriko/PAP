@@ -8,13 +8,14 @@ import { eq } from "drizzle-orm";
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: { userId: string } }
+    { params }: { params: Promise<{ userId: string }> }
 ) {
+    const { userId } = await params;
     // 1. Get user
     const [foundUser] = await db
         .select()
         .from(user)
-        .where(eq(user.id, params.userId));
+        .where(eq(user.id, userId));
 
     if (!foundUser) {
         return NextResponse.json({ error: "User not found" }, { status: 404 });
