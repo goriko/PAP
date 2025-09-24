@@ -223,7 +223,7 @@ export function EvaluationComponent({ user, attendedEvents }: EvaluationProps) {
       toast.success("Evaluation successfully submitted")
       setRatings({});
       setTextAnswers({});
-      router.push("/certificate");
+      router.push(`/certificate/${user.id}`);
     } catch (error) {
       console.error("Error saving evaluation:", error);
       toast.warning("Something went wrong while saving your evaluation.");
