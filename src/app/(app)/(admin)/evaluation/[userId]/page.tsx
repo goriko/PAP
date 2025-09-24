@@ -8,7 +8,7 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 export default async function EvaluationPage(props: {
-    params: Promise<{ userId: string }>;
+  params: Promise<{ userId: string }>;
 }) {
     const { userId } = await props.params;
 
