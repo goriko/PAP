@@ -1,14 +1,15 @@
 import { eq, and } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/infrastructure/db";
-import { userEvent } from "@/infrastructure/db/schema/auth.schema";
+import { userEvent, eventName } from "@/infrastructure/db/schema/auth.schema";
 
-// GET /api/user-event?eventId=123&userId=abc&terminalId=xyz
+// GET /api/user-event?eventId=123&userId=abc&terminalId=xyz&includeEvent
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get("userId");
     const eventId = searchParams.get("eventId");
     const terminalId = searchParams.get("terminalId");
+    const includeEvent = searchParams.get("includeEvent");
 
     if (!userId && !eventId && !terminalId) {
         return NextResponse.json({ error: "At least one filter required" }, { status: 400 });
@@ -19,7 +20,7 @@ export async function GET(req: NextRequest) {
     if (eventId) filters.push(eq(userEvent.eventId, Number(eventId)));
     if (terminalId) filters.push(eq(userEvent.terminalId, terminalId));
 
-    const rows = await db.select().from(userEvent).where(and(...filters));
+    const rows = (includeEvent === "true") ? await db.select().from(userEvent).leftJoin(eventName, eq(userEvent.eventId, eventName.id)).where(and(...filters)) : await db.select().from(userEvent).where(and(...filters));
 
     return NextResponse.json(rows);
 }
