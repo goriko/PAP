@@ -23,7 +23,8 @@ import {
 	User,
 	Gift,
 	Clipboard,
-	Award
+	Award,
+	CheckSquare
 } from "lucide-react";
 
 import db from "@/infrastructure/db";
@@ -125,11 +126,22 @@ export async function Dashboard() {
 					<CardContent className="space-y-6">
 						<a
 							target="_blank"
-							href="https://heyzine.com/flip-book/5813b75fa9.html?fbclid=IwY2xjawM8gz5leHRuA2FlbQIxMQABHgAQ7yaB_lXtiXavMELfTLD7z_k5w0gCwIK_WwcxGZz-P3TgeWIL1czpXiGh_aem_8Durts8mpsSNW1DZqmNFcg"
+							href="https://heyzine.com/flip-book/ad312031f8.html?fbclid=IwY2xjawNDsA5leHRuA2FlbQIxMABicmlkETFFblR0dVpvRXZraXJsUXdQAR5Fgwau9z2qJQr861csObYsxcaz6Vicc9Gp92yK-XbFZcBz3vu7Az5jMHRbLA_aem_ohrn_Q7AHdD1k9t7LKSLhQ"
 							className="flex flex-col items-center hover:bg-gray-100 transition"
 						>
 							<div className="text-blue-600 mb-2"><Gift /></div>
 							<span className="text-sm font-medium text-gray-700">Souvenir</span>
+						</a>
+					</CardContent>
+				</Card>
+				<Card className="mx-auto w-full flex-grow">
+					<CardContent className="space-y-6">
+						<a
+							href={`/session/${userId}`}
+							className="flex flex-col items-center hover:bg-gray-100 transition"
+						>
+							<div className="text-blue-600 mb-2"><CheckSquare /></div>
+							<span className="text-sm font-medium text-gray-700">Attended Sessions</span>
 						</a>
 					</CardContent>
 				</Card>
