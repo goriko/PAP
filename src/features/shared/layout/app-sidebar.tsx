@@ -9,7 +9,8 @@ import {
 	User,
 	Gift,
 	Clipboard,
-	Award
+	Award,
+	CheckSquare
 } from "lucide-react";
 import {
 	Sidebar,
@@ -92,13 +93,22 @@ const getMenuItems = (userRole: UserRoleEnum, systemSettings: { id: string, name
 		},
 		{
 			title: "Souvenir",
-			url: "https://heyzine.com/flip-book/5813b75fa9.html?fbclid=IwY2xjawM8gz5leHRuA2FlbQIxMQABHgAQ7yaB_lXtiXavMELfTLD7z_k5w0gCwIK_WwcxGZz-P3TgeWIL1czpXiGh_aem_8Durts8mpsSNW1DZqmNFcg",
+			url: "https://heyzine.com/flip-book/ad312031f8.html?fbclid=IwY2xjawNDsA5leHRuA2FlbQIxMABicmlkETFFblR0dVpvRXZraXJsUXdQAR5Fgwau9z2qJQr861csObYsxcaz6Vicc9Gp92yK-XbFZcBz3vu7Az5jMHRbLA_aem_ohrn_Q7AHdD1k9t7LKSLhQ",
 			icon: Gift,
 			roles: [
 				UserRoleEnumSchema.Enum.USER,
 				UserRoleEnumSchema.Enum.ADMIN,
 			],
 		},
+		{
+			title: "Attended Sessions",
+			url: `/session/${userId}`,
+			icon: CheckSquare,
+			roles: [
+				UserRoleEnumSchema.Enum.USER,
+				UserRoleEnumSchema.Enum.ADMIN,
+			],
+		}
 	];
 	if (userId && (systemSettings && systemSettings.value == true)) {
 		allItems.push({
