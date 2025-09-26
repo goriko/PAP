@@ -9,7 +9,8 @@ import {
 	User,
 	Gift,
 	Clipboard,
-	Award
+	Award,
+	CheckSquare
 } from "lucide-react";
 import {
 	Sidebar,
@@ -99,6 +100,15 @@ const getMenuItems = (userRole: UserRoleEnum, systemSettings: { id: string, name
 				UserRoleEnumSchema.Enum.ADMIN,
 			],
 		},
+		{
+			title: "Attended Sessions",
+			url: `/session/${userId}`,
+			icon: CheckSquare,
+			roles: [
+				UserRoleEnumSchema.Enum.USER,
+				UserRoleEnumSchema.Enum.ADMIN,
+			],
+		}
 	];
 	if (userId && (systemSettings && systemSettings.value == true)) {
 		allItems.push({
